@@ -44,7 +44,7 @@ setxkbmap -option caps:escape
 # Change key delay and repeat
 xset r rate 200 25
 # Sets random wallpaper
-feh --recursive --bg-fill --randomize ~/.config/wallpapers
+feh --recursive --bg-fill --randomize ~/.config/wallpapers/nature
 # Starts screensaver process in the background
 xscreensaver -no-splash &
 # Starts compositor process in the background

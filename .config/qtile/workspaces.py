@@ -2,7 +2,7 @@ from libqtile.config import Group, Key, Match
 from libqtile.lazy import lazy
 from keybindings import mod, keys
 
-# Group names
+# Group names (icons taken from https://fontawesome.com/v4.7/cheatsheet/)
 group_names = [
     ("", {'layout': 'tabs', 'matches': [Match(wm_class='firefox')]}),                   # Firefox
     ("", {'layout': 'monadtall'}),                                                     # Terminal
