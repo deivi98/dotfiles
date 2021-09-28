@@ -2,6 +2,7 @@ import subprocess
 
 from libqtile.config import Click, Drag, Key
 from libqtile.lazy import lazy
+from libqtile.log_utils import logger
 
 # Global variables
 mod = "mod1"
@@ -9,27 +10,43 @@ mod2 = "mod4"
 terminal = "alacritty"      # My terminal of choice
 browser = "firefox"         # My browser of choice
 fileExplorer = "ranger"     # My file explorer of choice
-home = "/home/david"
+home = "/home/david"        # My home directory
 
 # Swap groups between screens
 def swap_screens(qtile):
     groupName = qtile.screens[0].group
     qtile.screens[1].set_group(groupName)
 
+# Run cmd
+def run_cmd(qtile, cmd):
+    qtile.cmd_spawn(cmd, shell=True)
+
+# Mute mic and speakers
+def mute_all(qtile):
+    # run_cmd(qtile, 'amixer -D pulse sset Capture toggle && amixer -D pulse sset Master toggle')
+    run_cmd(qtile, 'pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl set-source-mute @DEFAULT_SOURCE@ toggle')
+
 # Switch keyboard layout between [US, ES]
 def switch_keyboard_layout(qtile):
-    current_layout = str(subprocess.Popen('setxkbmap -query | grep layout | cut -d" " -f6', shell=True, stdout=subprocess.PIPE).communicate()[0])[2:4]
+    current_layout = str(subprocess.Popen('setxkbmap -query | grep layout | cut -d" " -f6', shell=True, stdout=subprocess.PIPE).communicate()[0])[2:-3]
 
     if current_layout == "us":
-        qtile.cmd_spawn(
-            'setxkbmap -layout es && setxkbmap -option caps:escape', shell=True)
+        run_cmd(qtile, 'setxkbmap -layout es && xset r rate 200 35')
     else:
-        qtile.cmd_spawn(
-            'setxkbmap -layout us && setxkbmap -option caps:escape', shell=True)
+        run_cmd(qtile, 'setxkbmap -layout us && xset r rate 200 35')
 
-def fix_cli_app(app: str) -> str:
+# Switch sound output (Headphones, Speakers)
+def switch_sound_output(qtile):
+    current_sink = str(subprocess.Popen('pacmd stat | grep "Default sink name" | cut -d" " -f4', shell=True, stdout=subprocess.PIPE).communicate()[0])[2:-3]
+
+    if current_sink == "alsa_output.pci-0000_01_00.1.hdmi-stereo":
+        run_cmd(qtile, 'pacmd set-default-sink alsa_output.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.analog-stereo')
+    else:
+        run_cmd(qtile, 'pacmd set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo')
+
+def fix_cli_app(app: str, args: str = "") -> str:
     """Quick fix of github.com/qtile/qtile/issues/2167 bug"""
-    return f'alacritty --title {app.capitalize()} -e sh -c "sleep 0.1 && {app}"'
+    return f'alacritty --title {app.capitalize()} -e sh -c "sleep 0.2 && {app} {args}"'
 
 # Qtile keybindings
 keys = [
@@ -54,9 +71,17 @@ keys = [
         lazy.spawn(fix_cli_app('ranger')),
         desc='Ranger'
         ),
-    Key([mod], "c",
+    Key([mod, "shift"], "u",
         lazy.spawn(fix_cli_app('htop')),
         desc='Htop'
+        ),
+    Key([mod], "c",
+        lazy.spawn(fix_cli_app('ranger', '/mnt/hdd/nextcloud')),
+        desc='Nextcloud'
+        ),
+    Key([mod, "shift"], "c",
+        lazy.spawn(fix_cli_app('ranger', '/home/david/.config/qtile')),
+        desc='Qtile config'
         ),
     Key([mod], "Tab",
         lazy.next_layout(),
@@ -171,16 +196,22 @@ keys = [
     ### ------------ Hardware Configs ------------
     ### Volume
     Key([], "XF86AudioMute",
-        lazy.spawn("amixer -D pulse sset Master toggle"),
+        lazy.function(mute_all),
         desc='Mute audio'
         ),
     Key([], "XF86AudioLowerVolume",
-        lazy.spawn("amixer -D pulse sset Master 2%-"),
+        # lazy.spawn("amixer -D pulse sset Master 2%-"),
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -2%"),
         desc='Volume down'
         ),
     Key([], "XF86AudioRaiseVolume",
-        lazy.spawn("amixer -D pulse sset Master 2%+"),
+        # lazy.spawn("amixer -D pulse sset Master 2%+"),
+        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +2%"),
         desc='Volume up'
+        ),
+    Key([mod], "o",
+        lazy.function(switch_sound_output),
+        desc='Switch audio output'
         ),
     ### Media keys (Spotify)
     Key([], "XF86AudioPlay",

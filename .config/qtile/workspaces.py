@@ -5,18 +5,18 @@ from keybindings import mod, keys
 # Group names (icons taken from https://fontawesome.com/v4.7/cheatsheet/)
 group_names = [
     ("", {'layout': 'tabs', 'matches': [Match(wm_class='firefox')]}),                   # Firefox
-    ("", {'layout': 'monadtall'}),                                                     # Terminal
-    ("", {'layout': 'monadtall', 'matches': [Match(wm_class='code')]}),                # Code
+    ("", {'layout': 'columns'}),                                                     # Terminal
+    ("", {'layout': 'columns', 'matches': [Match(wm_class='code')]}),                # Code
     ("", {'layout': 'tabs', 'matches': [                                               # Game
         Match(title='Counter-Strike'),
         Match(title='Brawlhalla'),
         Match(title='Rocket League')
     ]}),
     ("", {'layout': 'tabs', 'matches': [Match(title='Steam')]}),                       # Steam
-    ("", {'layout': 'monadtall', 'matches': [Match(wm_class='discord')]}),             # Discord
-    ("", {'layout': 'monadtall', 'matches': [Match(wm_class='telegram-desktop')]}),    # Telegram
-    ("", {'layout': 'monadtall', 'matches': [Match(wm_class='mailspring')]}),          # Mail client
-    ("", {'layout': 'monadtall', 'matches': [Match(title='Spotify')]})                 # Spotify
+    ("", {'layout': 'columns', 'matches': [Match(wm_class='discord')]}),             # Discord
+    ("", {'layout': 'columns', 'matches': [Match(wm_class='telegram-desktop')]}),    # Telegram
+    ("", {'layout': 'columns', 'matches': [Match(wm_class='mailspring')]}),          # Mail client
+    ("", {'layout': 'columns', 'matches': [Match(title='Spotify')]})                 # Spotify
 ]
 
 # Qtile groups

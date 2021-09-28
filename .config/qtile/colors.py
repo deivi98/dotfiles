@@ -2,11 +2,11 @@ _colors = [
     '1b1c26',   # Icon, Bar color 1, widget font
     'ffffff',   # Unused
     'ffffff',   # Unused
-    'afd8b3',   # Bar color 1, unfocused window border line
+    'e6901e',   # Bar color 2, unfocused window border line
     'ffffff',   # Unused
     'ffffff',   # Unused
     'ffffff',   # Unused
-    'd67147',   # Bar color 2, focused window border line
+    'a8a885',   # Bar color 3, focused window border line
     'ffffff',   # Unused
     'ffffff',   # Unused
 ]
