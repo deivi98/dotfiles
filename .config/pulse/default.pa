@@ -1,0 +1,9 @@
+.include /etc/pulse/default.pa
+
+load-module module-null-sink sink_name=mic_denoised_out rate=48000
+load-module module-ladspa-sink sink_name=mic_raw_in sink_master=mic_denoised_out label=noise_suppressor_mono plugin=/usr/lib/ladspa/librnnoise_ladspa.so control=50
+load-module module-loopback source=alsa_input.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.mono-fallback sink=mic_raw_in channels=1 source_dont_move=true sink_dont_move=true latency_msec=1
+
+load-module module-remap-source source_name=denoised master=mic_denoised_out.monitor channels=1
+
+set-default-source mic_denoised_out.monitor

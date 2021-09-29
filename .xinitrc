@@ -1,10 +1,9 @@
 #  ____           _           _ 
 # |  _ \    ___  (_) __   __ (_)	David González (deivi)
 # | | | |  / _ \ | | \ \ / / | |	https://deivii.es
-# | |_| | |  __/ | |  \ V /  | |    https://github.com/deivi98
+# | |_| | |  __/ | |  \ V /  | |    	https://github.com/deivi98
 # |____/   \___| |_|   \_/   |_|
 #
-# My xinit config
 
 #!/bin/sh
 userresources=$HOME/.Xresources
@@ -44,6 +43,6 @@ feh --recursive --bg-fill --randomize ~/.config/wallpapers/nature
 # Starts screensaver process in the background
 xscreensaver -no-splash &
 # Starts compositor process in the background
-# picom &
+picom &
 # Starts Qtile
 exec qtile start 
