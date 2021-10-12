@@ -9,20 +9,19 @@ import os
 import subprocess
 
 from typing import List                             # noqa: F401
+from libqtile import layout, hook, widget, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
-from libqtile import layout, hook
 from libqtile.lazy import lazy
 from libqtile.bar import Bar
-from libqtile import widget, qtile
 from libqtile.log_utils import logger
 
 # My functions
-from functions import swap_screens, run_cmd, mute_all, switch_keyboard_layout, switch_sound_output, fix_cli_app
+import function
 
 ### Autostart programs
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~/.config/qtile/autostart.sh')
+    home = os.path.expanduser('~/.config/qtile/scripts/autostart.sh')
     subprocess.call([home])
 
 ### Global variables
@@ -35,42 +34,11 @@ home = "/home/david"        # My home directory
 
 ### Qtile keybindings
 keys = [
-    # The essentials
+    ### ESSENTIALS
+
     Key([mod], "Return",
         lazy.spawn(terminal),
         desc='Launches my terminal'
-        ),
-    Key([mod], "space",
-        lazy.spawn('rofi -combi-modi window,drun,ssh -font "hack 20" -show combi -icon-theme "Papirus" -show-icons'),
-        desc='Run Launcher'
-        ),
-    Key([mod2], "space",
-        lazy.function(switch_keyboard_layout),
-        desc='Switch keyboard layout'
-        ),
-    Key([mod], "b",
-        lazy.spawn(browser),
-        desc='Firefox'
-        ),
-    Key([mod], "f",
-        lazy.spawn(fix_cli_app('ranger')),
-        desc='Ranger'
-        ),
-    Key([mod, "shift"], "u",
-        lazy.spawn(fix_cli_app('htop')),
-        desc='Htop'
-        ),
-    Key([mod], "c",
-        lazy.spawn(fix_cli_app('ranger', '/mnt/hdd/nextcloud')),
-        desc='Nextcloud'
-        ),
-    Key([mod, "shift"], "c",
-        lazy.spawn(fix_cli_app('ranger', '/home/david/.config/qtile')),
-        desc='Qtile config'
-        ),
-    Key([mod], "Tab",
-        lazy.next_layout(),
-        desc='Toggle through layouts'
         ),
     Key([mod], "BackSpace",
         lazy.window.kill(),
@@ -80,24 +48,82 @@ keys = [
         lazy.restart(),
         desc='Restart Qtile'
         ),
-    Key([mod, "shift"], "q",
+    Key([mod, "shift"], "BackSpace",
         lazy.shutdown(),
         desc='Shutdown Qtile'
-        ),
-    Key([mod, "control"], "BackSpace",
-        lazy.spawn("shutdown now"),
-        desc='Shutdown computer'
         ),
     Key([mod, "control"], "r",
         lazy.spawn("reboot"),
         desc='Restart computer'
         ),
-    ### Swap monitors
+    Key([mod, "control"], "BackSpace",
+        lazy.spawn("shutdown now"),
+        desc='Shutdown computer'
+        ),
+    Key([mod], "slash",
+        lazy.function(function.open_help),
+        desc='Help'
+        ),
+
+    ### MY OWN KEYBINDINGS
+
+    # Switch keyboard layouts
+    Key([mod2], "space",
+        lazy.function(function.switch_keyboard_layout),
+        desc='Switch keyboard layout'
+        ),
+    # Launch Rofi
+    Key([mod], "space",
+        lazy.spawn('rofi -combi-modi window,drun,ssh -font "hack 20" -show combi -icon-theme "Papirus" -show-icons'),
+        desc='Run Launcher'
+        ),
+
+    ### APPLICATIONS QUICK ACCESS
+
+    Key([mod], "b",
+        lazy.spawn(browser),
+        desc='Firefox'
+        ),
+    Key([mod], "f",
+        lazy.spawn(function.fix_cli_app('ranger')),
+        desc='Ranger'
+        ),
+    Key([mod], "n",
+        lazy.spawn(function.fix_cli_app('ranger', '/mnt/hdd/nextcloud')),
+        desc='Nextcloud'
+        ),
+
+    ### ARCH INFO / CONTROLS
+
+    # HTOP MEMORY
+    Key([mod, "shift"], "m",
+        lazy.spawn(function.fix_cli_app('htop', '-s PERCENT_MEM')),
+        desc='Htop'
+        ),
+    # HTOP CPU
+    Key([mod, "shift"], "c",
+        lazy.spawn(function.fix_cli_app('htop', '-s PERCENT_CPU')),
+        desc='Htop'
+        ),
+    # Qtile config
+    Key([mod, "shift"], "q",
+        lazy.spawn(function.fix_cli_app('ranger', '/home/david/.config/qtile')),
+        desc='Qtile config'
+        ),
+    # Switch audio output
+    Key([mod, "shift"], "o",
+        lazy.function(function.switch_sound_output),
+        desc='Switch audio output'
+        ),
+
+    ### MONITORS
+
+    # Swap monitors
     Key([mod], "y",
-        lazy.function(swap_screens),
+        lazy.function(function.swap_screens),
         desc='Swap group between monitors'
         ),
-    ### Switch focus of monitors
+    # Switch focus of monitors
     Key([mod], "period",
         lazy.to_screen(0),  # lazy.next_screen()
         desc='Move focus to next monitor'
@@ -106,7 +132,7 @@ keys = [
         lazy.to_screen(1),  # lazy.prev_screen()
         desc='Move focus to prev monitor'
         ),
-    ### Move windows to monitors
+    # Move windows to monitors
     Key([mod, "shift"], "period",
         lazy.window.toscreen(0),
         lazy.to_screen(0),
@@ -117,7 +143,11 @@ keys = [
         lazy.to_screen(1),
         desc='Move window and focus to prev monitor'
         ),
-    ### Window controls
+
+    
+    ### WINDOW CONTROLS
+
+    # Move through windows
     Key([mod], "j",
         lazy.layout.down(),
         desc='Move focus down'
@@ -134,6 +164,8 @@ keys = [
         lazy.layout.right(),
         desc='Move focus right'
         ),
+
+    # Move windows
     Key([mod, "shift"], "j",
         lazy.layout.shuffle_down(),
         desc='Move window down'
@@ -150,6 +182,8 @@ keys = [
         lazy.layout.shuffle_right(),
         desc='Move window right'
         ),
+
+    # Resize windows
     Key([mod, "control"], "j",
         lazy.layout.grow_down(),
         desc='Move window down'
@@ -166,22 +200,34 @@ keys = [
         lazy.layout.grow_right(),
         desc='Move window right'
         ),
-    Key([mod], "n",
+
+    # Switch layouts
+    Key([mod], "Tab",
+        lazy.next_layout(),
+        desc='Toggle through layouts'
+        ),
+
+    # Normalize sizes
+    Key([mod, "control"], "n",
         lazy.layout.normalize(),
         desc='Normalize window size ratios'
         ),
-    Key([mod], "m",
-        lazy.layout.maximize(),
-        desc='Toggle window between minimum and maximum sizes'
-        ),
+    # Maximize sizes
+    #Key([mod,"shift"], "m",
+    #    lazy.layout.maximize(),
+    #    desc='Toggle window between minimum and maximum sizes'
+    #    ),
+    # Full screen
     Key([mod, "shift"], "f",
         lazy.window.toggle_fullscreen(),
         desc='toggle fullscreen'
         ),
-    ### ------------ Hardware Configs ------------
-    ### Volume
+
+    ### HARDWARE
+
+    # Volume keys
     Key([], "XF86AudioMute",
-        lazy.function(mute_all),
+        lazy.function(function.mute_all),
         desc='Mute audio'
         ),
     Key([], "XF86AudioLowerVolume",
@@ -194,11 +240,8 @@ keys = [
         lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +2%"),
         desc='Volume up'
         ),
-    Key([mod], "o",
-        lazy.function(switch_sound_output),
-        desc='Switch audio output'
-        ),
-    ### Media keys (Spotify)
+
+    # Media keys (Spotify)
     Key([], "XF86AudioPlay",
         lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.PlayPause"),
         desc='Audio play'
@@ -225,7 +268,7 @@ _colors = [
     '1b1c26',   # Icon, Bar color 1, widget font
     'ffffff',   # Unused
     'ffffff',   # Unused
-    '78dd5a',   # Bar color 2, focused window border line
+    '2bdd62',   # Bar color 2, focused window border line
     'ffffff',   # Unused
     'ffffff',   # Unused
     'ffffff',   # Unused
@@ -269,18 +312,19 @@ layouts = [
 # Group names (icons taken from https://fontawesome.com/v4.7/cheatsheet/)
 group_names = [
     ("", {'layout': 'tabs', 'matches': [Match(wm_class='firefox')]}),                   # Firefox
-    ("", {'layout': 'columns'}),                                                       # Terminal
+    ("", {'layout': 'tabs'}),                                                       # Terminal
     ("", {'layout': 'columns', 'matches': [Match(wm_class='code')]}),                  # Code
     ("", {'layout': 'tabs', 'matches': [                                               # Game
         Match(title='Counter-Strike'),
         Match(title='Brawlhalla'),
-        Match(title='Rocket League')
+        Match(title='Rocket League'),
+        Match(title='Minecraft Launcher')
     ]}),
     ("", {'layout': 'tabs', 'matches': [Match(title='Steam')]}),                       # Steam
-    ("", {'layout': 'columns', 'matches': [Match(wm_class='discord')]}),               # Discord
-    ("", {'layout': 'columns', 'matches': [Match(wm_class='telegram-desktop')]}),      # Telegram
-    ("", {'layout': 'columns', 'matches': [Match(wm_class='mailspring')]}),            # Mail client
-    ("", {'layout': 'columns', 'matches': [Match(title='Spotify')]})                   # Spotify
+    ("", {'layout': 'tabs', 'matches': [Match(wm_class='discord')]}),               # Discord
+    ("", {'layout': 'tabs', 'matches': [Match(wm_class='telegram-desktop')]}),      # Telegram
+    ("", {'layout': 'tabs', 'matches': [Match(wm_class='Mailspring')]}),            # Mail client
+    ("", {'layout': 'tabs', 'matches': [Match(title='Spotify')]})                   # Spotify
 ]
 
 # Qtile groups
@@ -337,6 +381,11 @@ def right_arrow(color1, color2):
 		foreground = color2,
 		**icon_settings()
 	)
+
+# Get volume
+def get_volume():
+    output = subprocess.Popen('/home/david/.config/qtile/scripts/getVolume.sh', shell=True, stdout=subprocess.PIPE).communicate()[0][:-1]
+    return output.decode()
 
 def init_left_section(widgets, backgroundColor, foregroundColor, arrow=True):
     section = [widget.Sep(padding=size_of_separator, linewidth=0, background=colors[foregroundColor])] + widgets
@@ -403,24 +452,19 @@ def init_right_side():
         widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
         widget.CheckUpdates(
                 update_interval = 600,
-                distro = "Arch_yay",
+                distro = "Arch_checkupdates",
                 display_format = "{updates} Updates",
                 no_update_string = "No updates",
                 colour_no_updates = colors[0],
                 colour_have_updates = "bd0f0f",
-                mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e yay -Syu')},
+                mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e yay -Syu --noconfirm')},
                 background = colors[3]
         )
     ], 7, 3) + init_right_section([
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[7]),
-        widget.Volume(
+        widget.GenPollText(
             background=colors[7],
-            get_volume_command=['/home/david/.config/qtile/scripts/getVolume.sh', 'alsa_output.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.analog-stereo']
-        ),
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[7]),
-        widget.Volume(
-            background=colors[7],
-            get_volume_command=['/home/david/.config/qtile/scripts/getVolume.sh', 'alsa_output.pci-0000_01_00.1.hdmi-stereo']
+            func=get_volume,
+            update_interval=0.2
         )
     ], 3, 7) + init_right_section([
         widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
@@ -432,32 +476,22 @@ def init_right_side():
 
 def init_right_side_secondary():
     return init_right_section([
-        widget.KeyboardLayout(background=colors[7]),
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[7]),
-        widget.CurrentLayout(background=colors[7]),
-        widget.WindowCount(text_format="[{num}]", background=colors[7])
-    ], 3, 7, first=True) + init_right_section([
-        widget.TextBox(text=" GPU ",font="FontAwesome",background=colors[3]),
+        widget.KeyboardLayout(background=colors[3]),
+        widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
+        widget.CurrentLayout(background=colors[3]),
+        widget.WindowCount(text_format="[{num}]", background=colors[3])
+    ], 7, 3, first=True) + init_right_section([
+        widget.TextBox(text=" GPU ",font="FontAwesome",background=colors[7]),
         widget.NvidiaSensors(
-            background=colors[3],
+            background=colors[7],
             foreground=colors[0],
             mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
         )
-    ], 7, 3) + init_right_section([
-        widget.TextBox(text=" ",font="FontAwesome",background=colors[7]),
-        widget.Memory(
-            background=colors[7],
-            format='{MemUsed:6.0f}/{MemTotal:6.0f}{mm}',
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
-        )
     ], 3, 7) + init_right_section([
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
-        widget.HDDGraph(
+        widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
+        widget.Memory(
             background=colors[3],
-            border_width=0,
-            graph_color=colors[0],
-            fill_color=colors[0],
-            path='/mnt/hdd',
+            format='{MemUsed:6.0f}/{MemTotal:6.0f}{mm}',
             mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
         )
     ], 7, 3) + init_right_section([
@@ -490,15 +524,10 @@ def init_right_side_secondary():
             mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
         )
     ], 7, 3) + init_right_section([
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[7]),
-        widget.Volume(
+        widget.GenPollText(
             background=colors[7],
-            get_volume_command=['/home/david/.config/qtile/scripts/getVolume.sh', 'alsa_output.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.analog-stereo']
-        ),
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[7]),
-        widget.Volume(
-            background=colors[7],
-            get_volume_command=['/home/david/.config/qtile/scripts/getVolume.sh', 'alsa_output.pci-0000_01_00.1.hdmi-stereo']
+            func=get_volume,
+            update_interval=0.2
         )
     ], 3, 7) + init_right_section([
         widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
