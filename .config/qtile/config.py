@@ -13,7 +13,6 @@ from libqtile import layout, hook, widget, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.bar import Bar
-from libqtile.log_utils import logger
 
 # My functions
 import function
@@ -81,15 +80,31 @@ keys = [
     ### APPLICATIONS QUICK ACCESS
 
     Key([mod], "b",
-        lazy.spawn(browser),
+        lazy.function(function.gotoapp_or_create, browser),
         desc='Firefox'
         ),
+    Key([mod], "d",
+        lazy.function(function.gotoapp_or_create, 'discord'),
+        desc='Discord'
+        ),
+    Key([mod], "t",
+        lazy.function(function.gotoapp_or_create, 'telegram-desktop', 'Telegram'),
+        desc='Telegram'
+        ),
+    Key([mod], "m",
+        lazy.function(function.gotoapp_or_create, 'mailspring'),
+        desc='Mailspring'
+        ),
+    Key([mod], "s",
+        lazy.function(function.gotoapp_or_create, 'spotify'),
+        desc='Spotify'
+        ),
     Key([mod], "f",
-        lazy.spawn(function.fix_cli_app('ranger')),
+        lazy.spawn(function.fix_cli_app(fileExplorer)),
         desc='Ranger'
         ),
     Key([mod], "n",
-        lazy.spawn(function.fix_cli_app('ranger', '/mnt/hdd/nextcloud')),
+        lazy.spawn(function.fix_cli_app(fileExplorer, '/mnt/hdd/nextcloud')),
         desc='Nextcloud'
         ),
 
@@ -107,7 +122,7 @@ keys = [
         ),
     # Qtile config
     Key([mod, "shift"], "q",
-        lazy.spawn(function.fix_cli_app('ranger', '/home/david/.config/qtile')),
+        lazy.spawn(function.fix_cli_app(fileExplorer, '/home/david/.config/qtile')),
         desc='Qtile config'
         ),
     # Switch audio output
@@ -115,6 +130,12 @@ keys = [
         lazy.function(function.switch_sound_output),
         desc='Switch audio output'
         ),
+    # Switch redshift
+    Key([mod, "shift"], "n",
+        lazy.function(function.switch_redshift),
+        desc='Switch redshift'
+        ),
+
 
     ### MONITORS
 
@@ -144,7 +165,6 @@ keys = [
         desc='Move window and focus to prev monitor'
         ),
 
-    
     ### WINDOW CONTROLS
 
     # Move through windows
@@ -268,11 +288,11 @@ _colors = [
     '1b1c26',   # Icon, Bar color 1, widget font
     'ffffff',   # Unused
     'ffffff',   # Unused
-    '2bdd62',   # Bar color 2, focused window border line
+    'b82a2c',   # Bar color 2, focused window border line
     'ffffff',   # Unused
     'ffffff',   # Unused
     'ffffff',   # Unused
-    'a8a885',   # Bar color 3, unfocused window border line
+    '7b7b7b',   # Bar color 3, unfocused window border line
     'ffffff',   # Unused
     'ffffff',   # Unused
 ]
@@ -311,8 +331,8 @@ layouts = [
 
 # Group names (icons taken from https://fontawesome.com/v4.7/cheatsheet/)
 group_names = [
-    ("", {'layout': 'tabs', 'matches': [Match(wm_class='firefox')]}),                   # Firefox
-    ("", {'layout': 'tabs'}),                                                       # Terminal
+    ("", {'layout': 'tabs', 'matches': [Match(wm_class='firefox')]}),                  # Firefox
+    ("", {'layout': 'columns'}),                                                       # Terminal
     ("", {'layout': 'columns', 'matches': [Match(wm_class='code')]}),                  # Code
     ("", {'layout': 'tabs', 'matches': [                                               # Game
         Match(title='Counter-Strike'),
@@ -320,11 +340,11 @@ group_names = [
         Match(title='Rocket League'),
         Match(title='Minecraft Launcher')
     ]}),
-    ("", {'layout': 'tabs', 'matches': [Match(title='Steam')]}),                       # Steam
-    ("", {'layout': 'tabs', 'matches': [Match(wm_class='discord')]}),               # Discord
-    ("", {'layout': 'tabs', 'matches': [Match(wm_class='telegram-desktop')]}),      # Telegram
-    ("", {'layout': 'tabs', 'matches': [Match(wm_class='Mailspring')]}),            # Mail client
-    ("", {'layout': 'tabs', 'matches': [Match(title='Spotify')]})                   # Spotify
+    ("", {'layout': 'columns', 'matches': [Match(title='Steam')]}),                    # Steam
+    ("", {'layout': 'tabs', 'matches': [Match(wm_class='discord')]}),                  # Discord
+    ("", {'layout': 'columns', 'matches': [Match(wm_class='telegram-desktop')]}),      # Telegram
+    ("", {'layout': 'tabs', 'matches': [Match(wm_class='Mailspring')]}),               # Mail client
+    ("", {'layout': 'tabs', 'matches': [Match(title='Spotify')]})                      # Spotify
 ]
 
 # Qtile groups
@@ -456,7 +476,7 @@ def init_right_side():
                 display_format = "{updates} Updates",
                 no_update_string = "No updates",
                 colour_no_updates = colors[0],
-                colour_have_updates = "bd0f0f",
+                colour_have_updates = "ffffff",
                 mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e yay -Syu --noconfirm')},
                 background = colors[3]
         )

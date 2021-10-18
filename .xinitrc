@@ -37,7 +37,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 # Change key delay and repeat
-xset r rate 200 35
+xset r rate 200 45
 # Sets random wallpaper
 feh --recursive --bg-fill --randomize ~/.config/wallpapers/nature
 # Starts screensaver process in the background

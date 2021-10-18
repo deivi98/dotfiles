@@ -1,7 +1,7 @@
 #  ____           _           _ 
 # |  _ \    ___  (_) __   __ (_)	David González (deivi)
 # | | | |  / _ \ | | \ \ / / | |	https://deivii.es
-# | |_| | |  __/ | |  \ V /  | |    	https://github.com/deivi98
+# | |_| | |  __/ | |  \ V /  | |  https://github.com/deivi98
 # |____/   \___| |_|   \_/   |_|
 #
 
@@ -10,10 +10,17 @@
 # Getting proper colors
 export TERM="xterm-256color"                      
 export HISTCONTROL=ignoredups
-export EDITOR=vim
+export EDITOR="nvim"
+export VISUAL="nvim"
+export BROWSER="firefox"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 ### VIM KEYS
 set -o vi
+
+### Clear screen
+bind -m vi-command 'Control-l: clear-screen'
+bind -m vi-insert 'Control-l: clear-screen'
 
 ### If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -29,6 +36,12 @@ fi
 
 if [ -d "$HOME/Applications" ] ;
   then PATH="$HOME/Applications:$PATH"
+fi
+
+### BASH INSULTER
+
+if [ -f /etc/bash.command-not-found ]; then
+	. /etc/bash.command-not-found
 fi
 
 ### CHANGE TITLE OF TERMINALS
@@ -54,7 +67,30 @@ shopt -s checkwinsize # checks term size when bash regains control
 # Ignore upper and lowercase when TAB completion
 bind "set completion-ignore-case on"
 
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash 
+
+# If there are multiple matches for completion, Tab should cycle through them
+bind 'TAB':menu-complete
+
+# Display a list of the matching files
+bind "set show-all-if-ambiguous on"
+
+# Perform partial completion on the first Tab press,
+# only start cycling full results on the second Tab press
+bind "set menu-complete-display-prefix on"
+
+# Colour autocomplete suggestions
+bind "set colored-stats on"
+
 ### ALIASES
+
+# SSH hosts
+alias cloud='ssh cloud'
+alias deivi='ssh deivii'
+
+# Programs
+alias vim='nvim'
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
@@ -93,10 +129,10 @@ alias dotgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 PS1='[\u@\h \W]\$ '
 
 # Enable powerline
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. /usr/share/powerline/bindings/bash/powerline.sh
+# powerline-daemon -q
+# POWERLINE_BASH_CONTINUATION=1
+# POWERLINE_BASH_SELECT=1
+# . /usr/share/powerline/bindings/bash/powerline.sh
 
 ### X SESSION
 
