@@ -305,15 +305,22 @@ colors = tuple(map(map_color, _colors))
 # Layout default settings
 layout_theme = {
     "border_width": 4,
-    "margin": 12,
+    "margin": 8,
+    "margin_on_single": [0,0,0,0],
     "border_focus": _colors[3],
-    "border_normal": _colors[7]
+    "border_normal": _colors[7],
+    "grow_amount": 5
+}
+
+stack_theme = {
+    "border_width": 0,
+    "margin": 0
 }
 
 # Qtile active layouts
 layouts = [
     layout.Columns(**layout_theme),
-    layout.Stack(num_stacks=1, name="tabs", **layout_theme),
+    layout.Stack(num_stacks=1, name="tabs", **stack_theme),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2, **layout_theme),
     # layout.MonadTall(**layout_theme),
@@ -564,7 +571,7 @@ def init_top_bar(secondary=False):
         widgets += init_right_side_secondary()
     else:
         widgets += init_right_side()
-    return Bar(widgets=widgets, opacity=1.0, size=size_of_bar_height)
+    return Bar(widgets=widgets, opacity=1.0, margin=[0, 0, 0, 0], size=size_of_bar_height)
 
 def init_screen(secondary=False):
     return Screen(top=init_top_bar(secondary))
