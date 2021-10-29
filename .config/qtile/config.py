@@ -329,9 +329,8 @@ layouts = [
 
 ### WORKSPACES
 
-# Group names (icons taken from https://fontawesome.com/v4.7/cheatsheet/)
 group_names = [
-    ("", {'layout': 'tabs', 'matches': [Match(wm_class='firefox')]}),                  # Firefox
+    ("", {'layout': 'tabs', 'matches': [Match(wm_class='firefox')]}),                  # Firefox
     ("", {'layout': 'columns'}),                                                       # Terminal
     ("", {'layout': 'columns', 'matches': [Match(wm_class='code')]}),                  # Code
     ("", {'layout': 'tabs', 'matches': [                                               # Game
@@ -368,7 +367,7 @@ size_of_bar_height= int(screen_width/80)
 
 # Default widget settings
 widget_defaults = dict(
-    font='Iosevka Fixed',
+    font='Iosevka Nerd',
     fontsize=size_of_font,
     padding=size_of_padding,
     foreground = colors[0],
@@ -438,7 +437,7 @@ def init_left_side():
                 hide_unused = False,
                 rounded = True,
                 highlight_method = 'block',
-                font='FontAwesome',
+                font="FontAwesome",
                 padding_y=size_of_padding*2,
                 active=colors[0],
                 inactive=colors[0],
@@ -458,7 +457,8 @@ def init_right_side():
             fmt='  {}...',
             scroll_chars=50,
             scroll_wait_intervals=40000,
-            objname='org.mpris.MediaPlayer2.spotify'
+            objname='org.mpris.MediaPlayer2.spotify',
+            font="FontAwesome"
         )
     ], 3, 7, first=True) + init_right_section([
         widget.TextBox(text="", background=colors[3]),
@@ -484,7 +484,9 @@ def init_right_side():
         widget.GenPollText(
             background=colors[7],
             func=get_volume,
-            update_interval=0.2
+            update_interval=0.2,
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('pavucontrol')},
+            font="FontAwesome"
         )
     ], 3, 7) + init_right_section([
         widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
@@ -547,7 +549,9 @@ def init_right_side_secondary():
         widget.GenPollText(
             background=colors[7],
             func=get_volume,
-            update_interval=0.2
+            update_interval=0.2,
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('pavucontrol')},
+            font="FontAwesome",
         )
     ], 3, 7) + init_right_section([
         widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),

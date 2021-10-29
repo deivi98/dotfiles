@@ -6,14 +6,13 @@
 #
 
 ### EXPORTS
-
-# Getting proper colors
-export TERM="xterm-256color"                      
-export HISTCONTROL=ignoredups
+export XDG_CONFIG_HOME="$HOME/.config"        # Sets default .config directory
+export TERM="xterm-256color"                  # Getting proper colors
+export HISTCONTROL=ignoredups                 # Ignore duplicates in .bash_history
+export LESSHISTFILE=/dev/null                 # Ignore .lesshst
 export EDITOR="nvim"
 export VISUAL="nvim"
 export BROWSER="firefox"
-export XDG_CONFIG_HOME="$HOME/.config"
 
 ### VIM KEYS
 set -o vi
@@ -91,6 +90,7 @@ alias deivi='ssh deivii'
 
 # Programs
 alias vim='nvim'
+alias cat='bat'
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
@@ -125,18 +125,12 @@ alias svim="HOME=/home/david && sudo vim -u $HOME/.vimrc"
 # Dotfiles git
 alias dotgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-### PROMPT
-PS1='[\u@\h \W]\$ '
-
-# Enable powerline
-# powerline-daemon -q
-# POWERLINE_BASH_CONTINUATION=1
-# POWERLINE_BASH_SELECT=1
-# . /usr/share/powerline/bindings/bash/powerline.sh
-
 ### X SESSION
 
 # Init X session when logging in
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
 	exec startx
 fi
+
+### STARSHIP PROMPT
+eval "$(starship init bash)"
