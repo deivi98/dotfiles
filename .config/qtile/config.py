@@ -29,6 +29,7 @@ mod2 = "mod4"
 terminal = "alacritty"      # My terminal of choice
 browser = "firefox"         # My browser of choice
 fileExplorer = "ranger"     # My file explorer of choice
+editor = "nvim"           # My editor
 home = "/home/david"        # My home directory
 
 ### Qtile keybindings
@@ -98,6 +99,10 @@ keys = [
     Key([mod], "s",
         lazy.function(function.gotoapp_or_create, 'spotify'),
         desc='Spotify'
+        ),
+    Key([mod], "e",
+        lazy.spawn(function.fix_cli_app(editor)),
+        desc='Neovim'
         ),
     Key([mod], "f",
         lazy.spawn(function.fix_cli_app(fileExplorer)),
@@ -370,7 +375,7 @@ screen_width = int(subprocess.Popen('xrandr | grep primary | cut -d" " -f4 | cut
 size_of_font = int(screen_width/120)
 size_of_separator = int(screen_width/320)
 size_of_padding = int(screen_width/960)
-size_of_bar_height= int(screen_width/80)
+size_of_bar_height= int(screen_width/75)
 
 # Default widget settings
 widget_defaults = dict(
