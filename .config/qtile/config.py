@@ -74,7 +74,8 @@ keys = [
         ),
     # Launch Rofi
     Key([mod], "space",
-        lazy.spawn('rofi -combi-modi window,drun,ssh -font "hack 20" -show combi -icon-theme "Papirus" -show-icons'),
+        # lazy.spawn('rofi -combi-modi window,drun,ssh -font "hack 20" -show combi -icon-theme "Papirus" -show-icons'),
+        lazy.spawn('/home/david/.config/rofi/bin/launcher_misc'),
         desc='Run Launcher'
         ),
 
