@@ -1,4 +1,6 @@
 import subprocess
+from threading import Thread
+from time import sleep
 from libqtile.log_utils import logger
 
 # Swap groups between screens
@@ -6,28 +8,40 @@ def swap_screens(qtile):
     groupName = qtile.screens[0].group
     qtile.screens[1].set_group(groupName)
 
-# Navigate to app window or create it if it does not exist
-def gotoapp_or_create(qtile, app, appName = None):
-
-    if appName == None:
-        appName = app
+def focusWindow(qtile, wName: str) -> bool:
 
     for group in qtile.cmd_groups():
         windows = qtile.cmd_groups()[group]['windows']
 
         for windowName in windows:
-            if appName.lower() in windowName.lower():
+            if wName.lower() in windowName.lower():
 
                 if qtile.screens[0].group.name != group:
                     qtile.screens[0].cmd_toggle_group(group)
 
                 screenWindows = qtile.screens[0].group.windows
                 windowObj = list(filter(lambda x: (x.name == windowName), screenWindows))[0]
-                windowObj.cmd_focus()
-                return 1
+                qtile.screens[0].group.focus(windowObj, True, True)
+                return True
 
-    qtile.cmd_spawn(app)
-    return 0
+    return False
+
+def waitAndFocus(qtile, wName: str):
+    i = 0
+    while not focusWindow(qtile, wName) and i < 100:
+        sleep(0.05)
+        i += 1
+
+# Navigate to app window or create it if it does not exist
+def gotoapp_or_create(qtile, app, wName = None):
+
+    if wName == None:
+        wName = app
+
+    if not focusWindow(qtile, wName):
+        qtile.cmd_spawn(app)
+        thread = Thread(target = waitAndFocus, args = (qtile, wName, ))
+        thread.start()
 
 # Run cmd
 def run_cmd(qtile, cmd):
@@ -63,10 +77,25 @@ def switch_sound_output(qtile):
 def switch_redshift(qtile):
     run_cmd(qtile, "pkill -USR1 redshift-gtk")
 
+# Random background
+def random_background(qtile):
+    run_cmd(qtile, "feh --recursive --no-fehbg --bg-fill --randomize ~/.config/wallpapers/nature")
+
 def open_help(qtile):
     run_cmd(qtile, 'md2pdf /home/david/.config/qtile/README.md')
     qtile.cmd_spawn('zathura /home/david/.config/qtile/README.pdf')
 
-def fix_cli_app(app: str, args: str = "") -> str:
-    """Quick fix of github.com/qtile/qtile/issues/2167 bug"""
-    return f'alacritty --title {app.capitalize()} -e sh -c "sleep 0.2 && {app} {args}"'
+# Quick fix of github.com/qtile/qtile/issues/2167 bug
+def terminal_app(qtile, app: str, args: str = "", terminal: str = "alacritty", windowName: str = None, sleep: float = 0, goto: bool = True):
+    if not windowName:
+        windowName = app.capitalize()
+
+    if args != "":
+        args = " " + args
+
+    func = f'{terminal} --title "{windowName}" -e sh -c "sleep {sleep} && {app}{args}"'
+
+    if goto:
+        gotoapp_or_create(qtile, func, windowName)
+    else:
+        qtile.cmd_spawn(func)

@@ -29,7 +29,7 @@ mod2 = "mod4"
 terminal = "alacritty"      # My terminal of choice
 browser = "firefox"         # My browser of choice
 fileExplorer = "ranger"     # My file explorer of choice
-editor = "nvim"           # My editor
+editor = "nvim"             # My editor
 home = "/home/david"        # My home directory
 
 ### Qtile keybindings
@@ -74,7 +74,6 @@ keys = [
         ),
     # Launch Rofi
     Key([mod], "space",
-        # lazy.spawn('rofi -combi-modi window,drun,ssh -font "hack 20" -show combi -icon-theme "Papirus" -show-icons'),
         lazy.spawn('/home/david/.config/rofi/bin/launcher_misc'),
         desc='Run Launcher'
         ),
@@ -102,15 +101,15 @@ keys = [
         desc='Spotify'
         ),
     Key([mod], "e",
-        lazy.spawn(function.fix_cli_app(editor)),
+        lazy.function(function.terminal_app, editor, windowName="Neovim", sleep=0.1),
         desc='Neovim'
         ),
     Key([mod], "f",
-        lazy.spawn(function.fix_cli_app(fileExplorer)),
+        lazy.function(function.terminal_app, fileExplorer),
         desc='Ranger'
         ),
     Key([mod], "n",
-        lazy.spawn(function.fix_cli_app(fileExplorer, '/mnt/hdd/nextcloud')),
+        lazy.function(function.terminal_app, fileExplorer, '/mnt/hdd/nextcloud', windowName="Nextcloud"),
         desc='Nextcloud'
         ),
 
@@ -118,17 +117,17 @@ keys = [
 
     # HTOP MEMORY
     Key([mod, "shift"], "m",
-        lazy.spawn(function.fix_cli_app('htop', '-s PERCENT_MEM')),
+        lazy.function(function.terminal_app, 'htop', '-s PERCENT_MEM', windowName="Htop memory usage"),
         desc='Htop'
         ),
     # HTOP CPU
     Key([mod, "shift"], "c",
-        lazy.spawn(function.fix_cli_app('htop', '-s PERCENT_CPU')),
+        lazy.function(function.terminal_app, 'htop', '-s PERCENT_CPU', windowName="Htop cpu usage"),
         desc='Htop'
         ),
     # Qtile config
     Key([mod, "shift"], "q",
-        lazy.spawn(function.fix_cli_app(fileExplorer, '/home/david/.config/qtile')),
+        lazy.function(function.terminal_app, editor, '/home/david/.config/qtile/config.py', windowName="Qtile config", sleep=0.1),
         desc='Qtile config'
         ),
     # Switch audio output
@@ -141,6 +140,12 @@ keys = [
         lazy.function(function.switch_redshift),
         desc='Switch redshift'
         ),
+    # Random background
+    Key([mod, "shift"], "b",
+        lazy.function(function.random_background),
+        desc='Random background'
+        ),
+
 
 
     ### MONITORS
@@ -343,20 +348,44 @@ layouts = [
 ### WORKSPACES
 
 group_names = [
-    ("", {'layout': 'tabs', 'matches': [Match(wm_class='firefox')]}),                  # Firefox
-    ("", {'layout': 'columns'}),                                                       # Terminal
-    ("", {'layout': 'columns', 'matches': [Match(wm_class='code')]}),                  # Code
-    ("", {'layout': 'tabs', 'matches': [                                               # Game
-        Match(title='Counter-Strike'),
+    ("", {'layout': 'tabs', 'matches': [                                               # Browser
+        Match(wm_class='firefox'),
+        Match(wm_class='qutebrowser')
+    ]}),
+    ("", {'layout': 'columns', 'matches': [                                            # Terminal
+        Match(title='Htop memory usage'),
+        Match(title='Htop cpu usage')
+    ]}),
+    ("", {'layout': 'columns', 'matches': [                                            # Editor
+        Match(wm_class='code'),
+        Match(title='Neovim'),
+        Match(title='Qtile config')
+    ]}),
+    ("", {'layout': 'tabs', 'matches': [                                               # Files
+        Match(wm_class='pcmanfm'),
+        Match(title='Nextcloud'),
+        Match(title='Ranger')
+   ]}),
+    ("", {'layout': 'columns', 'matches': [                                            # Gaming
+        Match(title='Steam'),
+        Match(wm_class='csgo_linux64'),
         Match(title='Brawlhalla'),
         Match(title='Rocket League'),
         Match(title='Minecraft Launcher')
     ]}),
-    ("", {'layout': 'columns', 'matches': [Match(title='Steam')]}),                    # Steam
-    ("", {'layout': 'tabs', 'matches': [Match(wm_class='discord')]}),                  # Discord
-    ("", {'layout': 'columns', 'matches': [Match(wm_class='telegram-desktop')]}),      # Telegram
-    ("", {'layout': 'tabs', 'matches': [Match(wm_class='Mailspring')]}),               # Mail client
-    ("", {'layout': 'tabs', 'matches': [Match(title='Spotify')]})                      # Spotify
+    ("", {'layout': 'tabs', 'matches': [                                               # Discord
+        Match(wm_class='discord')
+    ]}),
+    ("", {'layout': 'columns', 'matches': [                                            # Telegram
+        Match(wm_class='telegram-desktop')
+    ]}),
+    ("", {'layout': 'tabs', 'matches': [                                               # Mail client
+        Match(wm_class='Mailspring')
+    ]}),
+    ("", {'layout': 'tabs', 'matches': [                                               # Spotify
+        Match(title='Spotify'),
+        Match(wm_class='spotify')
+    ]})
 ]
 
 # Qtile groups
@@ -605,7 +634,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(title='pinentry'),                # GPG key password entry
 ])
 auto_fullscreen = True
-focus_on_window_activation = "smart"
+focus_on_window_activation = "focus"
 reconfigure_screens = True
 
 # If things like steam games want to auto-minimize themselves when losing

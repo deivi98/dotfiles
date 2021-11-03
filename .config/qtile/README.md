@@ -4,7 +4,7 @@
 |----------------------|--------------------------|--------------------------------------------------------------------------|
 |  **_ESSENTIALS_**        | ALT + RETURN             | Open terminal                                                            |
 |                      | ALT + BACKSPACE          | Kill window                                                              |
-|                      | ALT + SHIFT + r          | Restart Qtile                                                            |
+|                      | ALT + SHIFT + r          | Reload Qtile                                                             |
 |                      | ALT + SHIFT + BACKSPACE  | Quit Qtile                                                               |
 |                      | ALT + CTRL + r           | Restart computer                                                         |
 |                      | ALT + CTRL + BACKSPACE   | Shutdown computer                                                        |

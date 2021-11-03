@@ -25,5 +25,4 @@ sed -i -e "s/@import .*/@import \"$color\"/g" $dir/styles/colors.rasi
 # themes=($(ls -p --hide="launcher.sh" --hide="styles" $dir))
 # theme="${themes[$(( $RANDOM % 12 ))]}"
 
-# rofi -no-lazy-grab -show drun -modi drun -theme $dir/"$theme"
-rofi -no-lazy-grab -combi-modi window,drun,ssh,combi -show drun -theme $dir/"$theme"
+rofi -no-lazy-grab -modi window,drun,ssh,combi -combi-modi drun,window,ssh -show combi -theme $dir/"$theme"

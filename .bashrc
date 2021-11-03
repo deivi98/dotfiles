@@ -10,7 +10,6 @@ export XDG_CONFIG_HOME="$HOME/.config"        # Sets default .config directory
 export XDG_CACHE_HOME="$HOME/.cache"          # Sets default .cache directory
 export XDG_DATA_HOME="$HOME/.local/share"     # Sets default .local/share directory
 export XDG_STATE_HOME="$HOME/.local/state"    # Sets default .local/state directory
-export __GL_SHADER_DISK_CACHE_PATH="$HOME/.cache/nv"
 export GNUPGHOME="$XDG_CONFIG_HOME"
 export TERM="xterm-256color"                  # Getting proper colors
 export HISTCONTROL=ignoredups                 # Ignore duplicates in .bash_history
@@ -109,6 +108,7 @@ alias pacsyu='sudo pacman -Syyu'                 # update only standard pkgs
 alias yaysua='yay -Sua --noconfirm'              # update only AUR pkgs (yay)
 alias yaysyu='yay -Syu --noconfirm'              # update standard pkgs and AUR pkgs (yay)
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'  # remove orphaned packages
+alias cu='checkupdates'
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'

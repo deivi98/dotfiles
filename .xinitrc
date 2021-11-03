@@ -43,6 +43,6 @@ feh --recursive --no-fehbg --bg-fill --randomize ~/.config/wallpapers/nature
 # Starts screensaver process in the background
 xscreensaver -no-splash &
 # Starts compositor process in the background
-picom &
+picom --experimental-backends --backend glx --xrender-sync-fence &
 # Starts Qtile
 exec qtile start 
