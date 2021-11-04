@@ -12,7 +12,7 @@ from typing import List                             # noqa: F401
 from libqtile import layout, hook, widget, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-from libqtile.bar import Bar
+from libqtile.bar import Bar, Gap
 
 # My functions
 import function
@@ -64,6 +64,11 @@ keys = [
         lazy.function(function.open_help),
         desc='Help'
         ),
+    # Qtile config
+    Key([mod, "shift"], "q",
+        lazy.function(function.terminal_app, editor, '/home/david/.config/qtile/config.py', windowName="Qtile config", sleep=0.1),
+        desc='Qtile config'
+        ),
 
     ### MY OWN KEYBINDINGS
 
@@ -87,6 +92,10 @@ keys = [
     Key([mod], "d",
         lazy.function(function.gotoapp_or_create, 'discord'),
         desc='Discord'
+        ),
+    Key([mod], "g",
+        lazy.group[""].toscreen(toggle=False),
+        desc='Game'
         ),
     Key([mod], "t",
         lazy.function(function.gotoapp_or_create, 'telegram-desktop', 'Telegram'),
@@ -125,10 +134,10 @@ keys = [
         lazy.function(function.terminal_app, 'htop', '-s PERCENT_CPU', windowName="Htop cpu usage"),
         desc='Htop'
         ),
-    # Qtile config
-    Key([mod, "shift"], "q",
-        lazy.function(function.terminal_app, editor, '/home/david/.config/qtile/config.py', windowName="Qtile config", sleep=0.1),
-        desc='Qtile config'
+    # Bashtop 
+    Key([mod, "shift"], "i",
+        lazy.function(function.terminal_app, 'bashtop', windowName="Bashtop"),
+        desc='Bashtop'
         ),
     # Switch audio output
     Key([mod, "shift"], "o",
@@ -145,8 +154,6 @@ keys = [
         lazy.function(function.random_background),
         desc='Random background'
         ),
-
-
 
     ### MONITORS
 
@@ -299,7 +306,7 @@ _colors = [
     '1b1c26',   # Icon, Bar color 1, widget font
     'ffffff',   # Unused
     'ffffff',   # Unused
-    'b82a2c',   # Bar color 2, focused window border line
+    'e8942e',   # Bar color 2, focused window border line
     'ffffff',   # Unused
     'ffffff',   # Unused
     'ffffff',   # Unused
@@ -313,36 +320,29 @@ colors = tuple(map(map_color, _colors))
 
 ### LAYOUTS
 
+margin = 15
+
 # Layout default settings
 layout_theme = {
-    "border_width": 4,
-    "margin": 8,
-    "margin_on_single": [0,0,0,0],
+    "border_width": 2,
+    "margin": [margin,margin,0,0],
+    #"margin_on_single": [0,0,0,0],
+    "border_on_single": True,
     "border_focus": _colors[3],
     "border_normal": _colors[7],
     "grow_amount": 5
 }
 
 stack_theme = {
-    "border_width": 0,
-    "margin": 0
+    "border_width": 2,
+    "border_focus": _colors[3],
+    "margin": [margin,margin,0,0]
 }
 
 # Qtile active layouts
 layouts = [
     layout.Columns(**layout_theme),
-    layout.Stack(num_stacks=1, name="tabs", **stack_theme),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2, **layout_theme),
-    # layout.MonadTall(**layout_theme),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    layout.Stack(num_stacks=1, name="tabs", **stack_theme)
 ]
 
 ### WORKSPACES
@@ -424,12 +424,13 @@ extension_defaults = widget_defaults.copy()
 def icon_settings():
 	return {
 		'padding': 0,
-		'fontsize': 28
+		'fontsize': 33
 	}
 
 def left_arrow(color1, color2):
 	return widget.TextBox(
-		text = '\uE0B2',
+		# text = '\uE0B2',
+		text = '\ue0be',
 		background = color1,
 		foreground = color2,
 		**icon_settings()
@@ -464,7 +465,7 @@ def init_right_section(widgets, backgroundColor, foregroundColor, first=False):
 def init_left_side():
     return init_left_section([
             widget.TextBox(
-                text="",
+                text="",
                 font="FontAwesome",
                 background=colors[3],
                 mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal)}
@@ -606,10 +607,14 @@ def init_top_bar(secondary=False):
         widgets += init_right_side_secondary()
     else:
         widgets += init_right_side()
-    return Bar(widgets=widgets, opacity=1.0, margin=[0, 0, 0, 0], size=size_of_bar_height)
+    return Bar(widgets=widgets, opacity=1.0, margin=[margin, margin, 0, margin], size=size_of_bar_height)
 
 def init_screen(secondary=False):
-    return Screen(top=init_top_bar(secondary))
+    return Screen(
+        top=init_top_bar(secondary),
+        bottom=Gap(margin),
+        left=Gap(margin)
+    )
 
 screens = [
 	init_screen(),
@@ -617,12 +622,6 @@ screens = [
 ]
 
 ### OTHER CONFIG VALUES
-
-dgroups_key_binder = None
-dgroups_app_rules = []  # type: List
-follow_mouse_focus = True
-bring_front_click = False
-cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
@@ -633,20 +632,13 @@ floating_layout = layout.Floating(float_rules=[
     Match(title='branchdialog'),            # gitk
     Match(title='pinentry'),                # GPG key password entry
 ])
+dgroups_key_binder = None
+dgroups_app_rules = []
+follow_mouse_focus = True
+bring_front_click = False
+cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "focus"
 reconfigure_screens = True
-
-# If things like steam games want to auto-minimize themselves when losing
-# focus, should we respect this or not?
 auto_minimize = False
-
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
-wmname = "Qtile"
+wmname = "Qtile" # X11 window manager name

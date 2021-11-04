@@ -44,5 +44,7 @@ feh --recursive --no-fehbg --bg-fill --randomize ~/.config/wallpapers/nature
 xscreensaver -no-splash &
 # Starts compositor process in the background
 picom --experimental-backends --backend glx --xrender-sync-fence &
+# Starts flameshot screenshot process
+flameshot &
 # Starts Qtile
 exec qtile start 
