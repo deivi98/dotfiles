@@ -113,6 +113,10 @@ keys = [
         lazy.function(function.terminal_app, editor, windowName="Neovim", sleep=0.1),
         desc='Neovim'
         ),
+    Key([mod], "c",
+        lazy.function(function.gotoapp_or_create, 'code', wName="Visual Studio Code"),
+        desc='Visual Studio Code'
+        ),
     Key([mod], "f",
         lazy.function(function.terminal_app, fileExplorer),
         desc='Ranger'
@@ -138,6 +142,11 @@ keys = [
     Key([mod, "shift"], "i",
         lazy.function(function.terminal_app, 'bashtop', windowName="Bashtop"),
         desc='Bashtop'
+        ),
+    # Flameshot screenshot
+    Key([mod, "shift"], "s",
+        lazy.spawn(["flameshot", "gui"]),
+        desc='Screenshot'
         ),
     # Switch audio output
     Key([mod, "shift"], "o",
@@ -350,41 +359,39 @@ layouts = [
 group_names = [
     ("", {'layout': 'tabs', 'matches': [                                               # Browser
         Match(wm_class='firefox'),
-        Match(wm_class='qutebrowser')
+        Match(wm_class='qutebrowser'),
+        Match(wm_class='Mailspring')
     ]}),
     ("", {'layout': 'columns', 'matches': [                                            # Terminal
         Match(title='Htop memory usage'),
         Match(title='Htop cpu usage')
+    ]}),
+    ("", {'layout': 'tabs', 'matches': [                                               # Files
+        Match(wm_class='pcmanfm'),
+        Match(title='Nextcloud'),
+        Match(title='Ranger')
     ]}),
     ("", {'layout': 'columns', 'matches': [                                            # Editor
         Match(wm_class='code'),
         Match(title='Neovim'),
         Match(title='Qtile config')
     ]}),
-    ("", {'layout': 'tabs', 'matches': [                                               # Files
-        Match(wm_class='pcmanfm'),
-        Match(title='Nextcloud'),
-        Match(title='Ranger')
-   ]}),
+    ("", {'layout': 'tabs', 'matches': [                                               # Spotify
+        Match(title='Spotify'),
+        Match(wm_class='spotify')
+    ]}),
+    ("", {'layout': 'columns', 'matches': [                                            # Telegram
+        Match(wm_class='telegram-desktop')
+    ]}),
+    ("", {'layout': 'tabs', 'matches': [                                               # Discord
+        Match(wm_class='discord')
+    ]}),
     ("", {'layout': 'columns', 'matches': [                                            # Gaming
         Match(title='Steam'),
         Match(wm_class='csgo_linux64'),
         Match(title='Brawlhalla'),
         Match(title='Rocket League'),
         Match(title='Minecraft Launcher')
-    ]}),
-    ("", {'layout': 'tabs', 'matches': [                                               # Discord
-        Match(wm_class='discord')
-    ]}),
-    ("", {'layout': 'columns', 'matches': [                                            # Telegram
-        Match(wm_class='telegram-desktop')
-    ]}),
-    ("", {'layout': 'tabs', 'matches': [                                               # Mail client
-        Match(wm_class='Mailspring')
-    ]}),
-    ("", {'layout': 'tabs', 'matches': [                                               # Spotify
-        Match(title='Spotify'),
-        Match(wm_class='spotify')
     ]})
 ]
 
@@ -405,7 +412,7 @@ screen_width = int(subprocess.Popen('xrandr | grep primary | cut -d" " -f4 | cut
 size_of_font = int(screen_width/120)
 size_of_separator = int(screen_width/320)
 size_of_padding = int(screen_width/960)
-size_of_bar_height= int(screen_width/75)
+size_of_bar_height= int(screen_width/80)
 
 # Default widget settings
 widget_defaults = dict(
@@ -444,11 +451,6 @@ def right_arrow(color1, color2):
 		**icon_settings()
 	)
 
-# Get volume
-def get_volume():
-    output = subprocess.Popen('/home/david/.config/qtile/scripts/getVolume.sh', shell=True, stdout=subprocess.PIPE).communicate()[0][:-1]
-    return output.decode()
-
 def init_left_section(widgets, backgroundColor, foregroundColor, arrow=True):
     section = [widget.Sep(padding=size_of_separator, linewidth=0, background=colors[foregroundColor])] + widgets
     if arrow:
@@ -467,7 +469,9 @@ def init_left_side():
             widget.TextBox(
                 text="",
                 font="FontAwesome",
+                fontsize=33,
                 background=colors[3],
+                foreground=colors[0],
                 mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal)}
             )
         ], 7, 3) + init_left_section([
@@ -479,9 +483,9 @@ def init_left_side():
                 other_screen_border=colors[7],
                 hide_unused = False,
                 rounded = True,
-                highlight_method = 'block',
+                highlight_method = 'line',
+                highlight_color=colors[7],
                 font="FontAwesome",
-                padding_y=size_of_padding*2,
                 active=colors[0],
                 inactive=colors[0],
             )
@@ -497,47 +501,75 @@ def init_right_side():
     return init_right_section([
         widget.Mpris2(
             background=colors[7],
-            fmt='  {}...',
+            fmt=' {}',
             scroll_chars=50,
-            scroll_wait_intervals=40000,
+            scroll_wait_intervals=400000,
             objname='org.mpris.MediaPlayer2.spotify',
+            display_metadata=["xesam:title", "xesam:artist"],
             font="FontAwesome"
-        )
+        ),
     ], 3, 7, first=True) + init_right_section([
-        widget.TextBox(text="", background=colors[3]),
-        widget.Systray(background=colors[3], **icon_settings())
+        #widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
+        #widget.DF(
+        #    fmt="{}",
+        #    font="FontAwesome",
+        #    partition="/home",
+        #    format="{uf}{m} ({r:.0f}%)",
+        #    visible_on_warn=False,
+        #    background=colors[3],
+        #    foreground=colors[0],
+        #    padding=5,
+        #    mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(terminal + " -e bashtop")},
+        #),
+        widget.TextBox(text="pkgs ",font="FontAwesome",background=colors[3]),
+        widget.GenPollText(
+            background = colors[3],
+            update_interval = 600,
+            func = function.exec_script('num-pkgs'),
+        ),
+        widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
+        widget.GenPollText(
+            background = colors[3],
+            update_interval = 600,
+            func = function.exec_script('num-installed-pkgs'),
+        ),
+
+        widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
+        widget.GenPollText(
+            background = colors[3],
+            update_interval = 600,
+            func = function.exec_script('num-yay-pkgs'),
+        ),
+        widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
+        widget.CheckUpdates(
+                update_interval = 3600,
+                distro = "Arch_checkupdates",
+                display_format = "{updates} Updates",
+                no_update_string = "No updates",
+                colour_no_updates = colors[0],
+                colour_have_updates = "df0000",
+                mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e yay -Syu --noconfirm')},
+                background = colors[3]
+        )
     ], 7, 3) + init_right_section([
         widget.KeyboardLayout(background=colors[7]),
         widget.TextBox(text="  ",font="FontAwesome",background=colors[7]),
         widget.CurrentLayout(background=colors[7]),
         widget.WindowCount(text_format="[{num}]", background=colors[7])
     ], 3, 7) + init_right_section([
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
-        widget.CheckUpdates(
-                update_interval = 600,
-                distro = "Arch_checkupdates",
-                display_format = "{updates} Updates",
-                no_update_string = "No updates",
-                colour_no_updates = colors[0],
-                colour_have_updates = "ffffff",
-                mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e yay -Syu --noconfirm')},
-                background = colors[3]
-        )
-    ], 7, 3) + init_right_section([
         widget.GenPollText(
-            background=colors[7],
-            func=get_volume,
+            background=colors[3],
+            func=function.exec_script('get-volume'),
             update_interval=0.2,
             mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('pavucontrol')},
             font="FontAwesome"
         )
-    ], 3, 7) + init_right_section([
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
-        widget.Clock(background=colors[3],format= '%H:%M')
     ], 7, 3) + init_right_section([
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[7]),
-        widget.Clock(background=colors[7], format= '%d %b, %A'),
-    ], 3, 7)
+        widget.Systray(background=colors[7], **icon_settings())
+    ], 3, 7) + init_right_section([
+        widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
+        widget.Clock(background=colors[3],format= '%d-%m-%y %A %H:%M'),
+    ], 7, 3)
 
 def init_right_side_secondary():
     return init_right_section([
@@ -546,59 +578,57 @@ def init_right_side_secondary():
         widget.CurrentLayout(background=colors[3]),
         widget.WindowCount(text_format="[{num}]", background=colors[3])
     ], 7, 3, first=True) + init_right_section([
-        widget.TextBox(text=" GPU ",font="FontAwesome",background=colors[7]),
-        widget.NvidiaSensors(
-            background=colors[7],
-            foreground=colors[0],
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
-        )
-    ], 3, 7) + init_right_section([
-        widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
+        widget.TextBox(text=" ",font="FontAwesome",background=colors[7]),
+        widget.CPU(background=colors[7],format='{load_percent}%'),
+        #widget.CPUGraph(
+        #    background=colors[7],
+        #    border_width=0,
+        #    graph_color=colors[0],
+        #    fill_color=colors[0],
+        #    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
+        #),
+        widget.TextBox(text=" ",font="FontAwesome",background=colors[7]),
         widget.Memory(
-            background=colors[3],
-            format='{MemUsed:6.0f}/{MemTotal:6.0f}{mm}',
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
-        )
-    ], 7, 3) + init_right_section([
-        # widget.CPU(background=colors[3],format='{load_percent:>7.2f}%'),
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[7]),
-        widget.ThermalSensor(
             background=colors[7],
+            format='{MemUsed:5.0f}{mm}',
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
+        ),
+        #widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
+        #widget.Net(background=colors[3], format = '{down:>7}  {up:>7}', font="Monospace"),
+        #widget.NetGraph(
+        #    background=colors[3],
+        #    border_width=0,
+        #    graph_color=colors[0],
+        #    fill_color=colors[0],
+        #    interface='enp0s31f6',
+        #    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
+        #)
+    ], 3, 7) + init_right_section([
+        widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
+        widget.ThermalSensor(
+            background=colors[3],
             foreground=colors[0],
             tag_sensor='Package id 0',
             # format='{MemUsed: 6.0f}/{MemTotal: 6.0f}{mm}',
             mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
         ),
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[7]),
-        widget.CPUGraph(
-            background=colors[7],
-            border_width=0,
-            graph_color=colors[0],
-            fill_color=colors[0],
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
-        )
-    ], 3, 7) + init_right_section([
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
-        # widget.Net(background=colors[7],format = '{down:>20} ↓↑ {up:>20}'),
-        widget.NetGraph(
+        widget.TextBox(text=" GPU ",font="FontAwesome",background=colors[3]),
+        widget.NvidiaSensors(
             background=colors[3],
-            border_width=0,
-            graph_color=colors[0],
-            fill_color=colors[0],
-            interface='enp0s31f6',
+            foreground=colors[0],
             mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e htop')}
         )
     ], 7, 3) + init_right_section([
         widget.GenPollText(
             background=colors[7],
-            func=get_volume,
+            func=function.exec_script('get-volume'),
             update_interval=0.2,
             mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('pavucontrol')},
             font="FontAwesome",
         )
     ], 3, 7) + init_right_section([
-        widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
-        widget.Clock(background=colors[3],format= '%H:%M')
+        widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
+        widget.Clock(background=colors[3],format= '%H:%M'),
     ], 7, 3)
 
 def init_top_bar(secondary=False):

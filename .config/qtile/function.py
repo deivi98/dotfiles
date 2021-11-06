@@ -55,6 +55,10 @@ def mute_all(qtile):
 def run_shell_command(cmd):
     return str(subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE).communicate()[0])[2:-3]
 
+# Exec script
+def exec_script(script):
+    return lambda: subprocess.Popen('/home/david/.config/qtile/scripts/' + script, shell=True, stdout=subprocess.PIPE).communicate()[0].decode()
+
 # Switch keyboard layout between [US, ES]
 def switch_keyboard_layout(qtile):
     current_layout = run_shell_command('setxkbmap -query | grep layout | cut -d" " -f6')
