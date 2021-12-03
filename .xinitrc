@@ -1,7 +1,7 @@
 #  ____           _           _ 
 # |  _ \    ___  (_) __   __ (_)	David González (deivi)
 # | | | |  / _ \ | | \ \ / / | |	https://deivii.es
-# | |_| | |  __/ | |  \ V /  | |    	https://github.com/deivi98
+# | |_| | |  __/ | |  \ V /  | |  https://github.com/deivi98
 # |____/   \___| |_|   \_/   |_|
 #
 
@@ -40,11 +40,7 @@ fi
 xset r rate 200 45
 # Sets random wallpaper
 feh --recursive --no-fehbg --bg-fill --randomize ~/.config/wallpapers/nature
-# Starts screensaver process in the background
-xscreensaver -no-splash &
 # Starts compositor process in the background
 picom --experimental-backends --backend glx --xrender-sync-fence &
-# Starts flameshot screenshot process
-flameshot &
 # Starts Qtile
 exec qtile start 

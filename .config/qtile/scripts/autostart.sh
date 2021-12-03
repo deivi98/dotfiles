@@ -1,5 +1,9 @@
 #!/bin/sh
+discord &
 nextcloud &
 steam -silent &
-discord &
 mailspring -b &
+flameshot &
+redshift-gtk &
+xscreensaver -no-splash &
+/home/david/.config/qtile/scripts/screenSaver.sh &
