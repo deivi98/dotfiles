@@ -11,6 +11,7 @@ export XDG_CACHE_HOME="$HOME/.cache"          # Sets default .cache directory
 export XDG_DATA_HOME="$HOME/.local/share"     # Sets default .local/share directory
 export XDG_STATE_HOME="$HOME/.local/state"    # Sets default .local/state directory
 export GNUPGHOME="$XDG_CONFIG_HOME"
+export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 export TERM="xterm-256color"                  # Getting proper colors
 export HISTCONTROL=ignoredups                 # Ignore duplicates in .bash_history
 export LESSHISTFILE=/dev/null                 # Ignore .lesshst

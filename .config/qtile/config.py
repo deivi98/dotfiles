@@ -118,11 +118,11 @@ keys = [
         desc='Visual Studio Code'
         ),
     Key([mod], "f",
-        lazy.function(function.terminal_app, fileExplorer),
+        lazy.function(function.terminal_app, fileExplorer, sleep=0.1),
         desc='Ranger'
         ),
     Key([mod], "n",
-        lazy.function(function.terminal_app, fileExplorer, '/mnt/hdd/nextcloud', windowName="Nextcloud"),
+        lazy.function(function.terminal_app, fileExplorer, '/mnt/hdd/nextcloud', windowName="Nextcloud", sleep=0.1),
         desc='Nextcloud'
         ),
 
@@ -409,7 +409,8 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 ### WIDGETS
 
 # Sizes
-screen_width = int(subprocess.Popen('xrandr | grep primary | cut -d" " -f4 | cut -d"+" -f1 | cut -d"x" -f1', shell=True, stdout=subprocess.PIPE).communicate()[0])
+# screen_width = int(subprocess.Popen('xrandr | grep primary | cut -d" " -f4 | cut -d"+" -f1 | cut -d"x" -f1', shell=True, stdout=subprocess.PIPE).communicate()[0])
+screen_width = 2560
 size_of_font = int(screen_width/120)
 size_of_separator = int(screen_width/320)
 size_of_padding = int(screen_width/960)
