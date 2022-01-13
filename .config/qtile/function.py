@@ -14,7 +14,7 @@ def focusWindow(qtile, wName: str) -> bool:
         windows = qtile.cmd_groups()[group]['windows']
 
         for windowName in windows:
-            if wName.lower() in windowName.lower():
+            if wName.lower() in windowName.lower() and ("firefox" not in windowName.lower() or "firefox" in wName.lower()):
 
                 if qtile.screens[0].group.name != group:
                     qtile.screens[0].cmd_toggle_group(group)
@@ -64,9 +64,9 @@ def switch_keyboard_layout(qtile):
     current_layout = run_shell_command('setxkbmap -query | grep layout | cut -d" " -f6')
 
     if current_layout == "us":
-        run_cmd(qtile, 'setxkbmap -layout es && xset r rate 200 45')
+        run_cmd(qtile, 'setxkbmap -layout es && xset r rate 200 50')
     else:
-        run_cmd(qtile, 'setxkbmap -layout us && xset r rate 200 45')
+        run_cmd(qtile, 'setxkbmap -layout us && xset r rate 200 50')
 
 # Switch sound output (Headphones, Speakers)
 def switch_sound_output(qtile):

@@ -12,12 +12,13 @@ export XDG_DATA_HOME="$HOME/.local/share"     # Sets default .local/share direct
 export XDG_STATE_HOME="$HOME/.local/state"    # Sets default .local/state directory
 export GNUPGHOME="$XDG_CONFIG_HOME"
 export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
+export npm_config_prefix="$HOME/.local"
 export TERM="xterm-256color"                  # Getting proper colors
 export HISTCONTROL=ignoredups                 # Ignore duplicates in .bash_history
 export LESSHISTFILE=/dev/null                 # Ignore .lesshst
-export EDITOR="nvim"
-export VISUAL="nvim"
-export BROWSER="firefox"
+export EDITOR=lvim
+export VISUAL=lvim
+export BROWSER=firefox
 
 ### VIM KEYS
 set -o vi
@@ -71,8 +72,8 @@ shopt -s checkwinsize # checks term size when bash regains control
 # Ignore upper and lowercase when TAB completion
 bind "set completion-ignore-case on"
 
-source /usr/share/fzf/key-bindings.bash
-source /usr/share/fzf/completion.bash 
+# source /usr/share/fzf/key-bindings.bash
+# source /usr/share/fzf/completion.bash 
 
 # If there are multiple matches for completion, Tab should cycle through them
 bind 'TAB':menu-complete
@@ -94,7 +95,7 @@ alias cloud='ssh cloud'
 alias deivi='ssh deivii'
 
 # Programs
-alias vim='nvim'
+alias vim='lvim'
 alias cat='bat'
 
 # Changing "ls" to "exa"

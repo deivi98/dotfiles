@@ -29,7 +29,7 @@ mod2 = "mod4"
 terminal = "alacritty"      # My terminal of choice
 browser = "firefox"         # My browser of choice
 fileExplorer = "ranger"     # My file explorer of choice
-editor = "nvim"             # My editor
+editor = "lvim"             # My editor
 home = "/home/david"        # My home directory
 
 ### Qtile keybindings
@@ -86,12 +86,16 @@ keys = [
     ### APPLICATIONS QUICK ACCESS
 
     Key([mod], "b",
-        lazy.function(function.gotoapp_or_create, "env GTK_THEME=Adwaita:light " + browser, "Firefox"),
+        lazy.function(function.gotoapp_or_create, browser, "Firefox"),
         desc='Firefox'
         ),
     Key([mod], "d",
         lazy.function(function.gotoapp_or_create, 'discord'),
         desc='Discord'
+        ),
+    Key([mod], "i",
+        lazy.function(function.gotoapp_or_create, 'srain'),
+        desc='Srain'
         ),
     Key([mod], "g",
         lazy.group[""].toscreen(toggle=False),
@@ -110,8 +114,8 @@ keys = [
         desc='Spotify'
         ),
     Key([mod], "e",
-        lazy.function(function.terminal_app, editor, windowName="Neovim", sleep=0.1),
-        desc='Neovim'
+        lazy.function(function.terminal_app, editor, windowName="LunarVim", sleep=0.1),
+        desc='LunarVim'
         ),
     Key([mod], "c",
         lazy.function(function.gotoapp_or_create, 'code', wName="Visual Studio Code"),
@@ -362,22 +366,21 @@ group_names = [
         Match(wm_class='qutebrowser'),
         Match(wm_class='Mailspring')
     ]}),
-    ("", {'layout': 'columns', 'matches': [                                            # Terminal
-        Match(title='Htop memory usage'),
-        Match(title='Htop cpu usage')
-    ]}),
     ("", {'layout': 'tabs', 'matches': [                                               # Files
         Match(wm_class='pcmanfm'),
         Match(title='Nextcloud'),
-        Match(title='Ranger')
+        Match(title='Ranger'),
+        Match(title='Htop memory usage'),
+        Match(title='Htop cpu usage')
     ]}),
     ("", {'layout': 'columns', 'matches': [                                            # Editor
         Match(wm_class='code'),
-        Match(title='Neovim'),
+        Match(title='LunarVim'),
         Match(title='Qtile config')
     ]}),
     ("", {'layout': 'tabs', 'matches': [                                               # Discord
-        Match(wm_class='discord')
+        Match(wm_class='discord'),
+        Match(wm_class='srain')
     ]}),
     ("", {'layout': 'columns', 'matches': [                                            # Gaming
         Match(title='Steam'),

@@ -6,21 +6,22 @@
 #
 
 ### EXPORTS
-
-# Getting proper colors
-export TERM="xterm-256color"                      
-export HISTCONTROL=ignoredups
-export EDITOR="nvim"
-export VISUAL="nvim"
-export BROWSER="firefox"
-export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_HOME="$HOME/.config"        # Sets default .config directory
+export XDG_CACHE_HOME="$HOME/.cache"          # Sets default .cache directory
+export XDG_DATA_HOME="$HOME/.local/share"     # Sets default .local/share directory
+export XDG_STATE_HOME="$HOME/.local/state"    # Sets default .local/state directory
+export GNUPGHOME="$XDG_CONFIG_HOME"
+export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
+export npm_config_prefix="$HOME/.local"
+export TERM="xterm-256color"                  # Getting proper colors
+export HISTCONTROL=ignoredups                 # Ignore duplicates in .bash_history
+export LESSHISTFILE=/dev/null                 # Ignore .lesshst
+export EDITOR=lvim
+export VISUAL=lvim
+export BROWSER=firefox
 
 ### VIM KEYS
-set -o vi
-
-### Clear screen
-# bind -m vi-command 'Control-l: clear-screen'
-# bind -m vi-insert 'Control-l: clear-screen'
+bindkey -v
 
 ### If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -54,34 +55,24 @@ case ${TERM} in
     ;;
 esac
 
-### SHOPT
-# shopt -s autocd # change to named directory
-# shopt -s cdspell # autocorrects cd misspellings
-# shopt -s cmdhist # save multi-line commands in history as single line
-# shopt -s histappend # do not overwrite history
-# shopt -s expand_aliases # expand aliases
-# shopt -s checkwinsize # checks term size when bash regains control
+### ZSH COMPLETION
+zstyle ':completion:*' completer _complete _ignored
+# zstyle ':completion:*' list-colors '${(s.:.)LS_COLORS}'
+# zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
+zstyle :compinstall filename '/home/david/.zshrc'
 
-### BASH COMPLETION
+autoload -Uz compinit
+compinit
 
-# Ignore upper and lowercase when TAB completion
-# bind "set completion-ignore-case on"
+### ZSH SUGGESTIONS
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# source /usr/share/fzf/key-bindings.bash
-# source /usr/share/fzf/completion.bash 
-
-# If there are multiple matches for completion, Tab should cycle through them
-# bind 'TAB':menu-complete
-
-# Display a list of the matching files
-# bind "set show-all-if-ambiguous on"
-
-# Perform partial completion on the first Tab press,
-# only start cycling full results on the second Tab press
-# bind "set menu-complete-display-prefix on"
-
-# Colour autocomplete suggestions
-# bind "set colored-stats on"
+### HISTORY
+HISTFILE=~/.cache/zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+setopt autocd beep extendedglob notify
 
 ### ALIASES
 
@@ -90,7 +81,8 @@ alias cloud='ssh cloud'
 alias deivi='ssh deivii'
 
 # Programs
-alias vim='nvim'
+alias vim='lvim'
+alias cat='bat'
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
@@ -104,11 +96,15 @@ alias pacsyu='sudo pacman -Syyu'                 # update only standard pkgs
 alias yaysua='yay -Sua --noconfirm'              # update only AUR pkgs (yay)
 alias yaysyu='yay -Syu --noconfirm'              # update standard pkgs and AUR pkgs (yay)
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'  # remove orphaned packages
+alias cu='checkupdates'
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+
+# Top
+alias top='bashtop'
 
 # Confirm before overwriting something
 alias cp="cp -i"
@@ -131,6 +127,8 @@ alias dotgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
 	exec startx
 fi
+
+neofetch
 
 ### STARSHIP PROMPT
 eval "$(starship init zsh)"
