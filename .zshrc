@@ -156,7 +156,7 @@ alias free='free -m'                                            # Show sizes in 
 alias svim="HOME=/home/david && sudo vim -u $HOME/.vimrc"
 
 ## Dotfiles git
-alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dots='/usr/bin/git --git-dir=$HOME/.config/dotfiles/ --work-tree=$HOME'
 
 # -----------------------------------------------
 
