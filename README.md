@@ -5,55 +5,30 @@ Hi there, these are my own dotfiles :)
 ## Table of contents
 
 * [Cheatsheet](#cheatsheet)
-
 * [Installed Packages](#installed-packages)
-  
   * [Kernels](#kernels)
-  
   * [Graphics](#graphics)
-  
   * [Shell](#shell)
-  
   * [WM](#wm)
-  
   * [Network](#network)
-  
   * [Bluetooth](#bluetooth)
-  
   * [Peripherals](#peripherals)
-  
   * [Hardware](#hardware)
-  
   * [Video](#video)
-  
   * [PDF](#pdf)
-  
   * [Sound](#sound)
-  
   * [Music](#music)
-  
   * [Browser](#browser)
-  
   * [Editor](#editor)
-  
   * [Appearance](#appearance)
-  
   * [File Explorer](#file-explorer)
-  
   * [Terminal emulator](#terminal-emulator)
-  
   * [Essential](#essential)
-  
   * [Cloud](#cloud)
-  
   * [Package Manager](#package-manager)
-  
   * [User Programs](#user-programs)
-  
   * [Gaming](#gaming)
-  
   * [Fonts](#fonts)
-  
   * [Utils](#utils)
 
 ## Cheatsheet
@@ -61,35 +36,27 @@ Hi there, these are my own dotfiles :)
 #### Package management
 
 - List of explicitly installed packages
-  
   > pacman -Qqetn
 
 - List of explicitly installed AUR/other packages
-  
   > pacman -Qqetm
 
 - List of unused packages
-  
   > pacman -Qtdq
 
 - Package detailed information
-  
   > pacman -Qii
 
 - List of modified /etc configurations
-  
   > sudo pacman -Qii | awk '/^MODIFIED/ {print $2}'
 
 - Package tree dependencies
-  
   > pactree
 
 - Package files in use
-  
   > pkgfile
 
 - .pacsave & .pacnew files
-  
   > pacdiff
 
 ## Installed packages
@@ -240,47 +207,25 @@ Hi there, these are my own dotfiles :)
 ### Utils
 
 * screen
-
 * tmux
-
 * os-prober
-
 * base-devel
-
 * python-setuptools
-
 * gnome-keyring
-
 * openssh
-
 * xbindkeys -mk
-
 * xcape
-
 * exa
-
 * md2pdf [AUR]
-
 * bat
-
 * ripgrep
-
 * fd
-
 * starship
-
 * neofetch
-
 * htop
-
 * bashtop
-
 * flameshot
-
 * docker
-
 * docker-compose
-
 * virtualbox
-
 * virtualbox-host-dkms
