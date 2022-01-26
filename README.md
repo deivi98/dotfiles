@@ -7,7 +7,7 @@ Hi there, these are my own dotfiles :)
 * [Installed Packages](#installed-packages)
   * [Arch Linux](#arch-linux)
     * [Boot](#boot)
-    * [Pacman](#pacman)
+    * [Package managing](#package-managing)
     * [WM](#wm)
     * [Terminal emulator](#terminal-emulator)
     * [Shell](#shell)
@@ -43,12 +43,13 @@ A list of all important packages installed on my machine.
 Main operative system packages. Software related.
 
 #### Boot
-`linux-zen linux-zen-headers`
+* `linux linux-headers`
+* `linux-zen linux-zen-headers`
 
-#### Pacman
-* pacman-contrib (pactree)
-* multilib
-* yay
+#### Package managing
+* `pacman-contrib` (pactree)
+* `multilib`
+* `yay`
 
 #### WM
 * qtile + python-dbus-next + python-psutil
