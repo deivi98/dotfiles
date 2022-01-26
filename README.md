@@ -4,7 +4,7 @@ Hi there, these are my own dotfiles :)
 
 ## Table of contents
 
-* [Installed Packages](#Installed Packages)
+* [Installed Packages](#installed-packages)
 
 ## Installed packages
 
