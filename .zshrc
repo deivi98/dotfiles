@@ -157,6 +157,7 @@ alias svim="HOME=/home/david && sudo vim -u $HOME/.vimrc"
 
 ## Dotfiles git
 alias dots='/usr/bin/git --git-dir=$HOME/.config/dotfiles/ --work-tree=$HOME'
+alias dotsup='dots add -u && dots commit -m "Dotfiles update" && dots push'
 
 # -----------------------------------------------
 
