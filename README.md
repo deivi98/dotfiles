@@ -82,7 +82,7 @@ Hi there, these are my own dotfiles :)
 * zsh-syntax-highlighting 
 * zsh-autosuggestions 
 * zsh-history-substring-search 
-* bash-zsh-insulter [AUR]
+* _[_**AUR**_]_ bash-zsh-insulter
 
 ### WM
 
@@ -90,7 +90,7 @@ Hi there, these are my own dotfiles :)
 * rofi + papirus-icon-theme --> https://github.com/adi1090x/rofi
 * xscreensaver
 * feh
-* picom (picom-ibhagwan-git for rounded corners) [AUR]
+* _[_**AUR**_]_ picom (picom-ibhagwan-git for rounded corners)
 
 ### Network
 
@@ -110,7 +110,7 @@ Hi there, these are my own dotfiles :)
 
 * lm_sensors 
 * cpupower
-* headsetcontrol [AUR]
+* _[_**AUR**_]_ headsetcontrol
 * redshift
 
 ### Video
@@ -127,11 +127,11 @@ Hi there, these are my own dotfiles :)
 * alsa-utils
 * pulseaudio
 * pavucontrol (GUI)
-* noise-suppresion-for-voice [AUR]
+* _[_**AUR**_]_ noise-suppresion-for-voice
 
 ### Music
 
-* spotify [AUR]
+* _[_**AUR**_]_ spotify
 
 ### Browser
 
@@ -184,25 +184,25 @@ Hi there, these are my own dotfiles :)
 
 * telegram-desktop
 * discord
-* mailspring [AUR]
-* plex-media-player [AUR]
-* srain - IRC Client [AUR]
+* _[_**AUR**_]_ mailspring
+* _[_**AUR**_]_ plex-media-player
+* _[_**AUR**_]_ srain - IRC Client
 * transmission-gtk
-* marktext-bin [AUR]
+* _[_**AUR**_]_ marktext-bin
 
 ### Gaming
 
 * steam
-* proton [AUR]
-* minecraft-launcher [AUR]
-* spigot [AUR]
+* _[_**AUR**_]_ proton
+* _[_**AUR**_]_ minecraft-launcher
+* _[_**AUR**_]_ spigot
 
 ### Fonts
 
 * nerd-fonts-complete
-* ttf-font-awesome-4 [AUR]
+* _[_**AUR**_]_ ttf-font-awesome-4
 * ttf-font-awesome
-* ttf-iosevka-fixed-ss18 [AUR]
+* _[_**AUR**_]_ ttf-iosevka-fixed-ss18
 
 ### Utils
 
@@ -216,7 +216,7 @@ Hi there, these are my own dotfiles :)
 * xbindkeys -mk
 * xcape
 * exa
-* md2pdf [AUR]
+* _[_**AUR**_]_ md2pdf
 * bat
 * ripgrep
 * fd
