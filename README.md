@@ -10,7 +10,6 @@ Hi there, these are my own dotfiles :)
   * [User Programs](#user-programs)
   * [Gaming](#gaming)
   * [Utils](#utils)
-
   * [Arch Linux](#arch-linux)
     * [Boot](#boot)
     * [Pacman](#pacman)
@@ -26,14 +25,12 @@ Hi there, these are my own dotfiles :)
       * [PDF](#pdf)
     * [Appearance](#appearance)
       * [Fonts](#fonts)
-
   * [Hardware](#hardware)
     * [Graphics](#graphics)
     * [Network](#network)
     * [Sound](#sound)
     * [Bluetooth](#bluetooth)
     * [Peripherals](#peripherals)
-
 * [Cheatsheet](#cheatsheet)
 ## Cheatsheet
 
