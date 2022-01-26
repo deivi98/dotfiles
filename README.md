@@ -4,15 +4,101 @@ Hi there, these are my own dotfiles :)
 
 ## Table of contents
 
+* [Cheatsheet](#cheatsheet)
+
 * [Installed Packages](#installed-packages)
+  
+  * [Kernels](#kernels)
+  
+  * [Graphics](#graphics)
+  
+  * [Shell](#shell)
+  
+  * [WM](#wm)
+  
+  * [Network](#network)
+  
+  * [Bluetooth](#bluetooth)
+  
+  * [Peripherals](#peripherals)
+  
+  * [Hardware](#hardware)
+  
+  * [Video](#video)
+  
+  * [PDF](#pdf)
+  
+  * [Sound](#sound)
+  
+  * [Music](#music)
+  
+  * [Browser](#browser)
+  
+  * [Editor](#editor)
+  
+  * [Appearance](#appearance)
+  
+  * [File Explorer](#file-explorer)
+  
+  * [Terminal emulator](#terminal-emulator)
+  
+  * [Essential](#essential)
+  
+  * [Cloud](#cloud)
+  
+  * [Package Manager](#package-manager)
+  
+  * [User Programs](#user-programs)
+  
+  * [Gaming](#gaming)
+  
+  * [Fonts](#fonts)
+  
+  * [Utils](#utils)
+
+## Cheatsheet
+
+#### Package management
+
+- List of explicitly installed packages
+  
+  > pacman -Qqetn
+
+- List of explicitly installed AUR/other packages
+  
+  > pacman -Qqetm
+
+- List of unused packages
+  
+  > pacman -Qtdq
+
+- Package detailed information
+  
+  > pacman -Qii
+
+- List of modified /etc configurations
+  
+  > sudo pacman -Qii | awk '/^MODIFIED/ {print $2}'
+
+- Package tree dependencies
+  
+  > pactree
+
+- Package files in use
+  
+  > pkgfile
+
+- .pacsave & .pacnew files
+  
+  > pacdiff
 
 ## Installed packages
 
-## Kernels
+### Kernels
 
 * linux-zen linux-zen-headers
 
-## Graphics
+### Graphics
 
 * xorg
 * xorg-xinit
@@ -22,7 +108,7 @@ Hi there, these are my own dotfiles :)
 * lib32-nvidia-utils
 * nvidia-settings
 
-## Shell
+### Shell
 
 * bash
 * zsh
@@ -31,7 +117,7 @@ Hi there, these are my own dotfiles :)
 * zsh-history-substring-search 
 * bash-zsh-insulter [AUR]
 
-## WM
+### WM
 
 * qtile + python-dbus-next + python-psutil
 * rofi + papirus-icon-theme --> https://github.com/adi1090x/rofi
@@ -39,53 +125,53 @@ Hi there, these are my own dotfiles :)
 * feh
 * picom (picom-ibhagwan-git for rounded corners) [AUR]
 
-## Network
+### Network
 
 * NetworkManager
 
-## Bluetooth
+### Bluetooth
 
 * bluez
 * bluez-utils
 
-## Peripherals
+### Peripherals
 
 * libratbag
 * piper
 
-## Hardware
+### Hardware
 
 * lm_sensors 
 * cpupower
 * headsetcontrol [AUR]
 * redshift
 
-## Video
+### Video
 
 * mpv
 * ffmpegthubnailer (ranger preview)
 
-## PDF
+### PDF
 
 * zathura zathura-pdf-poppler
 
-## Sound
+### Sound
 
 * alsa-utils
 * pulseaudio
 * pavucontrol (GUI)
 * noise-suppresion-for-voice [AUR]
 
-## Music
+### Music
 
 * spotify [AUR]
 
-## Browser
+### Browser
 
 * firefox
 * qutebrowser
 
-## Editor
+### Editor
 
 * nvim
   * neovim-symlinks
@@ -96,38 +182,38 @@ Hi there, these are my own dotfiles :)
 * neovide
 * emacs
 
-## Appearance
+### Appearance
 
 * lxappearance
 * qt5ct
 
-## File explorer
+### File explorer
 
 * ranger
 * pcmanfm
 
-## Terminal emulator
+### Terminal emulator
 
 * alacritty
 
-## Essential
+### Essential
 
 * git
 * grub
 * unzip / zip
 * unrar / rar
 
-## Cloud
+### Cloud
 
 * nextcloud-client
 
-## Package manager
+### Package manager
 
 * pacman-contrib (pactree)
 * multilib
 * yay
 
-## User Programs
+### User Programs
 
 * telegram-desktop
 * discord
@@ -137,21 +223,21 @@ Hi there, these are my own dotfiles :)
 * transmission-gtk
 * marktext-bin [AUR]
 
-## Gaming
+### Gaming
 
 * steam
 * proton [AUR]
 * minecraft-launcher [AUR]
 * spigot [AUR]
 
-## Fonts
+### Fonts
 
 * nerd-fonts-complete
 * ttf-font-awesome-4 [AUR]
 * ttf-font-awesome
 * ttf-iosevka-fixed-ss18 [AUR]
 
-## Utils
+### Utils
 
 * screen
 
