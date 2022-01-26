@@ -43,7 +43,7 @@ A list of all important packages installed on my machine.
 Main operative system packages. Software related.
 
 #### Boot
-* `linux-zen linux-zen-headers`
+`linux-zen linux-zen-headers`
 
 #### Pacman
 * pacman-contrib (pactree)
