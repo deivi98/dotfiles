@@ -5,11 +5,6 @@ Hi there, these are my own dotfiles :)
 ## Table of contents
 
 * [Installed Packages](#installed-packages)
-  * [Essential](#essential)
-  * [Cloud](#cloud)
-  * [User Programs](#user-programs)
-  * [Gaming](#gaming)
-  * [Utils](#utils)
   * [Arch Linux](#arch-linux)
     * [Boot](#boot)
     * [Pacman](#pacman)
@@ -25,6 +20,12 @@ Hi there, these are my own dotfiles :)
       * [PDF](#pdf)
     * [Appearance](#appearance)
       * [Fonts](#fonts)
+  * [User](#user)
+    * [Main](#main)
+    * [Cloud](#cloud)
+    * [Utils](#utils)
+    * [Essential](#essential)
+    * [Gaming](#gaming)
   * [Hardware](#hardware)
     * [Graphics](#graphics)
     * [Network](#network)
@@ -32,40 +33,34 @@ Hi there, these are my own dotfiles :)
     * [Bluetooth](#bluetooth)
     * [Peripherals](#peripherals)
 * [Cheatsheet](#cheatsheet)
-## Cheatsheet
-
-### Package management
-
-* List of explicitly installed packages
-> pacman -Qqetn
-
-* List of explicitly installed AUR/other packages
-> pacman -Qqetm
-
-* List of unused packages
-> pacman -Qtdq
-
-* Package detailed information
-> pacman -Qii
-
-* List of modified /etc configurations
-> sudo pacman -Qii | awk '/^MODIFIED/ {print $2}'
-
-* Package tree dependencies
-> pactree
-
-* Package files in use
-> pkgfile
-
-* .pacsave & .pacnew files
-> pacdiff
 
 ## Installed packages
-
 A list of all important packages installed on my machine.
 
-### Shell
+------------------------------------------------------------------------------------------------
 
+### Arch Linux
+Main operative system packages. Software related.
+
+#### Boot
+* linux-zen linux-zen-headers
+
+#### Pacman
+* pacman-contrib (pactree)
+* multilib
+* yay
+
+#### WM
+* qtile + python-dbus-next + python-psutil
+* rofi + papirus-icon-theme --> https://github.com/adi1090x/rofi
+* xscreensaver
+* feh
+* **[AUR]** picom (picom-ibhagwan-git for rounded corners)
+
+#### Terminal emulator
+* alacritty
+
+#### Shell
 * bash
 * zsh
 * zsh-syntax-highlighting 
@@ -73,20 +68,113 @@ A list of all important packages installed on my machine.
 * zsh-history-substring-search 
 * **[AUR]** bash-zsh-insulter
 
-### WM
+#### File explorer
 
-* qtile + python-dbus-next + python-psutil
-* rofi + papirus-icon-theme --> https://github.com/adi1090x/rofi
-* xscreensaver
-* feh
-* **[AUR]** picom (picom-ibhagwan-git for rounded corners)
+* ranger
+* pcmanfm
+
+#### Editor
+
+* nvim
+  * neovim-symlinks
+    * xclip
+    * fzf, ripgrep, universal-ctags, the_silver_searcher, fd
+    * nodejs
+    * npm
+* neovide
+* emacs
+
+#### Browser
+
+* firefox
+* qutebrowser
+
+#### Multimedia
+Multimedia packages.
+
+##### Video
+* mpv
+* ffmpegthubnailer (ranger preview)
+
+##### Music
+* **[AUR]** spotify
+
+##### PDF
+* zathura zathura-pdf-poppler
+
+#### Appearance
+Appearance packages.
+
+##### Graphical interfaces
+* lxappearance
+* qt5ct
+
+##### Fonts
+* nerd-fonts-complete
+* **[AUR]** ttf-font-awesome-4
+* ttf-font-awesome
+* **[AUR]** ttf-iosevka-fixed-ss18
+
+------------------------------------------------------------------------------------------------
+
+### User
+User custom packages.
+
+#### Cloud
+* nextcloud-client
+
+#### Main
+* telegram-desktop
+* discord
+* **[AUR]** mailspring
+* **[AUR]** plex-media-player
+* **[AUR]** srain - IRC Client
+* transmission-gtk
+* **[AUR]** marktext-bin
+
+#### Utils
+* screen
+* tmux
+* os-prober
+* base-devel
+* python-setuptools
+* gnome-keyring
+* openssh
+* xbindkeys -mk
+* xcape
+* exa
+* **[AUR]** md2pdf
+* bat
+* ripgrep
+* fd
+* starship
+* neofetch
+* htop
+* bashtop
+* flameshot
+* docker
+* docker-compose
+* virtualbox
+* virtualbox-host-dkms
+
+#### Essential
+* git
+* grub
+* unzip / zip
+* unrar / rar
+
+#### Gaming
+* steam
+* **[AUR]** proton
+* **[AUR]** minecraft-launcher
+* **[AUR]** spigot
+
+------------------------------------------------------------------------------------------------
 
 ### Hardware
+List of hardware packages.
 
-#### Kernels
-* linux-zen linux-zen-headers
-
-### CPU & Sensors
+#### Sensors
 * cpupower
 * lm_sensors 
 
@@ -118,112 +206,29 @@ A list of all important packages installed on my machine.
 * libratbag
 * piper
 
-### Video
+## Cheatsheet
 
-* mpv
-* ffmpegthubnailer (ranger preview)
+* List of explicitly installed packages
+> pacman -Qqetn
 
-### PDF
+* List of explicitly installed AUR/other packages
+> pacman -Qqetm
 
-* zathura zathura-pdf-poppler
+* List of unused packages
+> pacman -Qtdq
 
-### Music
+* Package detailed information
+> pacman -Qii
 
-* **[AUR]** spotify
+* List of modified /etc configurations
+> sudo pacman -Qii | awk '/^MODIFIED/ {print $2}'
 
-### Browser
+* Package tree dependencies
+> pactree
 
-* firefox
-* qutebrowser
+* Package files in use
+> pkgfile
 
-### Editor
+* .pacsave & .pacnew files
+> pacdiff
 
-* nvim
-  * neovim-symlinks
-    * xclip
-    * fzf, ripgrep, universal-ctags, the_silver_searcher, fd
-    * nodejs
-    * npm
-* neovide
-* emacs
-
-### Appearance
-
-* lxappearance
-* qt5ct
-
-### File explorer
-
-* ranger
-* pcmanfm
-
-### Terminal emulator
-
-* alacritty
-
-### Essential
-
-* git
-* grub
-* unzip / zip
-* unrar / rar
-
-### Cloud
-
-* nextcloud-client
-
-### Pacman
-
-* pacman-contrib (pactree)
-* multilib
-* yay
-
-### User Programs
-
-* telegram-desktop
-* discord
-* **[AUR]** mailspring
-* **[AUR]** plex-media-player
-* **[AUR]** srain - IRC Client
-* transmission-gtk
-* **[AUR]** marktext-bin
-
-### Gaming
-
-* steam
-* **[AUR]** proton
-* **[AUR]** minecraft-launcher
-* **[AUR]** spigot
-
-### Fonts
-
-* nerd-fonts-complete
-* **[AUR]** ttf-font-awesome-4
-* ttf-font-awesome
-* **[AUR]** ttf-iosevka-fixed-ss18
-
-### Utils
-
-* screen
-* tmux
-* os-prober
-* base-devel
-* python-setuptools
-* gnome-keyring
-* openssh
-* xbindkeys -mk
-* xcape
-* exa
-* **[AUR]** md2pdf
-* bat
-* ripgrep
-* fd
-* starship
-* neofetch
-* htop
-* bashtop
-* flameshot
-* docker
-* docker-compose
-* virtualbox
-* virtualbox-host-dkms
