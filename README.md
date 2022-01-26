@@ -36,27 +36,35 @@ Hi there, these are my own dotfiles :)
 #### Package management
 
 - List of explicitly installed packages
+  
   > pacman -Qqetn
 
 - List of explicitly installed AUR/other packages
+  
   > pacman -Qqetm
 
 - List of unused packages
+  
   > pacman -Qtdq
 
 - Package detailed information
+  
   > pacman -Qii
 
 - List of modified /etc configurations
+  
   > sudo pacman -Qii | awk '/^MODIFIED/ {print $2}'
 
 - Package tree dependencies
+  
   > pactree
 
 - Package files in use
+  
   > pkgfile
 
 - .pacsave & .pacnew files
+  
   > pacdiff
 
 ## Installed packages
@@ -82,7 +90,7 @@ Hi there, these are my own dotfiles :)
 * zsh-syntax-highlighting 
 * zsh-autosuggestions 
 * zsh-history-substring-search 
-* _[_**AUR**_]_ bash-zsh-insulter
+* [AUR] <mark>bash-zsh-insulter</mark>
 
 ### WM
 
