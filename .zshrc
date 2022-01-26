@@ -129,7 +129,7 @@ alias lt='exa -aT --color=always --group-directories-first'     # Tree listing
 alias l.='exa -a | egrep "^\."'
 
 ## Pacman and Yay
-alias pacsyu='sudo pacman -Syyu'                                # Update only standard pkgs
+alias pacsyu='sudo pacman -Syyu --noconfirm'                    # Update only standard pkgs
 alias yaysua='yay -Sua --noconfirm'                             # Update only AUR pkgs (yay)
 alias yaysyu='yay -Syu --noconfirm'                             # Update standard pkgs and AUR pkgs (yay)
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'                # Remove orphaned packages
