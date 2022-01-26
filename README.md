@@ -4,8 +4,8 @@ Hi there, these are my own dotfiles :)
 
 ## Table of contents
 
-* [Installed Packages](#installed-packages)
-  * [Arch Linux](#arch-linux)
+. [Installed Packages](#installed-packages)
+  . [Arch Linux](#arch-linux)
     * [Boot](#boot)
     * [Pacman](#pacman)
     * [WM](#wm)
@@ -20,19 +20,19 @@ Hi there, these are my own dotfiles :)
       * [PDF](#pdf)
     * [Appearance](#appearance)
       * [Fonts](#fonts)
-  * [User](#user)
+  . [User](#user)
     * [Main](#main)
     * [Cloud](#cloud)
     * [Utils](#utils)
     * [Essential](#essential)
     * [Gaming](#gaming)
-  * [Hardware](#hardware)
+  . [Hardware](#hardware)
     * [Graphics](#graphics)
     * [Network](#network)
     * [Sound](#sound)
     * [Bluetooth](#bluetooth)
     * [Peripherals](#peripherals)
-* [Cheatsheet](#cheatsheet)
+. [Cheatsheet](#cheatsheet)
 
 ## Installed packages
 A list of all important packages installed on my machine.
