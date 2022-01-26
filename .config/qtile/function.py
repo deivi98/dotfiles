@@ -64,9 +64,11 @@ def switch_keyboard_layout(qtile):
     current_layout = run_shell_command('setxkbmap -query | grep layout | cut -d" " -f6')
 
     if current_layout == "us":
-        run_cmd(qtile, 'setxkbmap -layout es && xset r rate 200 50')
+        run_cmd(qtile, 'setxkbmap -layout es')
     else:
-        run_cmd(qtile, 'setxkbmap -layout us && xset r rate 200 50')
+        run_cmd(qtile, 'setxkbmap -layout us')
+
+    run_cmd(qtile, "xset r rate 200 50 && setxkbmap -option 'caps:ctrl_modifier' && xcape -e 'Caps_Lock=Escape'")
 
 # Switch sound output (Headphones, Speakers)
 def switch_sound_output(qtile):
