@@ -2,6 +2,8 @@
 
 Hi there, these are my own dotfiles :)
 
+![Rice](https://i.imgur.com/LunUaax.jpg)
+
 ## Table of contents
 
 * [Installed Packages](#installed-packages)
