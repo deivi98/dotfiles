@@ -118,7 +118,7 @@ alias cloud='ssh cloud'
 alias deivi='ssh deivii'
 
 ## Programs & Utilities
-alias vim='lvim'
+alias vim="$EDITOR"
 alias cat='bat'
 
 ## Changing "ls" to "exa"
@@ -134,6 +134,8 @@ alias yaysua='yay -Sua --noconfirm'                             # Update only AU
 alias yaysyu='yay -Syu --noconfirm'                             # Update standard pkgs and AUR pkgs (yay)
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'                # Remove orphaned packages
 alias cu='checkupdates'
+
+alias pacdiff="sudo DIFFPROG=$EDITOR pacdiff"
 
 ## Colorize grep output (good for log files)
 alias grep='grep --color=auto'
@@ -151,9 +153,6 @@ alias rm='rm -i'
 ## Adding flags
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -m'                                            # Show sizes in MB
-
-## Vim
-alias svim="HOME=/home/david && sudo vim -u $HOME/.vimrc"
 
 ## Dotfiles git
 alias dots='/usr/bin/git --git-dir=$HOME/.config/dotfiles/ --work-tree=$HOME'

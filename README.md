@@ -23,7 +23,7 @@ Hi there, these are my own dotfiles :)
     * [Appearance](#appearance)
       * [Fonts](#fonts)
   * [User](#user)
-    * [Main](#main)
+    * [Apps](#apps)
     * [Cloud](#cloud)
     * [Utils](#utils)
     * [Essential](#essential)
@@ -46,77 +46,60 @@ Main operative system packages. Software related.
 
 #### Boot
 * `linux linux-headers`
-* `linux-zen linux-zen-headers`
+* `linux-zen linux-zen-headers` for gaming
 
 #### Package managing
-* `pacman-contrib` (pactree)
-* `multilib`
-* `yay`
+* `pacman-contrib` includes pactree, pacdiff
+* `multilib` for 32bit apps
+* `yay` for AUR packages
 
 #### WM
-* qtile + python-dbus-next + python-psutil
-* rofi + papirus-icon-theme --> https://github.com/adi1090x/rofi
-* xscreensaver
-* feh
-* **[AUR]** picom (picom-ibhagwan-git for rounded corners)
+* `qtile python-dbus-next python-psutil` as window manager
+* `rofi papirus-icon-theme` as window run dialog
+* `xscreensaver` as screen saver
+* `feh` as background changer
+* **[AUR]** `picom-ibhagwan-git` as compositor
 
 #### Terminal emulator
-* alacritty
+* `alacritty`
 
 #### Shell
-* bash
-* zsh
-* zsh-syntax-highlighting 
-* zsh-autosuggestions
-* zsh-history-substring-search 
-* **[AUR]** bash-zsh-insulter
+* `zsh zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search`
+* **[AUR]** `bash-zsh-insulter`
+* `exa bat ripgrep fd starship neofetch screen tmux htop bashtop`
 
 #### File explorer
-
-* ranger
-* pcmanfm
+* `ranger ffmpegthubnailer` command line
+* `pcmanfm` as gui
 
 #### Editor
-
-* nvim
-  * neovim-symlinks
-    * xclip
-    * fzf, ripgrep, universal-ctags, the_silver_searcher, fd
-    * nodejs
-    * npm
-* neovide
-* emacs
+* `lvim`
 
 #### Browser
-
-* firefox
-* qutebrowser
+* `firefox`
 
 #### Multimedia
 Multimedia packages.
 
 ##### Video
-* mpv
-* ffmpegthubnailer (ranger preview)
+* `mpv` as video player
 
 ##### Music
-* **[AUR]** spotify
+* **[AUR]** `spotify`
 
 ##### PDF
-* zathura zathura-pdf-poppler
+* `zathura zathura-pdf-poppler`
 
 #### Appearance
 Appearance packages.
 
 ##### Graphical interfaces
-* lxappearance
-* qt5ct
+* `lxappearance` as GTK manager
+* `qt5ct` as Qt manager
 
 ##### Fonts
-* nerd-fonts-complete
-* **[AUR]** ttf-font-awesome-4
-* ttf-font-awesome
-* **[AUR]** ttf-iosevka-fixed-ss18
+* `nerd-fonts-complete ttf-font-awesome` 
+* **[AUR]** `ttf-font-awesome-4 ttf-iosevka-fixed-ss18`
 
 ------------------------------------------------------------------------------------------------
 
@@ -124,53 +107,22 @@ Appearance packages.
 User custom packages.
 
 #### Cloud
-* nextcloud-client
+* `nextcloud-client`
 
-#### Main
-* telegram-desktop
-* discord
-* **[AUR]** mailspring
-* **[AUR]** plex-media-player
-* **[AUR]** srain - IRC Client
-* transmission-gtk
-* **[AUR]** marktext-bin
+#### Apps
+* `telegram-desktop discord transmission-gtk virtualbox virtual-host-dkms`
+ **[AUR]** `mailspring plex-media-player srain marktext-bin`
 
 #### Utils
-* screen
-* tmux
-* os-prober
-* base-devel
-* python-setuptools
-* gnome-keyring
-* openssh
-* xbindkeys -mk
-* xcape
-* exa
-* **[AUR]** md2pdf
-* bat
-* ripgrep
-* fd
-* starship
-* neofetch
-* htop
-* bashtop
-* flameshot
-* docker
-* docker-compose
-* virtualbox
-* virtualbox-host-dkms
+* `os-prober base-devel python-setuptools gnome-keyring openssh xbindkeys xcape docker docker-compose flameshot`
+* **[AUR]** `md2pdf`
 
 #### Essential
-* git
-* grub
-* unzip / zip
-* unrar / rar
+* `git grub unzip zip unrar rar`
 
 #### Gaming
-* steam
-* **[AUR]** proton
-* **[AUR]** minecraft-launcher
-* **[AUR]** spigot
+* `steam`
+* **[AUR]** `proton minecraft-launcher spigot`
 
 ------------------------------------------------------------------------------------------------
 
@@ -178,60 +130,30 @@ User custom packages.
 List of hardware packages.
 
 #### Sensors
-* cpupower
-* lm_sensors 
+* `cpupower lm_sensors`
 
 #### Graphics
-* xorg
-* xorg-xinit
-* nvidia
-* nvidia-utils
-* nvidia-dkms
-* lib32-nvidia-utils
-* nvidia-settings
-* redshift
+* `xorg xorg-xinit nvidia nvidia-utils nvidia-dkms lib32-nvidia-utils nvidia-settings redshift`
 
 #### Network
-* NetworkManager
+* `NetworkManager`
 
 #### Sound
-* alsa-utils
-* pulseaudio
-* pavucontrol (GUI)
-* **[AUR]** headsetcontrol
-* **[AUR]** noise-suppresion-for-voice
+* `alsa-utils pulseaudio pavucontrol`
+* **[AUR]** `headsetcontrol noise-suppresion-for-voice`
 
 #### Bluetooth
-* bluez
-* bluez-utils
+* `bluez bluez-utils`
 
 #### Peripherals
-* libratbag
-* piper
+* `libratbag piper`
 
 ## Cheatsheet
-
-* List of explicitly installed packages
-> pacman -Qqetn
-
-* List of explicitly installed AUR/other packages
-> pacman -Qqetm
-
-* List of unused packages
-> pacman -Qtdq
-
-* Package detailed information
-> pacman -Qii
-
-* List of modified /etc configurations
-> sudo pacman -Qii | awk '/^MODIFIED/ {print $2}'
-
-* Package tree dependencies
-> pactree
-
-* Package files in use
-> pkgfile
-
-* .pacsave & .pacnew files
-> pacdiff
-
+* `pacman Qqetn` List of explicitly installed packages
+* `pacman -Qqetm` List of explicitly installed AUR/other packages
+* `pacman -Qtdq` List of unused packages
+* `pacman -Qii` Package detailed information
+* `sudo pacman -Qii | awk '/^MODIFIED/ {print $2}'` List of modified /etc configurations
+* `pactree` Package tree dependencies
+* `pkgfile` Package files in use
+* `pacdiff` .pacsave & .pacnew files
