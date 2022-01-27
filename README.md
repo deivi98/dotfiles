@@ -110,11 +110,11 @@ User custom packages.
 * `nextcloud-client`
 
 #### Apps
-* `telegram-desktop discord transmission-gtk virtualbox virtual-host-dkms`
- **[AUR]** `mailspring plex-media-player srain marktext-bin`
+* `telegram-desktop discord transmission-gtk virtualbox virtual-host-dkms flameshot`
+* **[AUR]** `mailspring plex-media-player srain marktext-bin`
 
 #### Utils
-* `os-prober base-devel python-setuptools gnome-keyring openssh xbindkeys xcape docker docker-compose flameshot`
+* `os-prober base-devel python-setuptools gnome-keyring openssh xbindkeys xcape docker docker-compose`
 * **[AUR]** `md2pdf`
 
 #### Essential
