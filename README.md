@@ -58,6 +58,7 @@ Main operative system packages. Software related.
 * `rofi papirus-icon-theme` as window run dialog
 * `xscreensaver` as screen saver
 * `feh` as background changer
+* `conky-lua-nv` as background monitor
 * **[AUR]** `picom-ibhagwan-git` as compositor
 
 #### Terminal emulator

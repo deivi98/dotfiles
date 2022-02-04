@@ -43,8 +43,8 @@ xset r rate 200 50
 setxkbmap -option 'caps:ctrl_modifier'
 xcape -e 'Caps_Lock=Escape'
 
-# Sets random wallpaper
-feh --recursive --no-fehbg --bg-fill --randomize ~/.config/wallpapers/nature
+# Sets random wallpaper (add --no-fehbg to not generate ~/.fehbg)
+feh --recursive --no-fehbg --bg-fill --randomize ~/.config/wallpapers/nature &
 
 # Starts compositor process in the background
 picom --experimental-backends --backend glx --xrender-sync-fence &
