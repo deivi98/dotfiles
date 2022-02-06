@@ -27,7 +27,7 @@ def autostart():
 mod = "mod1"
 mod2 = "mod4"
 terminal = "alacritty"      # My terminal of choice
-browser = "firefox"         # My browser of choice
+browser = "chromium"        # My browser of choice
 fileExplorer = "ranger"     # My file explorer of choice
 editor = "lvim"             # My editor
 home = "/home/david"        # My home directory
@@ -86,8 +86,8 @@ keys = [
     ### APPLICATIONS QUICK ACCESS
 
     Key([mod], "b",
-        lazy.function(function.gotoapp_or_create, browser, "Firefox"),
-        desc='Firefox'
+        lazy.function(function.gotoapp_or_create, browser, "Chromium"),
+        desc='Chromium'
         ),
     Key([mod], "d",
         lazy.function(function.gotoapp_or_create, 'discord'),
@@ -110,7 +110,7 @@ keys = [
         desc='Mailspring'
         ),
     Key([mod], "s",
-        lazy.function(function.gotoapp_or_create, 'spotify'),
+        lazy.function(function.terminal_app, 'spt', windowName="Spotify", sleep=0.1),
         desc='Spotify'
         ),
     Key([mod], "e",
@@ -294,15 +294,15 @@ keys = [
 
     # Media keys (Spotify)
     Key([], "XF86AudioPlay",
-        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.PlayPause"),
+        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.PlayPause"),
         desc='Audio play'
         ),
     Key([], "XF86AudioNext",
-        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.Next"),
+        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.Next"),
         desc='Audio next'
         ),
     Key([], "XF86AudioPrev",
-        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.Previous"),
+        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.Previous"),
         desc='Audio previous'
         )
 ]
@@ -361,7 +361,8 @@ layouts = [
 ### WORKSPACES
 
 group_names = [
-    ("", {'layout': 'tabs', 'matches': [                                               # Browser
+    ("", {'layout': 'tabs', 'matches': [                                               # Browser
+        Match(wm_class='chromium'),
         Match(wm_class='firefox'),
         Match(wm_class='qutebrowser'),
         Match(wm_class='Mailspring')
@@ -378,9 +379,10 @@ group_names = [
         Match(title='LunarVim'),
         Match(title='Qtile config')
     ]}),
-    ("", {'layout': 'tabs', 'matches': [                                               # Discord
+    ("", {'layout': 'columns', 'matches': [                                               # Discord
         Match(wm_class='discord'),
-        Match(wm_class='srain')
+        Match(wm_class='srain'),
+        Match(wm_class='telegram-desktop')
     ]}),
     ("", {'layout': 'columns', 'matches': [                                            # Gaming
         Match(title='Steam'),
@@ -389,13 +391,8 @@ group_names = [
         Match(title='Rocket League'),
         Match(wm_class='minecraft-launcher')
     ]}),
-    ("", {'layout': 'columns', 'matches': [                                            # Telegram
-        Match(wm_class='telegram-desktop')
-    ]}),
     ("", {'layout': 'tabs', 'matches': [                                               # Spotify
-        Match(title='Spotify'),
-        Match(title='Spotify Premium'),
-        Match(wm_class='spotify')
+        Match(title='Spotify')
     ]})
 ]
 
@@ -509,7 +506,7 @@ def init_right_side():
             fmt=' {}',
             scroll_chars=50,
             scroll_wait_intervals=400000,
-            objname='org.mpris.MediaPlayer2.spotify',
+            objname='org.mpris.MediaPlayer2.spotifyd',
             display_metadata=["xesam:title", "xesam:artist"],
             font="FontAwesome"
         ),

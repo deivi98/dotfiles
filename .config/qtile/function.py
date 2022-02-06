@@ -14,7 +14,7 @@ def focusWindow(qtile, wName: str) -> bool:
         windows = qtile.cmd_groups()[group]['windows']
 
         for windowName in windows:
-            if wName.lower() in windowName.lower() and ("firefox" not in windowName.lower() or "firefox" in wName.lower()):
+            if wName.lower() in windowName.lower() and ("chromium" not in windowName.lower() or "chromium" in wName.lower()):
 
                 if qtile.screens[0].group.name != group:
                     qtile.screens[0].cmd_toggle_group(group)

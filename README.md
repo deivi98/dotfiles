@@ -77,7 +77,7 @@ Main operative system packages. Software related.
 * `lvim`
 
 #### Browser
-* `firefox`
+* `chromium`
 
 #### Multimedia
 Multimedia packages.
@@ -86,7 +86,7 @@ Multimedia packages.
 * `mpv` as video player
 
 ##### Music
-* **[AUR]** `spotify`
+* **[AUR]** `spotifyd-full-git spotify-tui`
 
 ##### PDF
 * `zathura zathura-pdf-poppler`

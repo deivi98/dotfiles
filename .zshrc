@@ -25,7 +25,7 @@ export npm_config_prefix="$HOME/.local"
 ### General
 export EDITOR=lvim
 export VISUAL=lvim
-export BROWSER=firefox
+export BROWSER=chromium
 
 ### TERMINAL
 export TERM="xterm-256color"                                      # Getting proper colors
