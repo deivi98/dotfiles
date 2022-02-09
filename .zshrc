@@ -143,7 +143,8 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 ## Top
-alias top='bashtop'
+alias top='btop'
+alias htop='btop'
 
 ## Confirm before overwriting something
 alias cp="cp -i"

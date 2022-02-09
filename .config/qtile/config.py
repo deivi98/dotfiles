@@ -132,20 +132,10 @@ keys = [
 
     ### ARCH INFO / CONTROLS
 
-    # HTOP MEMORY
-    Key([mod, "shift"], "m",
-        lazy.function(function.terminal_app, 'htop', '-s PERCENT_MEM', windowName="Htop memory usage"),
-        desc='Htop'
-        ),
-    # HTOP CPU
-    Key([mod, "shift"], "c",
-        lazy.function(function.terminal_app, 'htop', '-s PERCENT_CPU', windowName="Htop cpu usage"),
-        desc='Htop'
-        ),
-    # Bashtop 
-    Key([mod, "shift"], "i",
-        lazy.function(function.terminal_app, 'bashtop', windowName="Bashtop"),
-        desc='Bashtop'
+    # BTOP
+    Key([mod], "p",
+        lazy.function(function.terminal_app, 'btop', windowName="Btop"),
+        desc='Btop'
         ),
     # Flameshot screenshot
     Key([mod, "shift"], "s",
@@ -294,15 +284,15 @@ keys = [
 
     # Media keys (Spotify)
     Key([], "XF86AudioPlay",
-        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.PlayPause"),
+        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"),
         desc='Audio play'
         ),
     Key([], "XF86AudioNext",
-        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.Next"),
+        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"),
         desc='Audio next'
         ),
     Key([], "XF86AudioPrev",
-        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd " "/org/mpris/MediaPlayer2 " "org.mpris.MediaPlayer2.Player.Previous"),
+        lazy.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"),
         desc='Audio previous'
         )
 ]

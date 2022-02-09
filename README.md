@@ -67,7 +67,7 @@ Main operative system packages. Software related.
 #### Shell
 * `zsh zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search`
 * **[AUR]** `bash-zsh-insulter`
-* `exa bat ripgrep fd starship neofetch screen tmux htop bashtop`
+* `exa bat ripgrep fd starship neofetch screen tmux btop`
 
 #### File explorer
 * `ranger ffmpegthubnailer` command line
