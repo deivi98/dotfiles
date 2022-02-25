@@ -10,18 +10,38 @@ def swap_screens(qtile):
 
 def focusWindow(qtile, wName: str) -> bool:
 
+    # For every existing group / workspace
     for group in qtile.cmd_groups():
         windows = qtile.cmd_groups()[group]['windows']
+        # For every existing window in each group / workspace
 
         for windowName in windows:
+
+            # Match window if title contains regex but it's not chromium
             if wName.lower() in windowName.lower() and ("chromium" not in windowName.lower() or "chromium" in wName.lower()):
 
-                if qtile.screens[0].group.name != group:
-                    qtile.screens[0].cmd_toggle_group(group)
+                presentIn = -1;
 
-                screenWindows = qtile.screens[0].group.windows
-                windowObj = list(filter(lambda x: (x.name == windowName), screenWindows))[0]
-                qtile.screens[0].group.focus(windowObj, True, True)
+                # Find group in any screen
+                for i in range(len(qtile.screens)):
+                    if qtile.screens[i].group.name == group:
+                        presentIn = i;
+                        break;
+
+                # If group is not selected in any screen, set it to primary screen
+                if presentIn < 0:
+                    qtile.screens[0].cmd_toggle_group(group);
+                    presentIn = 0;
+
+                # Make sure screen is focused
+                qtile.cmd_to_screen(presentIn);
+
+                # Make sure window is focused
+                screenWindows = qtile.screens[presentIn].group.windows;
+                logger.warning(screenWindows);
+                windowObj = list(filter(lambda x: (x.name == windowName), screenWindows))[0];
+                qtile.screens[presentIn].group.focus(windowObj, True, True);
+
                 return True
 
     return False
@@ -47,37 +67,9 @@ def gotoapp_or_create(qtile, app, wName = None):
 def run_cmd(qtile, cmd):
     qtile.cmd_spawn(cmd, shell=True)
 
-# Mute mic and speakers
-def mute_all(qtile):
-    # run_cmd(qtile, 'amixer -D pulse sset Capture toggle && amixer -D pulse sset Master toggle')
-    run_cmd(qtile, 'pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl set-source-mute @DEFAULT_SOURCE@ toggle')
-
-def run_shell_command(cmd):
-    return str(subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE).communicate()[0])[2:-3]
-
 # Exec script
 def exec_script(script):
     return lambda: subprocess.Popen('/home/david/.config/qtile/scripts/' + script, shell=True, stdout=subprocess.PIPE).communicate()[0].decode()
-
-# Switch keyboard layout between [US, ES]
-def switch_keyboard_layout(qtile):
-    current_layout = run_shell_command('setxkbmap -query | grep layout | cut -d" " -f6')
-
-    if current_layout == "us":
-        run_cmd(qtile, 'setxkbmap -layout es')
-    else:
-        run_cmd(qtile, 'setxkbmap -layout us')
-
-    run_cmd(qtile, "xset r rate 200 50 && setxkbmap -option 'caps:ctrl_modifier' && xcape -e 'Caps_Lock=Escape'")
-
-# Switch sound output (Headphones, Speakers)
-def switch_sound_output(qtile):
-    current_sink = run_shell_command('pacmd stat | grep "Default sink name" | cut -d" " -f4')
-
-    if current_sink == "alsa_output.pci-0000_01_00.1.hdmi-stereo":
-        run_cmd(qtile, 'pacmd set-default-sink alsa_output.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.analog-stereo')
-    else:
-        run_cmd(qtile, 'pacmd set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo')
 
 # Switch redshift on and off
 def switch_redshift(qtile):

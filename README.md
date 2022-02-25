@@ -147,7 +147,7 @@ List of hardware packages.
 * `bluez bluez-utils`
 
 #### Peripherals
-* `libratbag piper`
+* `libratbag piper imwheel`
 
 ## Cheatsheet
 * `pacman Qqetn` List of explicitly installed packages

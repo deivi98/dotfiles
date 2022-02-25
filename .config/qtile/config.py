@@ -17,20 +17,21 @@ from libqtile.bar import Bar, Gap
 # My functions
 import function
 
-### Autostart programs
-@hook.subscribe.startup_once
-def autostart():
-    home = os.path.expanduser('~/.config/qtile/scripts/autostart.sh')
-    subprocess.call([home])
-
 ### Global variables
 mod = "mod1"
 mod2 = "mod4"
-terminal = "alacritty"      # My terminal of choice
-browser = "chromium"        # My browser of choice
-fileExplorer = "ranger"     # My file explorer of choice
-editor = "lvim"             # My editor
-home = "/home/david"        # My home directory
+terminal = "alacritty"                                      # My terminal of choice
+browser = "chromium"                                        # My browser of choice
+fileExplorer = "ranger"                                     # My file explorer of choice
+editor = "lvim"                                             # My editor
+home = "/home/david"                                        # My home directory
+scripts = "/home/david/.config/qtile/scripts/"              # My scripts directory
+
+### Autostart programs
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser(scripts + "autostart")
+    subprocess.call([home])
 
 ### Qtile keybindings
 keys = [
@@ -65,7 +66,7 @@ keys = [
         desc='Help'
         ),
     # Qtile config
-    Key([mod, "shift"], "q",
+    Key([mod], "q",
         lazy.function(function.terminal_app, editor, '/home/david/.config/qtile/config.py', windowName="Qtile config", sleep=0.1),
         desc='Qtile config'
         ),
@@ -74,7 +75,7 @@ keys = [
 
     # Switch keyboard layouts
     Key([mod2], "space",
-        lazy.function(function.switch_keyboard_layout),
+        lazy.spawn(scripts + "changelayout"),
         desc='Switch keyboard layout'
         ),
     # Launch Rofi
@@ -105,11 +106,11 @@ keys = [
         lazy.function(function.gotoapp_or_create, 'telegram-desktop', 'Telegram'),
         desc='Telegram'
         ),
-    Key([mod], "m",
-        lazy.function(function.gotoapp_or_create, 'mailspring'),
-        desc='Mailspring'
-        ),
     Key([mod], "s",
+        lazy.function(function.gotoapp_or_create, 'steam'),
+        desc='Steam'
+        ),
+    Key([mod], "m",
         lazy.function(function.terminal_app, 'spt', windowName="Spotify", sleep=0.1),
         desc='Spotify'
         ),
@@ -118,8 +119,8 @@ keys = [
         desc='LunarVim'
         ),
     Key([mod], "c",
-        lazy.function(function.gotoapp_or_create, 'code', wName="Visual Studio Code"),
-        desc='Visual Studio Code'
+        lazy.function(function.gotoapp_or_create, 'mailspring'),
+        desc='Mailspring'
         ),
     Key([mod], "f",
         lazy.function(function.terminal_app, fileExplorer, sleep=0.1),
@@ -144,7 +145,7 @@ keys = [
         ),
     # Switch audio output
     Key([mod, "shift"], "o",
-        lazy.function(function.switch_sound_output),
+        lazy.spawn(scripts + 'switch-output'),
         desc='Switch audio output'
         ),
     # Switch redshift
@@ -156,6 +157,16 @@ keys = [
     Key([mod, "shift"], "b",
         lazy.function(function.random_background),
         desc='Random background'
+        ),
+    # Update system
+    Key([mod], "u",
+        lazy.function(function.terminal_app, scripts + "up", windowName="System update"),
+        desc='System update'
+        ),
+    # Update system (AUR)
+    Key([mod, "shift"], "u",
+        lazy.function(function.terminal_app, scripts + "up all", windowName="AUR system update"),
+        desc='AUR system update'
         ),
 
     ### MONITORS
@@ -253,11 +264,11 @@ keys = [
         lazy.layout.normalize(),
         desc='Normalize window size ratios'
         ),
-    # Maximize sizes
-    #Key([mod,"shift"], "m",
-    #    lazy.layout.maximize(),
-    #    desc='Toggle window between minimum and maximum sizes'
-    #    ),
+    # Maximize / minimize
+    Key([mod,"shift"], "m",
+       lazy.window.toggle_minimize(),
+       desc='Toggle window minimize'
+       ),
     # Full screen
     Key([mod, "shift"], "f",
         lazy.window.toggle_fullscreen(),
@@ -268,18 +279,34 @@ keys = [
 
     # Volume keys
     Key([], "XF86AudioMute",
-        lazy.function(function.mute_all),
+        lazy.spawn(scripts + "changevolume mute"),
         desc='Mute audio'
         ),
     Key([], "XF86AudioLowerVolume",
-        # lazy.spawn("amixer -D pulse sset Master 2%-"),
-        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -2%"),
+        lazy.spawn(scripts + "changevolume down"),
         desc='Volume down'
         ),
     Key([], "XF86AudioRaiseVolume",
-        # lazy.spawn("amixer -D pulse sset Master 2%+"),
-        lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +2%"),
+        lazy.spawn(scripts + "changevolume up"),
         desc='Volume up'
+        ),
+    # Discord volume keys
+    Key([mod], "XF86AudioLowerVolume",
+        lazy.spawn(scripts + 'changevolume-discord down'),
+        desc='Discord volume down'
+        ),
+    Key([mod], "XF86AudioRaiseVolume",
+        lazy.spawn(scripts + 'changevolume-discord up'),
+        desc='Discord volume up'
+        ),
+    # Spotify volume keys
+    Key(["control"], "XF86AudioLowerVolume",
+        lazy.spawn(scripts + 'changevolume-spotify down'),
+        desc='Discord volume down'
+        ),
+    Key(["control"], "XF86AudioRaiseVolume",
+        lazy.spawn(scripts + 'changevolume-spotify up'),
+        desc='Discord volume up'
         ),
 
     # Media keys (Spotify)
@@ -369,10 +396,11 @@ group_names = [
         Match(title='LunarVim'),
         Match(title='Qtile config')
     ]}),
-    ("", {'layout': 'columns', 'matches': [                                               # Discord
+    ("", {'layout': 'tabs', 'matches': [                                               # Discord
         Match(wm_class='discord'),
         Match(wm_class='srain'),
-        Match(wm_class='telegram-desktop')
+        Match(wm_class='telegram-desktop'),
+        Match(title='Spotify')
     ]}),
     ("", {'layout': 'columns', 'matches': [                                            # Gaming
         Match(title='Steam'),
@@ -380,9 +408,6 @@ group_names = [
         Match(title='Brawlhalla'),
         Match(title='Rocket League'),
         Match(wm_class='minecraft-launcher')
-    ]}),
-    ("", {'layout': 'tabs', 'matches': [                                               # Spotify
-        Match(title='Spotify')
     ]})
 ]
 
@@ -553,7 +578,7 @@ def init_right_side():
             text=" ",
             font="FontAwesome",
             background=colors[3],
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e yay -Syu --noconfirm')},
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e ' + scripts + 'up')},
         ),
         widget.CheckUpdates(
                 update_interval = 3600,
@@ -562,18 +587,28 @@ def init_right_side():
                 no_update_string = "No updates",
                 colour_no_updates = colors[0],
                 colour_have_updates = "df0000",
-                mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e yay -Syu --noconfirm')},
+                mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e ' + scripts + 'up')},
                 background = colors[3]
         )
     ], 7, 3) + init_right_section([
-        widget.KeyboardLayout(
-            background=colors[7],
-            mouse_callbacks = {'Button1': lambda: function.switch_keyboard_layout(qtile)}
-        ),
         widget.TextBox(text="  ",font="FontAwesome",background=colors[7]),
         widget.CurrentLayout(background=colors[7]),
         widget.WindowCount(text_format="[{num}]", background=colors[7])
     ], 3, 7) + init_right_section([
+        widget.GenPollText(
+            background=colors[3],
+            func=function.exec_script('get-spotify-volume'),
+            update_interval=0.2,
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('pavucontrol')},
+            font="FontAwesome"
+        ),
+        widget.GenPollText(
+            background=colors[3],
+            func=function.exec_script('get-discord-volume'),
+            update_interval=0.2,
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('pavucontrol')},
+            font="FontAwesome"
+        ),
         widget.GenPollText(
             background=colors[3],
             func=function.exec_script('get-volume'),
@@ -590,10 +625,6 @@ def init_right_side():
 
 def init_right_side_secondary():
     return init_right_section([
-        widget.KeyboardLayout(
-            background=colors[3],
-            mouse_callbacks = {'Button1': lambda: function.switch_keyboard_layout(qtile)}
-        ),
         widget.TextBox(text="  ",font="FontAwesome",background=colors[3]),
         widget.CurrentLayout(background=colors[3]),
         widget.WindowCount(text_format="[{num}]", background=colors[3])
@@ -665,6 +696,20 @@ def init_right_side_secondary():
     ], 7, 3) + init_right_section([
         widget.GenPollText(
             background=colors[7],
+            func=function.exec_script('get-spotify-volume'),
+            update_interval=0.2,
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('pavucontrol')},
+            font="FontAwesome"
+        ),
+        widget.GenPollText(
+            background=colors[7],
+            func=function.exec_script('get-discord-volume'),
+            update_interval=0.2,
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('pavucontrol')},
+            font="FontAwesome"
+        ),
+        widget.GenPollText(
+            background=colors[7],
             func=function.exec_script('get-volume'),
             update_interval=0.2,
             mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('pavucontrol')},
@@ -709,10 +754,10 @@ floating_layout = layout.Floating(float_rules=[
 dgroups_key_binder = None
 dgroups_app_rules = []
 follow_mouse_focus = True
-bring_front_click = False
+bring_front_click = "floating_only"
 cursor_warp = False
 auto_fullscreen = True
-focus_on_window_activation = "focus"
+focus_on_window_activation = "smart"
 reconfigure_screens = True
-auto_minimize = False
+auto_minimize = True
 wmname = "Qtile" # X11 window manager name

@@ -53,6 +53,10 @@ if [ -d "$HOME/Applications" ] ;
   then PATH="$HOME/Applications:$PATH"
 fi
 
+if [ -d "$HOME/.config/qtile/scripts" ] ;
+  then PATH="$HOME/.config/qtile/scripts:$PATH"
+fi
+
 # -----------------------------------------------
 
 # Shell insulter

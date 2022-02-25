@@ -1,6 +1,5 @@
 #  ____           _           _ 
-# |  _ \    ___  (_) __   __ (_)	David González (deivi)
-# | | | |  / _ \ | | \ \ / / | |	https://deivii.es
+# |  _ \    ___  (_) __   __ (_)	David González (deivi) | | | |  / _ \ | | \ \ / / | |	https://deivii.es
 # | |_| | |  __/ | |  \ V /  | |  https://github.com/deivi98
 # |____/   \___| |_|   \_/   |_|
 #
@@ -43,11 +42,17 @@ xset r rate 200 50
 setxkbmap -option 'caps:ctrl_modifier'
 xcape -e 'Caps_Lock=Escape'
 
+# Increasing mouse wheel speed
+imwheel -b 45
+
 # Sets random wallpaper (add --no-fehbg to not generate ~/.fehbg)
 feh --recursive --no-fehbg --bg-fill --randomize ~/.config/wallpapers/nature &
 
 # Starts compositor process in the background
 picom --experimental-backends --backend glx --xrender-sync-fence &
+
+# Start Dunst
+dunst &
 
 # Starts qtile
 exec qtile start 
