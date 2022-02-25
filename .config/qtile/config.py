@@ -516,28 +516,6 @@ def init_left_side():
 
 def init_right_side():
     return init_right_section([
-        widget.Mpris2(
-            background=colors[7],
-            fmt=' {}',
-            scroll_chars=50,
-            scroll_wait_intervals=400000,
-            objname='org.mpris.MediaPlayer2.spotifyd',
-            display_metadata=["xesam:title", "xesam:artist"],
-            font="FontAwesome"
-        ),
-    ], 3, 7, first=True) + init_right_section([
-        #widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
-        #widget.DF(
-        #    fmt="{}",
-        #    font="FontAwesome",
-        #    partition="/home",
-        #    format="{uf}{m} ({r:.0f}%)",
-        #    visible_on_warn=False,
-        #    background=colors[3],
-        #    foreground=colors[0],
-        #    padding=5,
-        #    mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(terminal + " -e bashtop")},
-        #),
         widget.TextBox(
             text="pkgs ",
             font="FontAwesome",
@@ -590,7 +568,7 @@ def init_right_side():
                 mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e ' + scripts + 'up')},
                 background = colors[3]
         )
-    ], 7, 3) + init_right_section([
+    ], 7, 3, first=True) + init_right_section([
         widget.TextBox(text="  ",font="FontAwesome",background=colors[7]),
         widget.CurrentLayout(background=colors[7]),
         widget.WindowCount(text_format="[{num}]", background=colors[7])
