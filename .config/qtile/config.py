@@ -33,6 +33,14 @@ def autostart():
     home = os.path.expanduser(scripts + "autostart")
     subprocess.call([home])
 
+# Auto float dialog
+@hook.subscribe.client_new
+def floating_dialogs(window):
+    dialog = window.window.get_wm_type() == 'dialog'
+    transient = window.window.get_wm_transient_for()
+    if dialog or transient:
+        window.floating = True
+
 ### Qtile keybindings
 keys = [
     ### ESSENTIALS
@@ -60,10 +68,6 @@ keys = [
     Key([mod, "control"], "BackSpace",
         lazy.spawn("shutdown now"),
         desc='Shutdown computer'
-        ),
-    Key([mod], "slash",
-        lazy.function(function.open_help),
-        desc='Help'
         ),
     # Qtile config
     Key([mod], "q",
@@ -336,7 +340,7 @@ _colors = [
     '1b1c26',   # Icon, Bar color 1, widget font
     'ffffff',   # Unused
     'ffffff',   # Unused
-    'e8942e',   # Bar color 2, focused window border line
+    'd7de59',   # Bar color 2, focused window border line
     'ffffff',   # Unused
     'ffffff',   # Unused
     'ffffff',   # Unused
@@ -598,7 +602,7 @@ def init_right_side():
         widget.Systray(background=colors[7], **icon_settings())
     ], 3, 7) + init_right_section([
         widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
-        widget.Clock(background=colors[3],format= '%d-%m-%y %A %H:%M'),
+        widget.Clock(background=colors[3],format= '%H:%M'),
     ], 7, 3)
 
 def init_right_side_secondary():
@@ -695,7 +699,7 @@ def init_right_side_secondary():
         )
     ], 3, 7) + init_right_section([
         widget.TextBox(text=" ",font="FontAwesome",background=colors[3]),
-        widget.Clock(background=colors[3],format= '%H:%M'),
+        widget.Clock(background=colors[3],format= '%d-%m-%y %A %H:%M'),
     ], 7, 3)
 
 def init_top_bar(secondary=False):

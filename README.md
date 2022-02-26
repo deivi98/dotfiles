@@ -59,6 +59,7 @@ Main operative system packages. Software related.
 * `xscreensaver` as screen saver
 * `feh` as background changer
 * `conky-lua-nv` as background monitor
+* `dunst` as notification daemon
 * **[AUR]** `picom-ibhagwan-git` as compositor
 
 #### Terminal emulator
@@ -86,7 +87,8 @@ Multimedia packages.
 * `mpv` as video player
 
 ##### Music
-* **[AUR]** `spotifyd-full-git spotify-tui`
+* `spotifyd`
+* **[AUR]** `spotify-tui`
 
 ##### PDF
 * `zathura zathura-pdf-poppler`
@@ -116,7 +118,6 @@ User custom packages.
 
 #### Utils
 * `os-prober base-devel python-setuptools gnome-keyring openssh xbindkeys xcape docker docker-compose`
-* **[AUR]** `md2pdf`
 
 #### Essential
 * `git grub unzip zip unrar rar`
