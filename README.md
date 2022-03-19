@@ -84,7 +84,7 @@ Main operative system packages. Software related.
 Multimedia packages.
 
 ##### Video
-* `mpv` as video player
+* `mpv youtube-dl streamlink` as video player
 
 ##### Music
 * `spotifyd`

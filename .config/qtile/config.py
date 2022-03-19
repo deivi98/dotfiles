@@ -41,6 +41,20 @@ def floating_dialogs(window):
     if dialog or transient:
         window.floating = True
 
+# Sticky windows
+win_list = []
+def stick_win(qtile):
+    global win_list
+    win_list.append(qtile.current_window)
+def unstick_win(qtile):
+    global win_list
+    if qtile.current_window in win_list:
+        win_list.remove(qtile.current_window)
+@hook.subscribe.setgroup
+def move_win():
+    for w in win_list:
+        w.togroup(qtile.current_group.name)
+
 ### Qtile keybindings
 keys = [
     ### ESSENTIALS
@@ -261,6 +275,16 @@ keys = [
     Key([mod], "Tab",
         lazy.next_layout(),
         desc='Toggle through layouts'
+        ),
+
+    # Stick and unstick windows
+    Key([mod], "w",
+        lazy.function(stick_win),
+        desc="Stick win"
+        ),
+    Key([mod, "shift"], "w",
+        lazy.function(unstick_win),
+        desc="Unstick win"
         ),
 
     # Normalize sizes
@@ -563,7 +587,7 @@ def init_right_side():
             mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e ' + scripts + 'up')},
         ),
         widget.CheckUpdates(
-                update_interval = 3600,
+                update_interval = 60,
                 distro = "Arch_checkupdates",
                 display_format = "{updates} Updates",
                 no_update_string = "No updates",
@@ -737,7 +761,7 @@ dgroups_key_binder = None
 dgroups_app_rules = []
 follow_mouse_focus = True
 bring_front_click = "floating_only"
-cursor_warp = False
+cursor_warp = True
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
