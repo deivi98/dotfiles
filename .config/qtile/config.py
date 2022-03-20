@@ -13,6 +13,7 @@ from libqtile import layout, hook, widget, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.bar import Bar, Gap
+from libqtile.log_utils import logger
 
 # My functions
 import function
@@ -41,19 +42,39 @@ def floating_dialogs(window):
     if dialog or transient:
         window.floating = True
 
-# Sticky windows
-win_list = []
+sticky_win = None
+
+# All floating windows in front
+@hook.subscribe.focus_change
+def float_to_front():
+    for screen in qtile.screens:
+        for window in screen.group.windows:
+            if window.floating:
+                window.cmd_bring_to_front()
+
+    if sticky_win:
+        sticky_win.cmd_bring_to_front()
+
 def stick_win(qtile):
-    global win_list
-    win_list.append(qtile.current_window)
+    global sticky_win
+    if sticky_win:
+        unstick_win(qtile)
+
+    if qtile.current_window:
+        sticky_win = qtile.current_window
+        qtile.current_window.cmd_static(0, -890 - 13, 535 + 57, 890, 500)
+
 def unstick_win(qtile):
-    global win_list
-    if qtile.current_window in win_list:
-        win_list.remove(qtile.current_window)
-@hook.subscribe.setgroup
-def move_win():
-    for w in win_list:
-        w.togroup(qtile.current_group.name)
+    global sticky_win
+    if sticky_win:
+        sticky_win.cmd_toscreen(0)
+        sticky_win = None
+
+@hook.subscribe.client_killed
+def kill_win(window):
+    global sticky_win
+    if window == sticky_win:
+        sticky_win = None
 
 ### Qtile keybindings
 keys = [
@@ -271,13 +292,7 @@ keys = [
         desc='Move window right'
         ),
 
-    # Switch layouts
-    Key([mod], "Tab",
-        lazy.next_layout(),
-        desc='Toggle through layouts'
-        ),
-
-    # Stick and unstick windows
+    # Stick windows
     Key([mod], "w",
         lazy.function(stick_win),
         desc="Stick win"
@@ -287,13 +302,18 @@ keys = [
         desc="Unstick win"
         ),
 
+    # Switch layouts
+    Key([mod], "Tab",
+        lazy.next_layout(),
+        desc='Toggle through layouts'
+        ),
     # Normalize sizes
     Key([mod, "control"], "n",
         lazy.layout.normalize(),
         desc='Normalize window size ratios'
         ),
     # Maximize / minimize
-    Key([mod,"shift"], "m",
+    Key([mod, "shift"], "m",
        lazy.window.toggle_minimize(),
        desc='Toggle window minimize'
        ),
@@ -454,6 +474,8 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 # Sizes
 # screen_width = int(subprocess.Popen('xrandr | grep primary | cut -d" " -f4 | cut -d"+" -f1 | cut -d"x" -f1', shell=True, stdout=subprocess.PIPE).communicate()[0])
 screen_width = 2560
+screen_width_2 = 1080
+screen_height_2 = 1920
 size_of_font = int(screen_width/120)
 size_of_separator = int(screen_width/320)
 size_of_padding = int(screen_width/960)

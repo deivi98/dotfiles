@@ -58,7 +58,7 @@ Main operative system packages. Software related.
 * `rofi papirus-icon-theme` as window run dialog
 * `xscreensaver` as screen saver
 * `feh` as background changer
-* `conky-lua-nv` as background monitor
+* [NOT] `conky-lua-nv` as background monitor
 * `dunst` as notification daemon
 * **[AUR]** `picom-ibhagwan-git` as compositor
 
@@ -85,6 +85,7 @@ Multimedia packages.
 
 ##### Video
 * `mpv youtube-dl streamlink` as video player
+* `https://github.com/mrxdst/webtorrent-mpv-hook`
 
 ##### Music
 * `spotifyd`
