@@ -57,23 +57,40 @@ def float_to_front():
 
 def stick_win(qtile):
     global sticky_win
+
     if sticky_win:
         unstick_win(qtile)
+    else:
+        if not qtile.current_window:
+            return
 
-    if qtile.current_window:
-        sticky_win = qtile.current_window
-        qtile.current_window.cmd_static(0, -890 - 13, 535 + 57, 890, 500)
+        if qtile.current_window:
+            sticky_win = qtile.current_window
+            sticky_win.cmd_static(0, -890 - 13, 535 + 57, 890, 500)
+
+            for screen in qtile.screens:
+                for window in screen.group.windows:
+                    logger.warning("--> " + window.name)
 
 def unstick_win(qtile):
     global sticky_win
     if sticky_win:
+        sticky_win.defunct = False
         sticky_win.cmd_toscreen(0)
+        sticky_win.cmd_togroup(qtile.screens[0].group.name, True)
         sticky_win = None
 
 @hook.subscribe.client_killed
 def kill_win(window):
     global sticky_win
-    if window == sticky_win:
+
+    if not window:
+        return
+
+    if not sticky_win:
+        return
+
+    if window.name == sticky_win.name:
         sticky_win = None
 
 ### Qtile keybindings
@@ -121,6 +138,11 @@ keys = [
     Key([mod], "space",
         lazy.spawn('/home/david/.config/rofi/bin/launcher_misc'),
         desc='Run Launcher'
+        ),
+    # Rofi twitch selector
+    Key([mod, "shift"], "t",
+        lazy.spawn(scripts + 'rofi-ttv'),
+        desc='Run Twitch Launcher'
         ),
 
     ### APPLICATIONS QUICK ACCESS
@@ -296,10 +318,6 @@ keys = [
     Key([mod], "w",
         lazy.function(stick_win),
         desc="Stick win"
-        ),
-    Key([mod, "shift"], "w",
-        lazy.function(unstick_win),
-        desc="Unstick win"
         ),
 
     # Switch layouts
@@ -783,7 +801,7 @@ dgroups_key_binder = None
 dgroups_app_rules = []
 follow_mouse_focus = True
 bring_front_click = "floating_only"
-cursor_warp = True
+cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True

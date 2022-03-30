@@ -55,7 +55,7 @@ Main operative system packages. Software related.
 
 #### WM
 * `qtile python-dbus-next python-psutil` as window manager
-* `rofi papirus-icon-theme` as window run dialog
+* `rofi rofi-emoji rofi-calc papirus-icon-theme` as window run dialog
 * `xscreensaver` as screen saver
 * `feh` as background changer
 * [NOT] `conky-lua-nv` as background monitor
@@ -85,6 +85,7 @@ Multimedia packages.
 
 ##### Video
 * `mpv youtube-dl streamlink` as video player
+* `ytfzf` as youtube player
 * `https://github.com/mrxdst/webtorrent-mpv-hook`
 
 ##### Music

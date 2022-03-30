@@ -38,7 +38,6 @@ def focusWindow(qtile, wName: str) -> bool:
 
                 # Make sure window is focused
                 screenWindows = qtile.screens[presentIn].group.windows;
-                logger.warning(screenWindows);
                 windowObj = list(filter(lambda x: (x.name == windowName), screenWindows))[0];
                 qtile.screens[presentIn].group.focus(windowObj, True, True);
 
