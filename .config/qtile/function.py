@@ -68,7 +68,7 @@ def run_cmd(qtile, cmd):
 
 # Exec script
 def exec_script(script):
-    return lambda: subprocess.Popen('/home/david/.config/qtile/scripts/' + script, shell=True, stdout=subprocess.PIPE).communicate()[0].decode()
+    return lambda: subprocess.Popen('/home/david/.config/scripts/' + script, shell=True, stdout=subprocess.PIPE).communicate()[0].decode()
 
 # Switch redshift on and off
 def switch_redshift(qtile):

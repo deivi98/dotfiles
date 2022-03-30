@@ -26,7 +26,7 @@ browser = "chromium"                                        # My browser of choi
 fileExplorer = "ranger"                                     # My file explorer of choice
 editor = "lvim"                                             # My editor
 home = "/home/david"                                        # My home directory
-scripts = "/home/david/.config/qtile/scripts/"              # My scripts directory
+scripts = "/home/david/.config/scripts/"                    # My scripts directory
 
 ### Autostart programs
 @hook.subscribe.startup_once
