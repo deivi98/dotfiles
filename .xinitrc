@@ -46,7 +46,7 @@ xcape -e 'Caps_Lock=Escape'
 imwheel -b 45
 
 # Sets random wallpaper (add --no-fehbg to not generate ~/.fehbg)
-feh --recursive --no-fehbg --bg-fill --randomize ~/.config/wallpapers/nature &
+feh --recursive --no-fehbg --bg-fill --randomize ~/.local/share/wallpapers/nature &
 
 # Starts compositor process in the background
 picom --experimental-backends --backend glx --xrender-sync-fence &

@@ -76,7 +76,7 @@ def switch_redshift(qtile):
 
 # Random background
 def random_background(qtile):
-    run_cmd(qtile, "feh --recursive --no-fehbg --bg-fill --randomize ~/.config/wallpapers/nature")
+    run_cmd(qtile, "feh --recursive --no-fehbg --bg-fill --randomize ~/.local/share/wallpapers/nature")
 
 # Quick fix of github.com/qtile/qtile/issues/2167 bug
 def terminal_app(qtile, app: str, args: str = "", terminal: str = "alacritty", windowName: str = None, sleep: float = 0, goto: bool = True):
