@@ -75,7 +75,7 @@ Main operative system packages. Software related.
 * `pcmanfm` as gui
 
 #### Editor
-* `lvim`
+* `neovim nodejs npm cargo lvim`
 
 #### Browser
 * `chromium`

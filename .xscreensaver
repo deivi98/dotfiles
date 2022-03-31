@@ -27,7 +27,7 @@ dpmsOff:	4:00:00
 grabDesktopImages:  False
 grabVideoFrames:    False
 chooseRandomImages: True
-imageDirectory:	/home/david/.config/wallpapers
+imageDirectory:	/home/david/.local/share/wallpapers
 
 mode:		one
 selected:	80
