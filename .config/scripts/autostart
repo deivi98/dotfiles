@@ -1,0 +1,10 @@
+#!/bin/sh
+discord &
+nextcloud &
+steam -silent &
+mailspring -b &
+flameshot &
+redshift-gtk &
+xscreensaver -no-splash &
+/home/david/.config/qtile/scripts/screenSaver &
+sleep 5 && env SPOTIFYD_CLIENT_ID=d6ba59f07e1c4f44947b0832c748b9e3 spotifyd

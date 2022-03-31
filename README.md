@@ -50,7 +50,6 @@ Main operative system packages. Software related.
 
 #### Package managing
 * `pacman-contrib` includes pactree, pacdiff
-* `multilib` for 32bit apps
 * `yay` for AUR packages
 
 #### WM
@@ -85,7 +84,7 @@ Multimedia packages.
 
 ##### Video
 * `mpv youtube-dl streamlink` as video player
-* `ytfzf` as youtube player
+* **[AUR]** `ytfzf` as youtube player
 * `https://github.com/mrxdst/webtorrent-mpv-hook`
 
 ##### Music
@@ -103,8 +102,8 @@ Appearance packages.
 * `qt5ct` as Qt manager
 
 ##### Fonts
-* `nerd-fonts-complete ttf-font-awesome` 
-* **[AUR]** `ttf-font-awesome-4 ttf-iosevka-fixed-ss18`
+* `ttf-font-awesome` 
+* **[AUR]** `nerd-fonts-complete ttf-font-awesome-4 ttf-iosevka-fixed-ss18`
 
 ------------------------------------------------------------------------------------------------
 
@@ -122,7 +121,7 @@ User custom packages.
 * `os-prober base-devel python-setuptools gnome-keyring openssh xbindkeys xcape docker docker-compose`
 
 #### Essential
-* `git grub unzip zip unrar rar`
+* `git grub unzip zip unrar`
 
 #### Gaming
 * `steam`
@@ -140,7 +139,7 @@ List of hardware packages.
 * `xorg xorg-xinit nvidia nvidia-utils nvidia-dkms lib32-nvidia-utils nvidia-settings redshift`
 
 #### Network
-* `NetworkManager`
+* `networkmanager`
 
 #### Sound
 * `alsa-utils pulseaudio pavucontrol`

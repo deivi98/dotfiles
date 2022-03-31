@@ -1,0 +1,63 @@
+#!/bin/bash
+
+displays=""
+while read id
+do
+    displays="$displays $id"
+done < <(xvinfo | sed -n 's/^screen #\([0-9]\+\)$/\1/p')
+
+checkFullscreen() {
+
+    # Check for each display
+    for display in $displays
+    do
+        # Get window id list
+        windowIdList=`DISPLAY=:0.${display} xprop -root _NET_CLIENT_LIST_STACKING`
+        windowIdList=${windowIdList:47}
+        IFS=', ' read -ra windows <<< "$windowIdList"
+
+        # Check for each window
+        for windowId in "${windows[@]}"
+        do
+            fullscreenProp=`DISPLAY=:0.${display} xprop -id $windowId | grep _NET_WM_STATE_FULLSCREEN`
+            
+            if [[ "$fullscreenProp" = *NET_WM_STATE_FULLSCREEN* ]];then
+                delayScreensaver
+                delayDPMS
+                return 0
+            fi
+        done
+    done
+}
+
+delayScreensaver() {
+    # Sends signal to XScreensaver process
+    xscreensaver-command -deactivate > /dev/null
+}
+
+delayDPMS() {
+    # Restart DPMS timer by disabling it and enabling it back again
+    dpmsStatus=`xset -q | grep -ce 'DPMS is Enabled'`
+    if [ $dpmsStatus == 1 ];then
+            xset -dpms
+            xset dpms
+    fi
+}
+
+delay=$1
+if [ -z "$1" ];then
+    delay=50
+fi
+if [[ $1 = *[^0-9]* ]]; then
+    echo "Use: ./screenSaver.sh <number>"
+    exit 1
+fi
+
+while true
+do
+    checkFullscreen
+    sleep $delay
+done
+
+
+exit 0

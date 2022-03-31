@@ -1,0 +1,28 @@
+#!/bin/env bash
+set -e
+
+song=$(dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A 1 "xesam:title" | grep variant | cut -d \" -f2 2>&1)
+artist=$(dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A 2 "xesam:artist" | grep -v "xesam:artist" | grep "string" | cut -d \" -f2 2>&1)
+album=$(dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A 2 "xesam:album\"" | grep variant | cut -d \" -f2 2>&1)
+artUrl=$(dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A 2 "mpris:artUrl" | grep variant | cut -d \" -f2 2>&1)
+status=$(dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'PlaybackStatus' | grep variant | cut -d \" -f2 2>&1)
+trackid=$(dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotifyd /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' | grep -A 2 "mpris:trackid" | grep variant | cut -d \" -f2 | cut -d":" -f3 2>&1)
+
+mkdir -p /tmp/spotify-song-icons
+
+previewFile="/home/david/.config/dunst/spotify.png"
+
+if [ "$trackid" != "" ]; then
+  previewFile="/tmp/spotify-song-icons/$trackid"
+  if [ ! -f "$previewFile" ]; then
+    curl -sL "$artUrl" >> "$previewFile"
+  fi
+fi
+
+
+icon=""
+if [ "$status" == "Paused" ]; then
+  icon=""
+fi
+
+dunstify -a spotifyd -r 192 -I "$previewFile" "$icon  $song - $artist" "$album"
