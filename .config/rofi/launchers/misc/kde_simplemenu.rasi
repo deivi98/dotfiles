@@ -31,7 +31,7 @@ configuration {
 /* -- Breeze Dark-- */
 
 * {
-    background:                     #31363bcc;
+    background:                     #31363b90;
     background-alt:              	  #00000000;
     background-bar:                 #3daee966;
     foreground:                     #f5f5f5e6;

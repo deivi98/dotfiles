@@ -7,4 +7,4 @@ else
   pacmd set-default-sink alsa_output.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.analog-stereo
 fi
 
-/home/david/.config/qtile/scripts/changevolume notify
+$HOME/.config/qtile/scripts/changevolume notify

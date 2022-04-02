@@ -10,7 +10,7 @@ trackid=$(dbus-send --print-reply --session --dest=org.mpris.MediaPlayer2.spotif
 
 mkdir -p /tmp/spotify-song-icons
 
-previewFile="/home/david/.config/dunst/spotify.png"
+previewFile="$HOME/.config/dunst/spotify.png"
 
 if [ "$trackid" != "" ]; then
   previewFile="/tmp/spotify-song-icons/$trackid"

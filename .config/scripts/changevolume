@@ -1,9 +1,9 @@
 #!/bin/bash
 currentSink=$(pacmd stat | grep "Default sink name" | cut -d" " -f4 2>&1)
 
-icon="/home/david/.config/dunst/volume.png"
+icon="$HOME/.config/dunst/volume.png"
 if [ "$currentSink" == "alsa_output.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.analog-stereo" ]; then
-  icon="/home/david/.config/dunst/headphones.png"
+  icon="$HOME/.config/dunst/headphones.png"
 fi
 
 function send_notification() {
@@ -38,7 +38,7 @@ mute)
   if [ "$mute" == "no" ]; then
     send_notification
   else
-		dunstify -i volume-mute -a "changevolume" -I /home/david/.config/dunst/mute.png -t 2000000000 -r 9993 -u low "Muted"
+		dunstify -i volume-mute -a "changevolume" -I $HOME/.config/dunst/mute.png -t 2000000000 -r 9993 -u low "Muted"
   fi
 	;;
 esac

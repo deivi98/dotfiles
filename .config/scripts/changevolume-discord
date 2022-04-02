@@ -2,7 +2,7 @@
 
 function send_notification() {
   volume=$(pactl list sink-inputs | grep -B 13 "Discord" | grep Volume | cut -d"/" -f2 | tr -dc '0-9' 2>&1)
-	dunstify -a "changevolume" -u low -r "9993" -h int:value:"$volume" -I /home/david/.config/dunst/discord.png "Discord volume: ${volume}%" -t 2000
+	dunstify -a "changevolume" -u low -r "9993" -h int:value:"$volume" -I $HOME/.config/dunst/discord.png "Discord volume: ${volume}%" -t 2000
 }
 
 discordSink=$(pacmd list-sink-inputs | grep -B 24 Discord | grep index | awk '{ print $NF }')

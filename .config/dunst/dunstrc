@@ -88,7 +88,7 @@
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
-    frame_width = 3
+    frame_width = 2
 
     # Defines color of the frame around the notification window.
     frame_color = "#aaaaaa"
@@ -231,7 +231,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 5
+    corner_radius = 7
 
     # Ignore the dbus closeNotification message.
     # Useful to enforce the timeout set by dunst configuration. Without this
@@ -293,21 +293,21 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#2b2b2b"
+    background = "#2b2b2bAA"
     foreground = "#ffffff"
     timeout = 7
     # Icon for notifications with low urgency, uncomment to enable
     icon = /home/david/.config/dunst/normal.png
 
 [urgency_normal]
-    background = "#2b2b2b"
+    background = "#2b2b2bAA"
     foreground = "#ffffff"
     timeout = 7
     # Icon for notifications with normal urgency, uncomment to enable
     icon = /home/david/.config/dunst/normal.png
 
 [urgency_critical]
-    background = "#900000"
+    background = "#900000AA"
     foreground = "#ffffff"
     frame_color = "#ff0000"
     timeout = 10

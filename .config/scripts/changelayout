@@ -2,7 +2,7 @@
 set -e
 
 currentLayout=$(setxkbmap -query | grep layout | cut -d" " -f6 2>&1)
-icon="/home/david/.config/dunst/layout.png"
+icon="$HOME/.config/dunst/layout.png"
 
 if [ "$currentLayout" == "us" ]; then
   setxkbmap -layout es
