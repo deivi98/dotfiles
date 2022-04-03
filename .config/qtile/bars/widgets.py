@@ -1,5 +1,5 @@
 from libqtile import qtile, widget
-from settings import HOME
+from settings import HOME, TERMINAL, SCRIPTS_DIR
 
 # My functions
 import utils.functions as functions
@@ -50,10 +50,24 @@ def checkUpdates(args = {}):
             update_interval             = 60,
             distro                      = "Arch_checkupdates",
             display_format              = " {updates}",
-            no_update_string            = "",
+            no_update_string            = " up-to-date",
             colour_no_updates           = "1bc700",
             colour_have_updates         = "d60000",
             mouse_callbacks             = { 'Button1': lambda: qtile.cmd_spawn(TERMINAL + ' -e ' + SCRIPTS_DIR + 'up') }
+    )
+
+# It does NOT work
+def spotify(args = {}):
+    return widget.Mpris2(
+        **args,
+        name = 'spotifyd',
+        objname = 'org.mpris.MediaPlayer2.spotify',
+        display_metadata = ['xesam:title'],
+        max_chars = 41,
+        padding = 0,
+        scroll_chars = None,
+        scroll_interval = 0.5,
+        stop_pause_text = 'Paused'
     )
 
 def text(text, args = {}):
@@ -77,19 +91,19 @@ def volumeDiscord(args = {}):
 def volumeSpotify(args = {}):
     return volume(args, 'get-spotify-volume')
 
-def numPkgs(args = {}, script = 'num-pkgs'):
+def numPkgs(args = {}, script = 'num-pkgs', cmd = 'pacman -Q'):
     return widget.GenPollText(
         **args,
         update_interval         = 60,
         func                    = functions.exec_script(script),
-        mouse_callbacks         = { 'Button1': lambda: qtile.cmd_spawn(TERMINAL + ' --hold -e pacman -Q' )}
+        mouse_callbacks         = { 'Button1': lambda: qtile.cmd_spawn(TERMINAL + ' --hold -e ' + cmd)}
     )
 
 def numInstalledPkgs(args = {}):
-    return numPkgs(args, 'num-installed-pkgs')
+    return numPkgs(args, 'num-installed-pkgs', 'pacman -Qqetn')
 
 def numYayPkgs(args = {}):
-    return numPkgs(args, 'num-yay-pkgs')
+    return numPkgs(args, 'num-yay-pkgs', 'pacman -Qqetm')
 
 ##################
 ### SEPARATORS ###

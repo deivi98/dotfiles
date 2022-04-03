@@ -11,17 +11,6 @@ from utils.sticky import *
 # Import bar
 from bars.minimal.themes.night import *
 
-# from bar import init_screen, widget_default_values
-
-# screens = [
-# 	init_screen(),
-# 	init_screen(secondary=True)
-# ]
-
-# # Default widget and extension settings
-# widget_defaults = widget_default_values
-# extension_defaults = widget_defaults.copy()
-
 # Other Qtile config variables
 dgroups_key_binder              = None
 dgroups_app_rules               = []

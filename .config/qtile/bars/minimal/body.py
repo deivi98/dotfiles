@@ -28,30 +28,34 @@ BAR_SECONDARY_HEIGHT        = BAR_PRIMARY_HEIGHT
 def _build_primary_widgets(COLORS, ICON_FONT_CONFIG):
     return [
         padding(ICON_FONT_CONFIG),
-        logo({'fontsize': 33}),
+        logo({'fontsize': 40}),
         padding(ICON_FONT_CONFIG),
         windowName(),
 
         spacer(),
+        # text("", ICON_FONT_CONFIG),
+        # spotify(),
         groupBox({
-            'this_current_screen_border':           COLORS[1],
-            'this_screen_border':                   COLORS[1],
-            'other_current_screen_border':          COLORS[2],
-            'other_screen_border':                  COLORS[2],
             'hide_unused':                          False,
             'rounded':                              True,
-            'highlight_method':                     'line',
-            'highlight_color':                      COLORS[0],
-            'active':                               COLORS[2],
-            'inactive':                             COLORS[2]
+            'highlight_method':                     'line',     # Selected type of highlight
+            'block_highlight_text_color':           COLORS[1],
+            'this_current_screen_border':           COLORS[1],  # Highlight color of selected (in this screen)
+            'other_current_screen_border':          COLORS[0],  # Highlight color of selected (in other screen)
+            'this_screen_border':                   COLORS[1],  # Highlight color of other group selected (in other screen)
+            'other_screen_border':                  COLORS[0],  # Highlight color of other group selected (in this screen)
+            'highlight_color':                      COLORS[0],  # Highlight background of selected
+            'active':                               COLORS[2],  # Groups with at least one window
+            'inactive':                             COLORS[2],  # Groups with no windows
+            'fontsize':                             33,
+            'margin_y':                             -1,
+            'padding_x':                            5
         }),
-        padding(ICON_FONT_CONFIG),
-        *currentLayout(),
         spacer(),
 
-        checkUpdates(ICON_FONT_CONFIG),
-        padding(ICON_FONT_CONFIG),
         systray(ICON_FONT_CONFIG),
+        padding(ICON_FONT_CONFIG),
+        *currentLayout(),
         padding(ICON_FONT_CONFIG),
         volumeSpotify(),
         volumeDiscord(),
@@ -69,27 +73,33 @@ def _build_primary_widgets(COLORS, ICON_FONT_CONFIG):
 def _build_secondary_widgets(COLORS, ICON_FONT_CONFIG):
     return [
         padding(ICON_FONT_CONFIG),
-        logo({'fontsize': 33}),
+        logo({'fontsize': 40}),
         padding(ICON_FONT_CONFIG),
         windowName(),
         
         spacer(),
         groupBox({
-            'this_current_screen_border':           COLORS[1],
-            'this_screen_border':                   COLORS[1],
-            'other_current_screen_border':          COLORS[2],
-            'other_screen_border':                  COLORS[2],
             'hide_unused':                          False,
             'rounded':                              True,
-            'highlight_method':                     'line',
-            'highlight_color':                      COLORS[0],
-            'active':                               COLORS[2],
-            'inactive':                             COLORS[2]
+            'highlight_method':                     'line',     # Selected type of highlight
+            'block_highlight_text_color':           COLORS[1],
+            'this_current_screen_border':           COLORS[1],  # Highlight color of selected (in this screen)
+            'other_current_screen_border':          COLORS[0],  # Highlight color of selected (in other screen)
+            'this_screen_border':                   COLORS[1],  # Highlight color of other group selected (in other screen)
+            'other_screen_border':                  COLORS[0],  # Highlight color of other group selected (in this screen)
+            'highlight_color':                      COLORS[0],  # Highlight background of selected
+            'active':                               COLORS[2],  # Groups with at least one window
+            'inactive':                             COLORS[2],  # Groups with no windows
+            'fontsize':                             33,
+            'margin_y':                             -1,
+            'padding_x':                            5
         }),
         padding(ICON_FONT_CONFIG),
         *currentLayout(),
         spacer(),
 
+        checkUpdates(ICON_FONT_CONFIG),
+        padding(ICON_FONT_CONFIG),
         text("pkgs"),
         text(" ", ICON_FONT_CONFIG),
         numPkgs(),
@@ -97,11 +107,9 @@ def _build_secondary_widgets(COLORS, ICON_FONT_CONFIG):
         numInstalledPkgs(),
         text(" ", ICON_FONT_CONFIG),
         numYayPkgs(),
-        padding(ICON_FONT_CONFIG),
-        volumeSpotify(),
-        volumeDiscord(),
-        volume(),
-        padding(ICON_FONT_CONFIG),
+        
+        spacer(),
+
         text("", ICON_FONT_CONFIG),
         clock(),
         padding(ICON_FONT_CONFIG)
