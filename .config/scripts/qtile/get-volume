@@ -12,7 +12,7 @@ if [ "$currentSink" == "alsa_output.pci-0000_01_00.1.hdmi-stereo" ]; then
 fi
 
 if [ "$mute" == "no" ]; then
-    printf "$emoji $volume%%"
+    printf "$volume%%"
 else
-    printf " Mute"
+    printf "Mute"
 fi

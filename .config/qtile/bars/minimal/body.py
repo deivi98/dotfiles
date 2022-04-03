@@ -48,20 +48,25 @@ def _build_primary_widgets(COLORS, ICON_FONT_CONFIG):
             'active':                               COLORS[2],  # Groups with at least one window
             'inactive':                             COLORS[2],  # Groups with no windows
             'fontsize':                             33,
-            'margin_y':                             -1,
             'padding_x':                            5
         }),
         spacer(),
 
         systray(ICON_FONT_CONFIG),
         padding(ICON_FONT_CONFIG),
+        text(" ", ICON_FONT_CONFIG),
         *currentLayout(),
         padding(ICON_FONT_CONFIG),
+        volumeSpotifyIcon(ICON_FONT_CONFIG),
         volumeSpotify(),
+        padding(ICON_FONT_CONFIG),
+        volumeDiscordIcon(ICON_FONT_CONFIG),
         volumeDiscord(),
+        padding(ICON_FONT_CONFIG),
+        volumeIcon(ICON_FONT_CONFIG),
         volume(),
         padding(ICON_FONT_CONFIG),
-        text("", ICON_FONT_CONFIG),
+        text(" ", ICON_FONT_CONFIG),
         shortClock(),
         padding(ICON_FONT_CONFIG)
     ]
@@ -91,10 +96,10 @@ def _build_secondary_widgets(COLORS, ICON_FONT_CONFIG):
             'active':                               COLORS[2],  # Groups with at least one window
             'inactive':                             COLORS[2],  # Groups with no windows
             'fontsize':                             33,
-            'margin_y':                             -1,
             'padding_x':                            5
         }),
         padding(ICON_FONT_CONFIG),
+        text(" ", ICON_FONT_CONFIG),
         *currentLayout(),
         spacer(),
 
@@ -110,7 +115,7 @@ def _build_secondary_widgets(COLORS, ICON_FONT_CONFIG):
         
         spacer(),
 
-        text("", ICON_FONT_CONFIG),
+        text(" ", ICON_FONT_CONFIG),
         clock(),
         padding(ICON_FONT_CONFIG)
     ]

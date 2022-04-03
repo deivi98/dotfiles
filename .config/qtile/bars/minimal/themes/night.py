@@ -1,6 +1,7 @@
 from settings import SCREEN_PRIMARY_WIDTH
+from bars.minimal.body import build_screens
 
-WIDGET_FONT                 = "FontAwesome"
+WIDGET_FONT                 = "Iosevka Fixed SS18"
 WIDGET_FONT_SIZE            = int(SCREEN_PRIMARY_WIDTH / 120)
 WIDGET_ICON_FONT            = "FontAwesome"
 WIDGET_ICON_FONT_SIZE       = 20
@@ -27,5 +28,4 @@ ICON_FONT_CONFIG = {
     'fontsize': WIDGET_ICON_FONT_SIZE
 }
 
-from bars.minimal.body import build_screens
 screens = build_screens(COLORS, ICON_FONT_CONFIG)
