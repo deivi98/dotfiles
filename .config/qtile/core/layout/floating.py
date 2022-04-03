@@ -1,9 +1,9 @@
 from libqtile import layout
 from libqtile.lazy import lazy
 from libqtile.config import Match, Drag, Click
-from config import MOD
+from settings import MOD
 
-layout_float = layout.Floating(float_rules = [
+floating_layout = layout.Floating(float_rules = [
     # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
     Match(wm_class='confirmreset'),         # gitk
@@ -14,7 +14,7 @@ layout_float = layout.Floating(float_rules = [
     Match(title='pinentry'),                # GPG key password entry
 ])
 
-mouse_controls = [
+mouse = [
     Drag([MOD],             "Button1",          lazy.window.set_position_floating(),    start=lazy.window.get_position()),
     Drag([MOD],             "Button3",          lazy.window.set_size_floating(),        start=lazy.window.get_size()),
     Click([MOD],            "Button2",          lazy.window.bring_to_front())

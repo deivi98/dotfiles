@@ -20,26 +20,26 @@ def focusWindow(qtile, wName: str) -> bool:
             # Match window if title contains regex but it's not chromium
             if wName.lower() in windowName.lower() and ("chromium" not in windowName.lower() or "chromium" in wName.lower()):
 
-                presentIn = -1;
+                presentIn = -1
 
                 # Find group in any screen
                 for i in range(len(qtile.screens)):
                     if qtile.screens[i].group.name == group:
-                        presentIn = i;
-                        break;
+                        presentIn = i
+                        break
 
                 # If group is not selected in any screen, set it to primary screen
                 if presentIn < 0:
-                    qtile.screens[0].cmd_toggle_group(group);
-                    presentIn = 0;
+                    qtile.screens[0].cmd_toggle_group(group)
+                    presentIn = 0
 
                 # Make sure screen is focused
-                qtile.cmd_to_screen(presentIn);
+                qtile.cmd_to_screen(presentIn)
 
                 # Make sure window is focused
-                screenWindows = qtile.screens[presentIn].group.windows;
-                windowObj = list(filter(lambda x: (x.name == windowName), screenWindows))[0];
-                qtile.screens[presentIn].group.focus(windowObj, True, True);
+                screenWindows = qtile.screens[presentIn].group.windows
+                windowObj = list(filter(lambda x: (x.name == windowName), screenWindows))[0]
+                qtile.screens[presentIn].group.focus(windowObj, True, True)
 
                 return True
 

@@ -1,16 +1,14 @@
 from libqtile.lazy import lazy
 from libqtile.config import Key
-from config import reload, MOD, MOD2, TERMINAL, BROWSER, FILE_EXPLORER, EDITOR, SCRIPTS_DIR, HOME
+from settings import *
 
 # My functions
-reload("function")
-import function
+import utils.functions as functions
 
 # My sticky window
-reload("sticky")
-from sticky import stick_win
+from utils.sticky import stick_win
 
-key_bindings = [
+keys = [
     ### ESSENTIALS
 
     Key([MOD],              "Return",           lazy.spawn(TERMINAL),                                                                                                           'Launches my terminal'),
@@ -21,7 +19,7 @@ key_bindings = [
     Key([MOD, "control"],   "BackSpace",        lazy.spawn("shutdown now"),                                                                                                     'Shutdown computer'),
 
     # Qtile config  
-    Key([MOD],              "q",                lazy.function(function.terminal_app, EDITOR, HOME + '/.config/qtile/config.py', windowName="Qtile config", sleep=0.1),      'Qtile config'),
+    Key([MOD],              "q",                lazy.function(functions.terminal_app, EDITOR, HOME + '/.config/qtile/config.py', windowName="Qtile config", sleep=0.1),      'Qtile config'),
 
     ### MY OWN KEYBINDINGS  
 
@@ -35,39 +33,39 @@ key_bindings = [
     Key([MOD, "shift"],     "t",                lazy.spawn(SCRIPTS_DIR + 'rofi-ttv'),                                                                                           'Run Twitch Launcher'),
 
     ### APPLICATIONS QUICK ACCESS   
-    Key([MOD],              "b",                lazy.function(function.gotoapp_or_create, BROWSER, "Chromium"),                                                                 'Chromium'),
-    Key([MOD],              "d",                lazy.function(function.gotoapp_or_create, 'discord'),                                                                           'Discord'),
-    Key([MOD],              "i",                lazy.function(function.gotoapp_or_create, 'srain'),                                                                             'Srain'),
-    Key([MOD],              "g",                lazy.group[""].toscreen(toggle=False),                                                                                         'Game'),
-    Key([MOD],              "t",                lazy.function(function.gotoapp_or_create, 'telegram-desktop', 'Telegram'),                                                      'Telegram'),
-    Key([MOD],              "s",                lazy.function(function.gotoapp_or_create, 'steam'),                                                                             'Steam'),
-    Key([MOD],              "m",                lazy.function(function.terminal_app, 'spt', windowName="Spotify", sleep=0.1),                                                   'Spotify'),
-    Key([MOD],              "e",                lazy.function(function.terminal_app, EDITOR, windowName="LunarVim", sleep=0.1),                                                 'LunarVim'),
-    Key([MOD],              "c",                lazy.function(function.gotoapp_or_create, 'mailspring'),                                                                        'Mailspring'),
-    Key([MOD],              "f",                lazy.function(function.terminal_app, FILE_EXPLORER, sleep=0.1),                                                                 'Ranger'),
-    Key([MOD],              "n",                lazy.function(function.terminal_app, FILE_EXPLORER, '/mnt/hdd/nextcloud', windowName="Nextcloud", sleep=0.1),                   'Nextcloud'),
+    Key([MOD],              "b",                lazy.function(functions.gotoapp_or_create, BROWSER, "Chromium"),                                                                 'Chromium'),
+    Key([MOD],              "d",                lazy.function(functions.gotoapp_or_create, 'discord'),                                                                           'Discord'),
+    Key([MOD],              "i",                lazy.function(functions.gotoapp_or_create, 'srain'),                                                                             'Srain'),
+    Key([MOD],              "g",                lazy.to_screen(0), lazy.group["5"].toscreen(toggle=False),                                                                                         'Game'),
+    Key([MOD],              "t",                lazy.function(functions.gotoapp_or_create, 'telegram-desktop', 'Telegram'),                                                      'Telegram'),
+    Key([MOD],              "s",                lazy.function(functions.gotoapp_or_create, 'steam'),                                                                             'Steam'),
+    Key([MOD],              "m",                lazy.function(functions.terminal_app, 'spt', windowName="Spotify", sleep=0.1),                                                   'Spotify'),
+    Key([MOD],              "e",                lazy.function(functions.terminal_app, EDITOR, windowName="LunarVim", sleep=0.1),                                                 'LunarVim'),
+    Key([MOD],              "c",                lazy.function(functions.gotoapp_or_create, 'mailspring'),                                                                        'Mailspring'),
+    Key([MOD],              "f",                lazy.function(functions.terminal_app, FILE_EXPLORER, sleep=0.1),                                                                 'Ranger'),
+    Key([MOD],              "n",                lazy.function(functions.terminal_app, FILE_EXPLORER, '/mnt/hdd/nextcloud', windowName="Nextcloud", sleep=0.1),                   'Nextcloud'),
 
     ### ARCH INFO / CONTROLS    
 
     # BTOP  
-    Key([MOD],              "p",                lazy.function(function.terminal_app, 'btop', windowName="Btop"),                                                                'Btop'),
+    Key([MOD],              "p",                lazy.function(functions.terminal_app, 'btop', windowName="Btop"),                                                                'Btop'),
     # Flameshot screenshot      
     Key([MOD, "shift"],     "s",                lazy.spawn(["flameshot", "gui"]),                                                                                               'Screenshot'),
     # Switch audio output       
     Key([MOD, "shift"],     "o",                lazy.spawn(SCRIPTS_DIR + 'switch-output'),                                                                                      'Switch audio output'),
     # Switch redshift       
-    Key([MOD, "shift"],     "n",                lazy.function(function.switch_redshift),                                                                                        'Switch redshift'),
+    Key([MOD, "shift"],     "n",                lazy.function(functions.switch_redshift),                                                                                        'Switch redshift'),
     # Random background     
-    Key([MOD, "shift"],     "b",                lazy.function(function.random_background),                                                                                      'Random background'),
+    Key([MOD, "shift"],     "b",                lazy.function(functions.random_background),                                                                                      'Random background'),
     # Update system     
-    Key([MOD],              "u",                lazy.function(function.terminal_app, SCRIPTS_DIR + "up", windowName="System update"),                                           'System update'),
+    Key([MOD],              "u",                lazy.function(functions.terminal_app, SCRIPTS_DIR + "up", windowName="System update"),                                           'System update'),
     # Update system (AUR)       
-    Key([MOD, "shift"],     "u",                lazy.function(function.terminal_app, SCRIPTS_DIR + "up all", windowName="AUR system update"),                                   'AUR system update'),
+    Key([MOD, "shift"],     "u",                lazy.function(functions.terminal_app, SCRIPTS_DIR + "up all", windowName="AUR system update"),                                   'AUR system update'),
 
     ### MONITORS    
 
     # Swap monitors 
-    Key([MOD],              "y",                lazy.function(function.swap_screens),                                                                                           'Swap group between monitors'),
+    Key([MOD],              "y",                lazy.function(functions.swap_screens),                                                                                           'Swap group between monitors'),
     # Switch focus of monitors  
     Key([MOD],              "period",           lazy.to_screen(0),                                                                                                              'Move focus to next monitor'),
     Key([MOD],              "comma",            lazy.to_screen(1),                                                                                                              'Move focus to prev monitor'),

@@ -4,7 +4,7 @@ import subprocess
 from libqtile import hook, qtile
 from libqtile.log_utils import logger
 
-from config import SCRIPTS_DIR
+from settings import SCRIPTS_DIR
 
 ### Autostart programs
 @hook.subscribe.startup_once

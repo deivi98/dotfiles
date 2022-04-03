@@ -1,89 +1,28 @@
-import importlib
-import sys
-import os
+# Import core functionality
+from core.hooks import *
+from core.keybindings import *
+from core.layout.layouts import *
+from core.layout.floating import *
+from core.groups import *
 
-#################
-### CONSTANTS ###
-#################
+# Import sticky window utils
+from utils.sticky import *
 
-# General
-MOD                     = "mod1"
-MOD2                    = "mod4"
-TERMINAL                = "alacritty"                                       # My terminal of choice
-BROWSER                 = "chromium"                                        # My browser of choice
-FILE_EXPLORER           = "ranger"                                          # My file explorer of choice
-EDITOR                  = "lvim"                                            # My editor
-HOME                    = os.path.expanduser('~')                           # My home
-SCRIPTS_DIR             = HOME + "/.config/scripts/"                        # My scripts directory
+# Import bar
+from bars.minimal.themes.night import *
 
-#####################
-### GENERAL UTILS ###
-#####################
+# from bar import init_screen, widget_default_values
 
-### Config imports
-def reload(module):
-    if module in sys.modules:
-        importlib.reload(sys.modules[module])
+# screens = [
+# 	init_screen(),
+# 	init_screen(secondary=True)
+# ]
 
-### Import my hooks
-reload("hooks")
-import hooks
+# # Default widget and extension settings
+# widget_defaults = widget_default_values
+# extension_defaults = widget_defaults.copy()
 
-### Import my sticky window utils
-reload("sticky")
-import sticky
-
-###################
-### KEYBINDINGS ###
-###################
-
-reload("keybindings")
-from keybindings import key_bindings
-keys = key_bindings
-
-###############
-### LAYOUTS ###
-###############
-
-reload("layouts")
-from layouts import layout_list
-layouts = layout_list
-
-# Floating layout
-reload("floating")
-from floating import layout_float, mouse_controls
-floating_layout = layout_float
-mouse = mouse_controls
-
-##################
-### WORKSPACES ###
-##################
-
-reload("groups")
-from groups import workspaces, add_workspace_keybindings
-groups = workspaces
-keys = add_workspace_keybindings(keys)
-
-###########
-### BAR ###
-###########
-
-reload("bar")
-from bar import init_screen, widget_default_values
-
-screens = [
-	init_screen(),
-	init_screen(secondary=True)
-]
-
-# Default widget and extension settings
-widget_defaults = widget_default_values
-extension_defaults = widget_defaults.copy()
-
-#############################
-### OTHER QTILE VARIABLES ###
-#############################
-
+# Other Qtile config variables
 dgroups_key_binder              = None
 dgroups_app_rules               = []
 follow_mouse_focus              = True

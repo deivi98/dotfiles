@@ -1,8 +1,9 @@
+from settings import WINDOW_MARGIN
+
 #################
 ### CONSTANTS ###
 #################
 
-DEFAULT_MARGIN = 15
 BORDER_FOCUS_COLORS = [
     'd7de59',   # Focused window
     '7b7b7b',   # Unfocused window
@@ -15,7 +16,7 @@ BORDER_FOCUS_COLORS = [
 # Columns
 columns_theme = {
     "border_width": 1,
-    "margin": [DEFAULT_MARGIN, DEFAULT_MARGIN, 0, 0],
+    "margin": [WINDOW_MARGIN, WINDOW_MARGIN, 0, 0],
     # "margin_on_single": [0, 0, 0, 0],
     "border_on_single": True,
     "border_focus": BORDER_FOCUS_COLORS[0],
@@ -27,5 +28,5 @@ columns_theme = {
 stack_theme = {
     "border_width": 1,
     "border_focus": BORDER_FOCUS_COLORS[0],
-    "margin": [DEFAULT_MARGIN, DEFAULT_MARGIN, 0, 0]
+    "margin": [WINDOW_MARGIN, WINDOW_MARGIN, 0, 0]
 }
