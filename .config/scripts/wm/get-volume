@@ -1,0 +1,12 @@
+#!/bin/env bash
+set -e
+
+currentSink=$(pacmd stat | grep "Default sink name" | cut -d" " -f4 2>&1)
+mute=$(pactl get-sink-mute $currentSink | cut -d" " -f2 2>&1)
+
+if [ "$mute" == "no" ]; then
+    volume=$(pactl get-sink-volume $currentSink | grep Volume | cut -d"/" -f2 | tr -dc '0-9' 2>&1)
+    printf "$volume%%"
+else
+    printf "Mute"
+fi

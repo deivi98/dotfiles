@@ -1,0 +1,33 @@
+#!/bin/env bash
+
+updates=$(checkupdates 2>&1)
+
+if [ "$1" == "all" ]; then
+  updates=$(yay -Qu 2>&1)
+fi
+
+
+if [ "$updates" == "" ]; then
+  echo "No updates available"
+else
+  if [ "$1" == "all" ]; then
+    echo "═══════════════════════════════════════ YAY UPDATES ═══════════════════════════════════════"
+  else
+    echo "═════════════════════════════════════════ UPDATES ═════════════════════════════════════════"
+  fi
+  echo "$updates"
+  echo "═══════════════════════════════════════════════════════════════════════════════════════════"
+  read -p " > Press [ENTER] to install updates"
+  echo "═══════════════════════════════════════════════════════════════════════════════════════════"
+
+  if [ "$1" == "all" ]; then
+    yay -Syu --noconfirm
+  else
+    sudo pacman -Syyu --noconfirm
+  fi
+  echo "╔══════════════════════════╗"
+  echo "║ ==> UPDATE SUCCEEDED <== ║"
+  echo "╚══════════════════════════╝"
+fi
+
+read -p "Press any key to exit... " -n1 -s

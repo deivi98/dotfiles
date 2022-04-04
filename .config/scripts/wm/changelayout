@@ -1,0 +1,17 @@
+#!/bin/env bash
+set -e
+
+currentLayout=$(setxkbmap -query | grep layout | cut -d" " -f6 2>&1)
+icon="$HOME/.config/dunst/layout.png"
+
+if [ "$currentLayout" == "us" ]; then
+  setxkbmap -layout es
+  dunstify -a "changelayout" -u low -r "9994" -I "$icon" "Layout: ES" -t 1500
+else
+  setxkbmap -layout us
+  dunstify -a "changelayout" -u low -r "9994" -I "$icon" "Layout: US" -t 1500
+fi
+
+xset r rate 200 50
+setxkbmap -option 'caps:ctrl_modifier'
+xcape -e 'Caps_Lock=Escape'
