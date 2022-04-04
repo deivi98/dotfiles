@@ -52,7 +52,7 @@ setxkbmap -option 'caps:ctrl_modifier'
 xcape -e 'Caps_Lock=Escape'
 
 # Increasing mouse wheel speed
-imwheel -b 45
+# imwheel -b 45
 
 # Sets random wallpaper (add --no-fehbg to not generate ~/.fehbg)
 feh --recursive --no-fehbg --bg-fill --randomize ~/.local/share/wallpapers/nature &
