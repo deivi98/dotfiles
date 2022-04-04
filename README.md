@@ -3,7 +3,6 @@
 ![Rice](https://i.imgur.com/LunUaax.jpg)
 
 ## Summary
-|   	                                          |   	                                        |
 |---------------------------------------------- |-------------------------------------------- |
 | OS   	                                        | Arch Linux  	                              |
 | Kernel   	                                    | linux-zen  	                                |
