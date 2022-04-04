@@ -3,45 +3,31 @@
 ![Rice](https://i.imgur.com/LunUaax.jpg)
 
 ## Summary
-|   	|   	|
-|---	|---	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-|   	|   	|
-
-* OS: `Arch Linux`
-* Package manager: `pacman`
-* AUR Package manager: `yay`
-* Shell: `zsh`
-* Terminal emulator: `alacritty`
-* Browser: `chromium`
-* Editor: `Lunar Vim (neovim)`
-* File explorer (terminal): `ranger`
-* File explorer (gui): `pcmanfm`
-* Compositor: `picom-ibhagwan-git`
-* WM: `qtile`
-* Display manager: none
-* Launcher: `rofi`
-* Screen saver: `xscreensaver`
-* Background: `feh`
-* Notification daemon: `dunst`
-* Music daemon: `spotifyd`
-* Music client: `spotify-tui`
-* Screenshots: `flameshot`
-* Eye care: `redshift`
-* Video player: `mpv`
-* PDF reader: `zathura`
+|   	                                          |   	                                        |
+|---------------------------------------------- |-------------------------------------------- |
+| OS   	                                        | Arch Linux  	                              |
+| Kernel   	                                    | linux-zen  	                                |
+| Package Manager  	                            | pacman  	                                  |
+| AUR package manager  	                        | yay  	                                      |
+| Shell  	                                      | zsh  	                                      |
+| Terminal emulator  	                          | alacritty  	                                |
+| Browser                                       | chromium  	                                |
+| Editor  	                                    | editor  	                                  |
+| File explorer (terminal)  	                  | ranger  	                                  |
+| File explorer (gui)  	                        | pcmanfm  	                                  |
+| Compositor  	                                | picom-ibhagwan-git  	                      |
+| WM  	                                        | qtile  	                                    |
+| Display manager  	                            | n/a  	                                      |
+| Launcher  	                                  | rofi  	                                    |
+| Screen saver  	                              | xscreensaver  	                            |
+| Background  	                                | feh  	                                      |
+| Notification daemon  	                        | dunst  	                                    |
+| Music daemon  	                              | spotifyd  	                                |
+| Music client  	                              | spotify-tui  	                              |
+| Screenshots  	                                | flameshot  	                                |
+| Eye care  	                                  | redshift  	                                |
+| Video player  	                              | mpv  	                                      |
+| PDF reader  	                                | zathura  	                                  |
 
 ## Installation
 1. Clone this repo `git clone https://github.com/deivi98/dotfiles`
