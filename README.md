@@ -5,29 +5,29 @@
 ## Summary
 | My system  	                                  | Info - Package/s  	                        |
 |---------------------------------------------- |-------------------------------------------- |
-| OS   	                                        | Arch Linux  	                              |
-| Kernel   	                                    | `linux-zen`  	                              |
-| Package Manager  	                            | `pacman`  	                                |
-| AUR package manager  	                        | `yay`  	                                    |
-| Shell  	                                      | `zsh`  	                                    |
-| Terminal emulator  	                          | `alacritt`y  	                              |
-| Browser                                       | `chromium`  	                              |
-| Editor  	                                    | `editor`  	                                |
-| File explorer (terminal)  	                  | `ranger`  	                                |
-| File explorer (gui)  	                        | `pcmanfm`  	                                |
-| Compositor  	                                | `picom-ibhagwan-git`  	                    |
-| WM  	                                        | `qtile`  	                                  |
-| Display manager  	                            | n/a  	                                      |
-| Launcher  	                                  | `rofi`  	                                  |
-| Screen saver  	                              | `xscreensaver`  	                          |
-| Background  	                                | `feh`  	                                    |
-| Notification daemon  	                        | `dunst`  	                                  |
-| Music daemon  	                              | `spotifyd`  	                              |
-| Music client  	                              | `spotify-tui`  	                            |
-| Screenshots  	                                | `flameshot`  	                              |
-| Eye care  	                                  | `redshift`  	                              |
-| Video player  	                              | `mpv`  	                                    |
-| PDF reader  	                                | `zathura`  	                                |
+| _OS_  	                                      | Arch Linux  	                              |
+| _Kernel_   	                                  | `linux-zen`  	                              |
+| _Package Manager_  	                          | `pacman`  	                                |
+| _AUR package manager_  	                      | `yay`  	                                    |
+| _Shell_  	                                    | `zsh`  	                                    |
+| _Terminal emulator_  	                        | `alacritty`  	                              |
+| _Browser_                                     | `chromium`  	                              |
+| _Editor_  	                                  | `editor`  	                                |
+| _File explorer (terminal)_  	                | `ranger`  	                                |
+| _File explorer (gui)_  	                      | `pcmanfm`  	                                |
+| _Compositor_  	                              | `picom-ibhagwan-git`  	                    |
+| _WM_  	                                      | `qtile`  	                                  |
+| _Display manager_  	                          | n/a  	                                      |
+| _Launcher_  	                                | `rofi`  	                                  |
+| _Screen saver_  	                            | `xscreensaver`  	                          |
+| _Background_  	                              | `feh`  	                                    |
+| _Notification daemon_  	                      | `dunst`  	                                  |
+| _Music daemon_  	                            | `spotifyd`  	                              |
+| _Music client_  	                            | `spotify-tui`  	                            |
+| _Screenshots_  	                              | `flameshot`  	                              |
+| _Eye care_  	                                | `redshift`  	                              |
+| _Video player_  	                            | `mpv`  	                                    |
+| _PDF reader_  	                              | `zathura`  	                                |
 
 ## Installation
 1. Clone this repo `git clone https://github.com/deivi98/dotfiles`
