@@ -3,12 +3,28 @@
 ![Rice](https://i.imgur.com/LunUaax.jpg)
 
 ## Summary
+|   	|   	|
+|---	|---	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
+|   	|   	|
 
 * OS: `Arch Linux`
 * Package manager: `pacman`
-* AUR Package manager: `pay`
+* AUR Package manager: `yay`
 * Shell: `zsh`
-* Terminal: `alacritty`
+* Terminal emulator: `alacritty`
 * Browser: `chromium`
 * Editor: `Lunar Vim (neovim)`
 * File explorer (terminal): `ranger`
