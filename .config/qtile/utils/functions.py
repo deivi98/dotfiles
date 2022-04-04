@@ -3,6 +3,8 @@ from threading import Thread
 from time import sleep
 from libqtile.log_utils import logger
 
+from settings import SCRIPTS_DIR
+
 # Swap groups between screens
 def swap_screens(qtile):
     groupName = qtile.screens[0].group
@@ -68,7 +70,7 @@ def run_cmd(qtile, cmd):
 
 # Exec script
 def exec_script(script):
-    return lambda: subprocess.Popen('/home/david/.config/scripts/' + script, shell=True, stdout=subprocess.PIPE).communicate()[0].decode()
+    return lambda: subprocess.Popen(SCRIPTS_DIR + script, shell=True, stdout=subprocess.PIPE).communicate()[0].decode()
 
 # Switch redshift on and off
 def switch_redshift(qtile):

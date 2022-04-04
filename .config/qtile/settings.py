@@ -16,7 +16,7 @@ EDITOR                      = "lvim"                                            
 
 # Default paths
 HOME                        = os.path.expanduser('~')                           # My home
-SCRIPTS_DIR                 = HOME + "/.config/scripts/"                        # My scripts directory
+SCRIPTS_DIR                 = HOME + "/.config/scripts/wm/"                     # My scripts directory
 
 # Layout
 WINDOW_MARGIN = 15

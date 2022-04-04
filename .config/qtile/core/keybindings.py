@@ -1,6 +1,6 @@
 from libqtile.lazy import lazy
 from libqtile.config import Key
-from settings import *
+from settings import SCRIPTS_DIR, HOME, TERMINAL, MOD, EDITOR, MOD2, BROWSER, FILE_EXPLORER
 
 # My functions
 import utils.functions as functions

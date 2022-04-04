@@ -1,8 +1,0 @@
-#!/bin/env bash
-set -e
-
-volume=$(pactl list sink-inputs | grep -B 13 "Discord" | grep Volume | cut -d"/" -f2 | tr -dc '0-9' 2>&1)
-
-if [ "$volume" != "" ]; then
-  printf "$volume%%"
-fi

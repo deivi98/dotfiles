@@ -77,7 +77,7 @@ def text(text, args = {}):
 ### SCRIPTS ###
 ###############
 
-def volumeIcon(args = {}, script = 'qtile/get-volume-icon'):
+def volumeIcon(args = {}, script = 'get-volume-icon'):
     return widget.GenPollText(
         **args,
         func                    = functions.exec_script(script),
@@ -85,7 +85,7 @@ def volumeIcon(args = {}, script = 'qtile/get-volume-icon'):
         mouse_callbacks         = { 'Button1': lambda: qtile.cmd_spawn('pavucontrol') }
     )
 
-def volume(args = {}, script = 'qtile/get-volume'):
+def volume(args = {}, script = 'get-volume'):
     return widget.GenPollText(
         **args,
         func                    = functions.exec_script(script),
@@ -94,18 +94,18 @@ def volume(args = {}, script = 'qtile/get-volume'):
     )
 
 def volumeDiscordIcon(args = {}):
-    return volumeIcon(args, 'qtile/get-discord-volume-icon')
+    return volumeIcon(args, 'get-discord-volume-icon')
 
 def volumeDiscord(args = {}):
-    return volume(args, 'qtile/get-discord-volume')
+    return volume(args, 'get-discord-volume')
 
 def volumeSpotifyIcon(args = {}):
-    return volumeIcon(args, 'qtile/get-spotify-volume-icon')
+    return volumeIcon(args, 'get-spotify-volume-icon')
 
 def volumeSpotify(args = {}):
-    return volume(args, 'qtile/get-spotify-volume')
+    return volume(args, 'get-spotify-volume')
 
-def numPkgs(args = {}, script = 'qtile/num-pkgs', cmd = 'pacman -Q'):
+def numPkgs(args = {}, script = 'num-pkgs', cmd = 'pacman -Q'):
     return widget.GenPollText(
         **args,
         update_interval         = 60,
@@ -114,10 +114,10 @@ def numPkgs(args = {}, script = 'qtile/num-pkgs', cmd = 'pacman -Q'):
     )
 
 def numInstalledPkgs(args = {}):
-    return numPkgs(args, 'qtile/num-installed-pkgs', 'pacman -Qqetn')
+    return numPkgs(args, 'num-installed-pkgs', 'pacman -Qqetn')
 
 def numYayPkgs(args = {}):
-    return numPkgs(args, 'qtile/num-yay-pkgs', 'pacman -Qqetm')
+    return numPkgs(args, 'num-yay-pkgs', 'pacman -Qqetm')
 
 ##################
 ### SEPARATORS ###

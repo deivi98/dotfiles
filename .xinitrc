@@ -1,10 +1,15 @@
+#!/bin/sh
 #  ____           _           _ 
-# |  _ \    ___  (_) __   __ (_)	David González (deivi) | | | |  / _ \ | | \ \ / / | |	https://deivii.es
-# | |_| | |  __/ | |  \ V /  | |  https://github.com/deivi98
+# |  _ \    ___  (_) __   __ (_)	David González (deivi)
+# | | | |  / _ \ | | \ \ / / | |  github.com/deivi98
+# | |_| | |  __/ | |  \ V /  | |  
 # |____/   \___| |_|   \_/   |_|
 #
 
-#!/bin/sh
+######################################
+#             XINIT CONFIG           #
+######################################
+
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
@@ -34,6 +39,10 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  done
  unset f
 fi
+
+######################################
+#              MY CONFIG             #
+######################################
 
 # Change key delay and repeat
 xset r rate 200 50

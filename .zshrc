@@ -1,7 +1,7 @@
 #  ____           _           _ 
 # |  _ \    ___  (_) __   __ (_)	David González (deivi)
-# | | | |  / _ \ | | \ \ / / | |	https://deivii.es
-# | |_| | |  __/ | |  \ V /  | |  https://github.com/deivi98
+# | | | |  / _ \ | | \ \ / / | |  github.com/deivi98
+# | |_| | |  __/ | |  \ V /  | |  
 # |____/   \___| |_|   \_/   |_|
 #
 
@@ -54,7 +54,7 @@ if [ -d "$HOME/Applications" ] ;
 fi
 
 if [ -d "$HOME/.config/scripts" ] ;
-  then PATH="$HOME/.config/scripts:$PATH"
+  then PATH=$PATH$( find $HOME/.config/scripts/ -type d -printf ":%p" )
 fi
 
 # -----------------------------------------------
