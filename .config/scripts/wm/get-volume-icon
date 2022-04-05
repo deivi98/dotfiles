@@ -6,12 +6,12 @@ mute=$(pactl get-sink-mute $currentSink | cut -d" " -f2 2>&1)
 
 if [ "$mute" == "no" ]; then
 
-    if [[ $currentSink == *"hdmi"* ]]; then
+    if [[ $currentSink != *"Corsair"* ]]; then
         printf ''
     else
         printf ""
     fi
 
 else
-    printf ""
+    printf ""
 fi
