@@ -58,7 +58,7 @@ xcape -e 'Caps_Lock=Escape'
 feh --recursive --no-fehbg --bg-fill --randomize ~/.local/share/wallpapers/nature &
 
 # Starts compositor process in the background
-picom --experimental-backends --backend glx --xrender-sync-fence &
+# picom --experimental-backends --backend glx --xrender-sync-fence &
 
 # Start Dunst
 dunst &
