@@ -2,7 +2,6 @@
 discord &
 nextcloud &
 steam -silent &
-mailspring -b &
 flameshot &
 redshift-gtk &
 xscreensaver -no-splash &

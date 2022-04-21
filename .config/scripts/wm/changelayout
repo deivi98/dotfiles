@@ -14,4 +14,6 @@ fi
 
 xset r rate 200 50
 setxkbmap -option 'caps:ctrl_modifier'
-xcape -e 'Caps_Lock=Escape'
+# setxkbmap -option 'caps:super'
+xmodmap -e "clear Lock" -e "keycode 0x42 = Escape"
+xcape -e 'Caps_Lock=Escape' -t 100

@@ -5,8 +5,9 @@ import os
 ################
 
 # Qtile
-MOD                         = "mod1"                                            # ALT
+MOD                         = "mod1"                                            # ALT KEY
 MOD2                        = "mod4"                                            # WIN KEY
+MOD_CTRL                    = "control"                                         # CTRL KEY
 
 # Default programs
 TERMINAL                    = "alacritty"                                       # My terminal of choice

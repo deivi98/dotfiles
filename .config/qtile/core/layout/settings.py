@@ -15,7 +15,7 @@ BORDER_FOCUS_COLORS = [
 
 # Columns
 columns_theme = {
-    "border_width": 1,
+    "border_width": 2,
     "margin": [WINDOW_MARGIN, WINDOW_MARGIN, 0, 0],
     # "margin_on_single": [0, 0, 0, 0],
     "border_on_single": True,
@@ -26,7 +26,7 @@ columns_theme = {
 
 # Stack
 stack_theme = {
-    "border_width": 1,
+    "border_width": 2,
     "border_focus": BORDER_FOCUS_COLORS[0],
     "margin": [WINDOW_MARGIN, WINDOW_MARGIN, 0, 0]
 }

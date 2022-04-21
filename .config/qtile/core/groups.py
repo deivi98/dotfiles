@@ -13,7 +13,7 @@ def _():
         qtile.groups_map['4'].cmd_toscreen(1, toggle=False)
 
 
-numbers = [i for i in range(5)]
+# numbers = [i for i in range(5)]
 circles = ['●'] * 5
 
 label = circles

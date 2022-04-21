@@ -82,11 +82,13 @@ esac
 
 # Vim keys
 bindkey -v
+KEYTIMEOUT=1
 
 # Zsh completion
 zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 zstyle :compinstall filename "$HOME/.zshrc"
 autoload -Uz compinit
 compinit -d ~/.cache/zsh/.zcompdump
@@ -112,6 +114,24 @@ SAVEHIST=1000
 
 # Auto cd & more
 setopt autocd beep extendedglob notify
+
+# Cursor style
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+precmd() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
 
 ######################################
 #          PERSONAL CONFIG           #

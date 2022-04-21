@@ -49,7 +49,8 @@ xset r rate 200 50
 
 # Set Caps Lock as CTRL modifier and ESC when alone
 setxkbmap -option 'caps:ctrl_modifier'
-xcape -e 'Caps_Lock=Escape'
+xmodmap -e "clear Lock" -e "keycode 0x42 = Escape"
+xcape -e 'Caps_Lock=Escape' -t 100
 
 # Increasing mouse wheel speed
 # imwheel -b 45
