@@ -43,7 +43,7 @@ keys = [
     Key([MOD],              "e",                lazy.function(functions.terminal_app, EDITOR, windowName="LunarVim", sleep=0.1),                                                desc='LunarVim'),
     Key([MOD],              "c",                lazy.function(functions.gotoapp_or_create, 'mailspring'),                                                                       desc='Mailspring'),
     Key([MOD],              "f",                lazy.function(functions.terminal_app, FILE_EXPLORER, sleep=0.1),                                                                desc='Ranger'),
-    Key([MOD],              "n",                lazy.function(functions.terminal_app, FILE_EXPLORER, '/mnt/hdd/nextcloud', windowName="Nextcloud", sleep=0.1),                  desc='Nextcloud'),
+    Key([MOD],              "n",                lazy.function(functions.terminal_app, FILE_EXPLORER, '/home/david/cloud', windowName="Nextcloud", sleep=0.1),                   desc='Nextcloud'),
 
     ### ARCH INFO / CONTROLS    
 
