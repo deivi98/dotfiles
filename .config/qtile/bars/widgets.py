@@ -105,6 +105,20 @@ def volumeSpotifyIcon(args = {}):
 def volumeSpotify(args = {}):
     return volume(args, 'get-spotify-volume')
 
+def headsetBatteryIcon(args = {}, script = 'get-headset-battery-icon'):
+    return widget.GenPollText(
+        **args,
+        func                    = functions.exec_script(script),
+        update_interval         = 30,
+    )
+
+def headsetBattery(args = {}, script = 'get-headset-battery'):
+    return widget.GenPollText(
+        **args,
+        func                    = functions.exec_script(script),
+        update_interval         = 30,
+    )
+
 def numPkgs(args = {}, script = 'num-pkgs', cmd = 'pacman -Q'):
     return widget.GenPollText(
         **args,

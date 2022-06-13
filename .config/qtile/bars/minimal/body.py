@@ -63,6 +63,8 @@ def _build_primary_widgets(COLORS, ICON_FONT_CONFIG):
         volumeDiscord(),
         volumeIcon(ICON_FONT_CONFIG),
         volume(),
+        headsetBatteryIcon(ICON_FONT_CONFIG),
+        headsetBattery(),
         padding(ICON_FONT_CONFIG),
         text(" ", ICON_FONT_CONFIG),
         shortClock(),
