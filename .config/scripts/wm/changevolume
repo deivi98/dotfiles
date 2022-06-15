@@ -1,5 +1,5 @@
 #!/bin/bash
-currentSink=$(pacmd stat | grep "Default sink name" | cut -d" " -f4 2>&1)
+currentSink=$(pactl info | grep "Default Sink" | cut -d" " -f3 2>&1)
 
 icon="$HOME/.config/dunst/volume.png"
 if [ "$currentSink" == "alsa_output.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.analog-stereo" ]; then
@@ -33,7 +33,7 @@ mute)
   pactl set-sink-mute @DEFAULT_SINK@ toggle
   pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-  mute=$(pactl get-sink-mute $currentSink | cut -d" " -f2 2>&1)
+  mute=$(pactl get-sink-mute @DEFAULT_SINK@ | cut -d" " -f2 2>&1)
 
   if [ "$mute" == "no" ]; then
     send_notification

@@ -1,11 +1,11 @@
 #!/bin/bash
 
 function send_notification() {
-  volume=$(pactl list sink-inputs | grep -B 13 "Spotify" | grep Volume | cut -d"/" -f2 | tr -dc '0-9' 2>&1)
+  volume=$(pactl list sink-inputs | grep -B 18 -e 'application.name = "spotifyd"' | grep Volume | cut -d"/" -f2 | tr -dc '0-9' 2>&1)
 	dunstify -a "changevolume" -u low -r "9993" -h int:value:"$volume" -I $HOME/.config/dunst/spotify.png "Spotify volume: ${volume}%" -t 2000
 }
 
-spotifySink=$(pacmd list-sink-inputs | grep -B 24 spotifyd | grep index | awk '{ print $NF }')
+spotifySink=$(pactl list sink-inputs | grep -B 18 -e 'application.name = "spotifyd"' | grep -e "Sink Input #" | tr -dc '0-9')
 
 case $1 in
 up)

@@ -1,9 +1,9 @@
 #!/bin/sh
 discord &
 nextcloud &
-steam -silent &
+steam-runtime -silent &
 flameshot &
 redshift-gtk &
 xscreensaver -no-splash &
 $HOME/.config/scripts/screenSaver &
-env SPOTIFYD_CLIENT_ID=d6ba59f07e1c4f44947b0832c748b9e3 spotifyd
+sleep 5; env SPOTIFYD_CLIENT_ID=d6ba59f07e1c4f44947b0832c748b9e3 spotifyd

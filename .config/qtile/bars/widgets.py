@@ -109,14 +109,14 @@ def headsetBatteryIcon(args = {}, script = 'get-headset-battery-icon'):
     return widget.GenPollText(
         **args,
         func                    = functions.exec_script(script),
-        update_interval         = 30,
+        update_interval         = 10,
     )
 
 def headsetBattery(args = {}, script = 'get-headset-battery'):
     return widget.GenPollText(
         **args,
         func                    = functions.exec_script(script),
-        update_interval         = 30,
+        update_interval         = 10,
     )
 
 def numPkgs(args = {}, script = 'num-pkgs', cmd = 'pacman -Q'):

@@ -1,10 +1,10 @@
 #!/bin/bash
-currentSink=$(pacmd stat | grep "Default sink name" | cut -d" " -f4 2>&1)
+currentSink=$(pactl info | grep "Default Sink" | cut -d" " -f3 2>&1)
 
-if [ "$currentSink" == "alsa_output.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.analog-stereo" ]; then
-  pacmd set-default-sink alsa_output.pci-0000_2b_00.1.hdmi-stereo-extra1
+if [[ "$currentSink" == *"Corsair"* ]]; then
+  pactl set-default-sink alsa_output.pci-0000_2b_00.1.hdmi-stereo-extra1
 else
-  pacmd set-default-sink alsa_output.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.analog-stereo
+  pactl set-default-sink alsa_output.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.analog-stereo
 fi
 
 $HOME/.config/scripts/wm/changevolume notify

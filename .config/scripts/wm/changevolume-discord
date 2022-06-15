@@ -1,11 +1,11 @@
 #!/bin/bash
 
 function send_notification() {
-  volume=$(pactl list sink-inputs | grep -B 13 "Discord" | grep Volume | cut -d"/" -f2 | tr -dc '0-9' 2>&1)
+  volume=$(pactl list sink-inputs | grep -B 22 -e 'process.binary = "Discord"' | grep -B 18 -e 'application.name = "WEBRTC VoiceEngine"' | grep Volume | cut -d"/" -f2 | tr -dc '0-9' 2>&1)
 	dunstify -a "changevolume" -u low -r "9993" -h int:value:"$volume" -I $HOME/.config/dunst/discord.png "Discord volume: ${volume}%" -t 2000
 }
 
-discordSink=$(pacmd list-sink-inputs | grep -B 24 Discord | grep index | awk '{ print $NF }')
+discordSink=$(pactl list sink-inputs | grep -B 22 -e 'process.binary = "Discord"' | grep -B 18 -e 'application.name = "WEBRTC VoiceEngine"' | grep -e 'Sink Input #' | tr -dc '0-9')
 
 case $1 in
 up)

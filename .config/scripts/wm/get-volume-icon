@@ -1,7 +1,7 @@
 #!/bin/env bash
 set -e
 
-currentSink=$(pacmd stat | grep "Default sink name" | cut -d" " -f4 2>&1)
+currentSink=$(pactl info | grep "Default Sink" | cut -d" " -f3 2>&1)
 mute=$(pactl get-sink-mute $currentSink | cut -d" " -f2 2>&1)
 
 if [ "$mute" == "no" ]; then

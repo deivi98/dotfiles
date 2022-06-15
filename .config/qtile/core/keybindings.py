@@ -38,12 +38,12 @@ keys = [
     Key([MOD],              "i",                lazy.function(functions.gotoapp_or_create, 'srain'),                                                                            desc='Srain'),
     Key([MOD],              "g",                lazy.to_screen(0), lazy.group["5"].toscreen(toggle=False),                                                                      desc='Game'),
     Key([MOD],              "t",                lazy.function(functions.gotoapp_or_create, 'telegram-desktop', 'Telegram'),                                                     desc='Telegram'),
-    Key([MOD],              "s",                lazy.function(functions.gotoapp_or_create, 'steam'),                                                                            desc='Steam'),
+    Key([MOD],              "s",                lazy.function(functions.gotoapp_or_create, 'steam-runtime', 'Steam'),                                                                            desc='Steam'),
     Key([MOD],              "m",                lazy.function(functions.terminal_app, 'spt', windowName="Spotify", sleep=0.1),                                                  desc='Spotify'),
     Key([MOD],              "e",                lazy.function(functions.terminal_app, EDITOR, windowName="LunarVim", sleep=0.1),                                                desc='LunarVim'),
     Key([MOD],              "c",                lazy.function(functions.gotoapp_or_create, 'mailspring'),                                                                       desc='Mailspring'),
     Key([MOD],              "f",                lazy.function(functions.terminal_app, FILE_EXPLORER, sleep=0.1),                                                                desc='Ranger'),
-    Key([MOD],              "n",                lazy.function(functions.terminal_app, FILE_EXPLORER, '/home/david/cloud', windowName="Nextcloud", sleep=0.1),                   desc='Nextcloud'),
+    Key([MOD],              "n",                lazy.function(functions.terminal_app, FILE_EXPLORER, '/home/david/Nextcloud', windowName="Nextcloud", sleep=0.1),                   desc='Nextcloud'),
 
     ### ARCH INFO / CONTROLS    
 

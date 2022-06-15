@@ -108,7 +108,7 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 ## History
-HISTFILE=~/.cache/zsh/.zsh_history
+HISTFILE=~/.cache/zsh/zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
 
