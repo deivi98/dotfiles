@@ -64,7 +64,7 @@ lvim.builtin.terminal.size = 25
 
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.view.auto_resize = true
-lvim.builtin.nvimtree.show_icons.git = 0
+-- lvim.builtin.nvimtree.show_icons.git = 0
 
 lvim.builtin.lualine.active = true
 lvim.builtin.dap.active = true
@@ -160,12 +160,12 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- Additional Plugins
 lvim.plugins = {
-    {"folke/tokyonight.nvim"},
-    {
-      "folke/trouble.nvim",
-      cmd = "TroubleToggle",
-    },
-    {"nvim-orgmode/orgmode"},
+  { "folke/tokyonight.nvim" },
+  {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  },
+  { "nvim-orgmode/orgmode" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -179,17 +179,17 @@ lvim.plugins = {
 require('orgmode').setup_ts_grammar()
 
 -- Tree-sitter configuration
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
   highlight = {
     enable = true,
-    disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
-    additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
+    disable = { 'org' }, -- Remove this to use TS highlighter for some of the highlights (Experimental)
+    additional_vim_regex_highlighting = { 'org' }, -- Required since TS highlighter doesn't support all syntax features (conceal)
   },
-  ensure_installed = {'org'}, -- Or run :TSUpdate org
+  ensure_installed = { 'org' }, -- Or run :TSUpdate org
 }
 
 require('orgmode').setup({
-  org_agenda_files = {'~/Dropbox/org/*', '~/my-orgs/**/*'},
+  org_agenda_files = { '~/Dropbox/org/*', '~/my-orgs/**/*' },
   org_default_notes_file = '~/Dropbox/org/refile.org',
 })

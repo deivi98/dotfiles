@@ -53,6 +53,8 @@ keys = [
     Key([MOD, "shift"],     "s",                lazy.spawn(["flameshot", "gui"]),                                                                                               desc='Screenshot'),
     # Switch audio output       
     Key([MOD, "shift"],     "o",                lazy.spawn(SCRIPTS_DIR + 'switch-output'),                                                                                      desc='Switch audio output'),
+    # Switch noise supression       
+    Key([MOD, "shift"],     "i",                lazy.spawn(SCRIPTS_DIR + 'noise-supression'),                                                                                   desc='Switch noise supression'),
     # Switch redshift       
     Key([MOD, "shift"],     "n",                lazy.function(functions.switch_redshift),                                                                                       desc='Switch redshift'),
     # Random background     

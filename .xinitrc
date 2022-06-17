@@ -64,5 +64,8 @@ picom --experimental-backends --backend glx --xrender-sync-fence &
 # Start Dunst
 dunst &
 
+# Set headphones sidetone
+headsetcontrol -s 90
+
 # Starts qtile
 exec qtile start 
