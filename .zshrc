@@ -19,6 +19,8 @@ export XDG_STATE_HOME="$HOME/.local/state"                        # Sets default
 export GNUPGHOME="$XDG_CONFIG_HOME"
 export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 export npm_config_prefix="$HOME/.local"
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 
 ## Env variables
 

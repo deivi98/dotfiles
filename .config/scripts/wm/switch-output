@@ -1,8 +1,9 @@
 #!/bin/bash
 currentSink=$(pactl info | grep "Default Sink" | cut -d" " -f3 2>&1)
+monitorSink=$(pactl list sinks | grep -B 60 DisplayPort | grep Name: | cut -d" " -f2 2>&1)
 
 if [[ "$currentSink" == *"Corsair"* ]]; then
-  pactl set-default-sink alsa_output.pci-0000_2b_00.1.hdmi-stereo-extra1
+  pactl set-default-sink $monitorSink
 else
   pactl set-default-sink alsa_output.usb-Corsair_Corsair_VOID_PRO_Wireless_Gaming_Headset-00.analog-stereo
 fi

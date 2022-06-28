@@ -25,7 +25,8 @@ extension_defaults = widget_defaults.copy()
 
 ICON_FONT_CONFIG = {
     'font': WIDGET_ICON_FONT,
-    'fontsize': WIDGET_ICON_FONT_SIZE
+    'fontsize': WIDGET_ICON_FONT_SIZE,
+    'background': COLORS[0]
 }
 
 screens = build_screens(COLORS, ICON_FONT_CONFIG)

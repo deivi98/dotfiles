@@ -36,7 +36,7 @@ group_names = [
         Match(title='LunarVim'),
         Match(title='Qtile config')
     ]}),
-    ("4", {'label': circles[3], 'layout': 'stack', 'matches': [       # Discord
+    ("4", {'label': circles[3], 'layout': 'columns', 'matches': [       # Discord
         Match(wm_class='discord'),
         Match(wm_class='srain'),
         Match(wm_class='telegram-desktop'),

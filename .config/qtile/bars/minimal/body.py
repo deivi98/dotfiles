@@ -127,12 +127,12 @@ def build_screens(COLORS, ICON_FONT_CONFIG):
 
     return [
         Screen(
-            top = Bar(widgets = primaryWidgets, opacity = 1.0, margin = [BAR_MARGIN_TOP, BAR_MARGIN_RIGHT, BAR_MARGIN_DOWN, BAR_MARGIN_LEFT], size = BAR_PRIMARY_HEIGHT),
+            top = Bar(widgets = primaryWidgets, background = COLORS[0], opacity = 1.0, margin = [BAR_MARGIN_TOP, BAR_MARGIN_RIGHT, BAR_MARGIN_DOWN, BAR_MARGIN_LEFT], size = BAR_PRIMARY_HEIGHT),
             bottom = Gap(WINDOW_MARGIN),
             left = Gap(WINDOW_MARGIN)
         ),
         Screen(
-            top = Bar(widgets = secondaryWidgets, opacity = 1.0, margin = [BAR_MARGIN_TOP, BAR_MARGIN_RIGHT, BAR_MARGIN_DOWN, BAR_MARGIN_LEFT], size = BAR_SECONDARY_HEIGHT),
+            top = Bar(widgets = secondaryWidgets, background = COLORS[0], opacity = 1.0, margin = [BAR_MARGIN_TOP, BAR_MARGIN_RIGHT, BAR_MARGIN_DOWN, BAR_MARGIN_LEFT], size = BAR_SECONDARY_HEIGHT),
             bottom = Gap(WINDOW_MARGIN),
             left = Gap(WINDOW_MARGIN)
         )
